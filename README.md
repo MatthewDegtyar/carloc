@@ -334,6 +334,10 @@ With tiling, geolocation error at 100-200 m came out at **under 1% of range**
 (0.46-0.94 m median) — though on only 3 tracks per bin after the purity filter,
 so read that as indicative rather than precise.
 
+**Monocular depth models are benchmarked in `depthbench/`** — see
+`reports/depthbench.md` for the current numbers and `depthbench/README.md` for how
+it works. Earlier finding, kept because it set the direction:
+
 **Monocular depth was evaluated and rejected.** `depth-anything-3`
 (`DA3METRIC-LARGE`) was tested against 307 annotated nuScenes objects spanning
 17-188 m. It is worse than the free bbox-height size prior at *every* range (58%
