@@ -276,6 +276,28 @@ With tiling, geolocation error at 100-200 m came out at **under 1% of range**
 (0.46-0.94 m median) — though on only 3 tracks per bin after the purity filter,
 so read that as indicative rather than precise.
 
+**How far can a given camera actually work?**
+
+```bash
+uv run python scripts/range_envelope.py --capture sessions/my_capture
+```
+
+Detection recall was measured against nuScenes annotations (>=60% visibility,
+four boston-seaport scenes) and indexed by apparent *pixel height*, which is what
+transfers between cameras — range depends on focal length, pixels on target do
+not. For an iPhone wide camera (fx ~1500 px) tracking a person:
+
+| range | px tall | P(track) full-frame | P(track) tiled | range err @10 m walk |
+|---|---|---|---|---|
+| 50 m | 51 | 100% | 100% | 0.6 m (1%) |
+| 100 m | 26 | 98% | 100% | 2.4 m (2%) |
+| 150 m | 17 | 41% | **91%** | 5.3 m (4%) |
+| 200 m | 13 | 12% | 71% | 9.4 m (5%) |
+
+Tiling is what makes 150 m viable — it flips track formation from unlikely to
+likely. `P(track)` assumes detections are independent between frames, which they
+are not (misses correlate with pose and occlusion), so it is an upper bound.
+
 ## Limitations, stated plainly
 
 - **Bounding-box centroid drift.** Bearings go through the centroid of a 2-D box,

@@ -26,7 +26,7 @@ from pathlib import Path
 
 TABLES = (
     "log", "scene", "sample", "sample_data", "ego_pose", "calibrated_sensor",
-    "sensor", "sample_annotation", "instance", "category",
+    "sensor", "sample_annotation", "instance", "category", "visibility",
 )
 
 

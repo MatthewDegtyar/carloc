@@ -71,6 +71,7 @@ class NuScenesSession(Session):
         gps_sigma: float = 0.0,
         heading_sigma: float = 0.0,
         classes: tuple[str, ...] = ("vehicle", "human"),
+        min_visibility: int = 1,
         nusc=None,
     ) -> None:
         self.dataroot = Path(dataroot)
@@ -78,6 +79,11 @@ class NuScenesSession(Session):
         self.include_sweeps = include_sweeps
         self.load_images = load_images
         self.classes = classes
+        # nuScenes visibility: 1 = 0-40% visible, 4 = 80-100%. The default keeps
+        # everything; raise it when measuring detector recall, where counting
+        # near-invisible annotations as misses measures the annotation policy
+        # rather than the detector.
+        self.min_visibility = int(min_visibility)
         self._pose_cov = np.zeros((6, 6))
         position_var = max(gps_sigma**2, 1e-12)
         self._pose_cov[0, 0] = self._pose_cov[1, 1] = self._pose_cov[2, 2] = position_var
@@ -210,6 +216,9 @@ class NuScenesSession(Session):
             annotation = self.nusc.get("sample_annotation", annotation_token)
             if not self._keep_class(annotation["category_name"]):
                 continue
+            visibility = int(annotation.get("visibility_token", 4))
+            if visibility < self.min_visibility:
+                continue
             instance = annotation["instance_token"]
             position = np.asarray(annotation["translation"], dtype=float)
             rotation = quaternion_to_matrix(np.asarray(annotation["rotation"], dtype=float))
@@ -224,6 +233,7 @@ class NuScenesSession(Session):
                 )
             self._truth[instance].positions[frame_id] = position
             self._truth[instance].rotations[frame_id] = rotation
+            self._truth[instance].visibilities[frame_id] = visibility
 
     def _read_image(self, sample_data: dict):  # pragma: no cover - needs real data
         try:

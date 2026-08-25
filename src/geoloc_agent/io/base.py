@@ -34,6 +34,10 @@ class TruthObject:
     rotated car as an axis-aligned box inflates its projected width by up to the
     ratio of its length to its width -- roughly 2.4x for a sedan."""
     rotations: dict[int, np.ndarray] = field(default_factory=dict)
+    visibilities: dict[int, int] = field(default_factory=dict)
+    """Per-frame visibility level, where the source provides one (nuScenes: 1-4,
+    1 = 0-40% visible). Scoring detector recall against objects that are 90%
+    occluded measures the annotation policy, not the detector."""
 
     def __post_init__(self) -> None:
         self.position = np.asarray(self.position, dtype=float).reshape(3)
@@ -42,6 +46,9 @@ class TruthObject:
 
     def at(self, frame_id: int) -> np.ndarray:
         return self.positions.get(frame_id, self.position)
+
+    def visibility_at(self, frame_id: int, default: int = 4) -> int:
+        return self.visibilities.get(frame_id, default)
 
     def rotation_at(self, frame_id: int) -> np.ndarray:
         rotation = self.rotations.get(frame_id, self.rotation)

@@ -145,3 +145,46 @@ def test_tiled_detector_requires_pixels():
     tiled = TiledDetector(FixedDetector())
     with pytest.raises(ValueError, match="pixels"):
         tiled.detect(frame_with(None))
+
+
+# --- range envelope ----------------------------------------------------------
+
+
+def test_range_envelope_math():
+    """The tool that answers 'how far can this camera work?'"""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("env", "scripts/range_envelope.py")
+    env = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(env)
+
+    # Recall falls with apparent size, and tiling is never worse.
+    assert env.recall_at(90, tiled=True) > env.recall_at(20, tiled=True)
+    for px in (15, 25, 45, 90):
+        assert env.recall_at(px, tiled=True) >= env.recall_at(px, tiled=False)
+
+    # A track needs a few hits, not one per frame: low recall still forms tracks.
+    assert env.p_track(0.30, n_frames=40) > 0.99
+    assert env.p_track(0.05, n_frames=40) > 0.30
+    # But a truly blind detector forms nothing.
+    assert env.p_track(0.001, n_frames=40) < 0.01
+    # And more frames can only help.
+    assert env.p_track(0.1, n_frames=60) > env.p_track(0.1, n_frames=20)
+
+
+def test_tiling_is_what_makes_150m_viable():
+    """The concrete claim, pinned: tiling flips a 150 m track from unlikely to likely."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("env", "scripts/range_envelope.py")
+    env = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(env)
+
+    fx, person_h = 1500.0, 1.7
+    px_at_150m = fx * person_h / 150.0
+    assert 15 < px_at_150m < 20
+
+    full = env.p_track(env.recall_at(px_at_150m, tiled=False), n_frames=40)
+    tiled = env.p_track(env.recall_at(px_at_150m, tiled=True), n_frames=40)
+    assert full < 0.6, full
+    assert tiled > 0.85, tiled
