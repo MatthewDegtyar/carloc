@@ -28,6 +28,27 @@ different questions:
   offset (about half an object's length) that would otherwise be silently charged
   to the models.
 
+## Results
+
+Six configurations completed on 74 nuScenes images / 324 objects, 5.5-48.9 m.
+`reports/depthbench.md` (surface depth) and `reports/depthbench_centroid.md`.
+
+**Metric3D v2 with real intrinsics is the only model usable across 0-50 m**:
+1.33 m median, 95% within 25%, 1.02 m error at 5-10 m rising to only 2.96 m at
+45-50 m, and it never reverses.
+
+Two findings worth keeping:
+
+- **Intrinsics are worth 3.5x.** The same Metric3D checkpoint scores 4.66 m on a
+  default 1000 px focal against 1.33 m on the true one. Rank correlation is 0.97
+  either way, so the model reads the scene correctly and the focal only sets the
+  scale.
+- **Three models reverse past ~45 m**, reporting further objects as nearer
+  (YOLO26n, YOLO26x, DAv2-relative). Worse than saturating: a saturating model
+  still orders objects, so a filter can rank them.
+
+Depth Pro was cancelled mid-run; its earlier HuggingFace-port run scored 2.51 m.
+
 ## Running
 
     uv run python -m depthbench.cli manifest --out depthbench/data/manifest.json

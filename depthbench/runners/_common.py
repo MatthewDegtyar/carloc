@@ -110,8 +110,14 @@ def write_result(path, model, variant, predictions, seconds_per_image, device, n
         "seconds_per_image": seconds_per_image, "device": device, "notes": notes,
         "failed": failed, "error": error,
     }
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(payload, indent=1))
+    # Write-then-rename, so an interrupted or failed run cannot destroy the
+    # previous good result. A killed Depth Pro run wiped a complete 74-image
+    # result this way, and the only recovery was to run it again.
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix(".partial")
+    temporary.write_text(json.dumps(payload, indent=1))
+    temporary.replace(target)
     print(f"wrote {path}: {len(predictions)} predictions, {seconds_per_image:.2f}s/image")
 
 

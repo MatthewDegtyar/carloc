@@ -71,7 +71,7 @@ The characteristic failure of monocular depth: predictions compress into a narro
 
 ## Did not run
 
-- **depth_pro** — FileNotFoundError: [Errno 2] No such file or directory: 'sessions/nuscenes/samples/CAM_FRONT/n008-2018-08-27-11-48-51-0400__CAM_FRONT__1535385092112404.jpg'
+- **Depth Pro** — cancelled by request -- the official-checkpoint run was too slow to finish (~10 s/image on MPS, 74 images). An earlier full run via the HuggingFace port scored 2.51 m median / 13% relative / delta<1.25 73%, usable to ~30
 
 ## What this says about picking one
 

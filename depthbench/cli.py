@@ -93,7 +93,14 @@ def run(env: ModelEnv, manifest: Path, limit: int = 0) -> Path:
     result = subprocess.run(command, env=environ, capture_output=True, text=True)
     if result.returncode != 0 or not out.exists():
         tail = (result.stderr or result.stdout)[-1200:]
-        RunResult(model=env.name, failed=True, error=tail).write(out)
+        # Do NOT overwrite a previous good result with this failure. A crashed or
+        # cancelled attempt is not evidence that the model does not work, and
+        # discarding the earlier run means paying for it twice.
+        if out.exists() and not RunResult.read(out).failed:
+            print(f"[{env.name}] FAILED; keeping the previous successful run")
+            (out.with_suffix(".lastfailure")).write_text(tail)
+        else:
+            RunResult(model=env.name, failed=True, error=tail).write(out)
         print(f"[{env.name}] FAILED after {time.time() - started:.0f}s")
     else:
         print(f"[{env.name}] done in {time.time() - started:.0f}s")
