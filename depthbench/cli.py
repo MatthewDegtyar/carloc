@@ -100,8 +100,8 @@ def run(env: ModelEnv, manifest: Path, limit: int = 0) -> Path:
     return out
 
 
-def score(manifest: Path, out: Path, depth_key: str) -> Path:
-    from depthbench.metrics import score_run
+def score(manifest: Path, out: Path, depth_key: str, bucket_size: float = 10.0) -> Path:
+    from depthbench.metrics import make_buckets, score_run
     from depthbench.report import build_report
 
     loaded = Manifest.read(manifest)
@@ -109,7 +109,12 @@ def score(manifest: Path, out: Path, depth_key: str) -> Path:
     for name in MODELS:
         path = RUNS / f"{name}.json"
         if path.exists():
-            scores.append(score_run(RunResult.read(path), loaded, depth_key=depth_key))
+            scores.append(
+                score_run(
+                    RunResult.read(path), loaded, depth_key=depth_key,
+                    buckets=make_buckets(bucket_size, loaded.max_range_m),
+                )
+            )
     if not scores:
         print("no runs found; run some models first")
         return out
@@ -141,6 +146,8 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     s.add_argument("--out", type=Path, default=Path("reports/depthbench.md"))
     s.add_argument("--depth", choices=("surface", "centroid"), default="surface")
+    s.add_argument("--bucket-size", type=float, default=10.0,
+                   help="range bin width in metres; re-bins stored results, no re-run")
 
     args = parser.parse_args(argv)
 
@@ -165,7 +172,8 @@ def main(argv: list[str] | None = None) -> int:
                 run(env, args.manifest, limit=args.limit)
         return 0 if ok else 1
 
-    path = score(args.manifest, args.out, depth_key=f"{args.depth}_depth_m")
+    path = score(args.manifest, args.out, depth_key=f"{args.depth}_depth_m",
+                 bucket_size=args.bucket_size)
     print(f"wrote {path}")
     return 0
 

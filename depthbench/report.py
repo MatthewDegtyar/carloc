@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
-from depthbench.metrics import ModelScore, saturation_span
+from depthbench.metrics import USABLE_ABS_M, USABLE_REL, ModelScore, saturation_span
 from depthbench.schema import Manifest
 
 
@@ -66,6 +66,29 @@ def build_report(
         "predicted and true depth are within 25% of each other. `rank corr` is "
         "Spearman against truth -- if it is near zero the metric error is noise, and "
         "a negative value means the depth map was read upside down."
+    )
+    add("")
+
+    add("## Usable range")
+    add("")
+    add(
+        f"Furthest range at which median error stays within {USABLE_ABS_M:.0f} m or "
+        f"{USABLE_REL * 100:.0f}%, and the range beyond which predictions start "
+        f"*decreasing* as true depth increases."
+    )
+    add("")
+    add("| model | usable to | reverses at |")
+    add("|---|---|---|")
+    for s in ok:
+        usable = f"{s.usable_range_m:.0f} m" if np.isfinite(s.usable_range_m) else "--"
+        reverses = f"**{s.reverses_at_m:.0f} m**" if np.isfinite(s.reverses_at_m) else "never"
+        add(f"| {s.label} | {usable} | {reverses} |")
+    add("")
+    add(
+        "Reversal is worse than saturation and is the reason both are reported. A "
+        "saturating model still orders objects correctly, so a downstream filter can "
+        "rank them; a reversing one reports distant objects as nearer than close ones, "
+        "and there is nothing left to use."
     )
     add("")
 
