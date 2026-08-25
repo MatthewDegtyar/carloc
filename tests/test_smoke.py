@@ -143,8 +143,22 @@ def test_gross_error_rate_stays_bounded_at_moderate_noise():
 
 
 def test_no_ml_dependencies_are_imported():
-    """Phase 0 runs with numpy and scipy only."""
+    """Phase 0 runs with numpy and scipy only.
+
+    Checked in a subprocess. Asserting on this process's `sys.modules` would pass
+    or fail depending on whether some other test had already imported
+    coremltools, which measures test ordering rather than the property.
+    """
+    import subprocess
     import sys
 
-    for module in ("torch", "ultralytics", "coremltools", "cv2"):
-        assert module not in sys.modules
+    result = subprocess.run(
+        [
+            sys.executable, "-c",
+            "import geoloc_agent, geoloc_agent.pipeline, geoloc_agent.detect.stub, sys; "
+            "print(sorted(m for m in ('torch','ultralytics','coremltools','cv2') "
+            "if m in sys.modules))",
+        ],
+        capture_output=True, text=True, check=True,
+    )
+    assert result.stdout.strip() == "[]", result.stdout

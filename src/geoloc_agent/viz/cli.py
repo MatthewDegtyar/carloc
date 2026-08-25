@@ -33,7 +33,7 @@ def _run(path: str, frames: int, seed: int, arc_radius: float = 40.0):
     return result, session.truth()
 
 
-def _nuscenes_segment(dataroot: str, scene: str, fps: int) -> Segment:
+def _nuscenes_segment(dataroot: str, scene: str, fps: int, detector_name: str = "yolo") -> Segment:
     """A real nuScenes scene, scored end to end.
 
     Keyframes only. Camera sweeps run at 12 Hz and would make a smoother clip,
@@ -41,17 +41,37 @@ def _nuscenes_segment(dataroot: str, scene: str, fps: int) -> Segment:
     reuse the last keyframe's boxes, which smears every moving object. A 2 Hz
     clip that is right beats a 12 Hz one that is interpolated.
     """
-    from geoloc_agent.detect.truth_projection import TruthProjectionDetector
     from geoloc_agent.io.nuscenes import NuScenesSession
 
     session = NuScenesSession(
         dataroot=dataroot, scene=scene, version="v1.0-mini", load_images=True
     )
     truth = session.truth()
+
+    if detector_name == "yolo":
+        from geoloc_agent.detect.coreml import CoreMLDetector
+
+        detector = CoreMLDetector("models/yolo11n.mlpackage", score_threshold=0.35)
+        detector.warmup()
+        bearing_sigma_px = 6.0
+        banner = (
+            "REAL IMAGERY  |  real ego pose  |  detector = YOLO11n on the Apple Neural "
+            "Engine (no ground truth in the loop)"
+        )
+    else:
+        from geoloc_agent.detect.truth_projection import TruthProjectionDetector
+
+        detector = TruthProjectionDetector(truth, max_range_m=60.0)
+        bearing_sigma_px = 4.0
+        banner = (
+            "REAL IMAGERY  |  real ego pose  |  detector = ground-truth projection "
+            "(an oracle, not a perception model)"
+        )
+
     result = run_pipeline(
         session,
-        detector=TruthProjectionDetector(truth, max_range_m=60.0),
-        bearing_sigma_px=4.0,
+        detector=detector,
+        bearing_sigma_px=bearing_sigma_px,
         use_size_prior=True,
         tracker_config=TrackerConfig(process_noise_per_s=0.0),
     )
@@ -61,13 +81,10 @@ def _nuscenes_segment(dataroot: str, scene: str, fps: int) -> Segment:
         hold_frames=fps * 2,
         map_half_span=55.0,
         title=f"REAL DATA — nuScenes {scene} ({session.map_name}), CAM_FRONT",
-        banner=(
-            "REAL IMAGERY  |  real ego pose  |  detector = ground-truth projection "
-            "(an oracle, not a perception model)"
-        ),
+        banner=banner,
         caption=(
             "Every box carries a range and its 1-sigma. Green is a fix worth acting on,\n"
-            "red is geometry that cannot support one. Faint wireframes are the 3-D truth boxes."
+            "red is geometry that cannot support one. Grey crosses on the map are 3-D truth."
         ),
     )
 
@@ -77,6 +94,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--source", choices=("synthetic", "nuscenes"), default="synthetic")
     parser.add_argument("--dataroot", default="sessions/nuscenes")
     parser.add_argument("--scene", default="scene-0655")
+    parser.add_argument(
+        "--detector", choices=("yolo", "truth"), default="yolo",
+        help="'yolo' runs YOLO11n on the ANE; 'truth' uses the ground-truth oracle.",
+    )
     parser.add_argument("--out", type=Path, default=Path("reports/geoloc_demo.mp4"))
     parser.add_argument("--frames", type=int, default=40)
     parser.add_argument("--fps", type=int, default=10)
@@ -92,7 +113,9 @@ def main(argv: list[str] | None = None) -> int:
     segments = []
 
     if args.source == "nuscenes":
-        segments.append(_nuscenes_segment(args.dataroot, args.scene, args.fps))
+        segments.append(
+            _nuscenes_segment(args.dataroot, args.scene, args.fps, args.detector)
+        )
         for segment in segments:
             print(f"[render] {args.scene}: {len(segment.result.all_tracks)} tracks")
         out = render_segments(segments, args.out, config)

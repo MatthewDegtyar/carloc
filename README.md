@@ -18,20 +18,38 @@ uv run geoloc-render          # -> reports/geoloc_demo.mp4
 
 ```bash
 uv run geoloc-render                                    # synthetic, two-part
-uv run geoloc-render --source nuscenes --scene scene-0655   # real imagery
+uv run geoloc-render --source nuscenes                   # real imagery + real detector
+uv run geoloc-render --source nuscenes --detector truth  # real imagery, oracle detector
 ```
+
+The real-detector path needs a one-time model export — see `scripts/export_yolo.py`.
 
 ### Real data (nuScenes)
 
-`reports/geoloc_real_nuscenes.mp4` — a real Boston street from CAM_FRONT with
-real ego pose, every box carrying class, range and 1-sigma. Parked cars along the
-kerb read 20.0 m +/- 0.35 m, 27.3 m +/- 0.75 m, 33.8 m +/- 1.73 m; objects the
-geometry cannot support turn red and read `UNRELIABLE`.
+Two clips, same scene, differing only in the detector:
 
-The detector there is `TruthProjectionDetector` — an **oracle**, not a perception
-model. It projects the annotated 3-D boxes so that geometry and filter error can
-be measured without detector error mixed in, and the frame says so. Real
-perception is Phase 4 and still needs a YOLO11n CoreML export.
+- `reports/geoloc_real_yolo.mp4` — **fully real**: real imagery, real ego pose,
+  YOLO11n running on the Apple Neural Engine. No ground truth anywhere in the loop.
+- `reports/geoloc_real_nuscenes.mp4` — same, but with `TruthProjectionDetector`,
+  an **oracle** that projects the annotated 3-D boxes. It exists so geometry and
+  filter error can be measured without detector error mixed in.
+
+Keeping both is the point: the difference between them *is* the detector's
+contribution, and it is measured rather than asserted.
+
+| detector | detections | false pos | pure tracks | median err | p90 | class acc |
+|---|---|---|---|---|---|---|
+| truth projection (oracle) | 575 | 6 | 53 | **0.56 m** | 4.84 m | 110/110 |
+| YOLO11n (real) | 244 | 24 | 11 | **1.03 m** | 7.86 m | 47/58 |
+
+A real detector roughly doubles median error, triples p90, quadruples false
+positives and finds under half as many objects — mostly by missing small distant
+ones. Every frame states which detector produced it.
+
+**Perception latency: mean 8.8 ms, p95 11.4 ms** against a 100 ms fast-loop
+budget, benchmarked after warm-up (the first inference pays model compilation and
+would overstate latency by an order of magnitude). The three-loop budget holds
+with room to spare.
 
 ### Synthetic
 
@@ -224,7 +242,7 @@ environment and are never committed.
 | 1 — geometry and filter | **Done.** Covariance shrinks monotonically with baseline; matches analytic prediction within 20% |
 | 2 — nuScenes loader | **Done and validated.** Median 0.56 m on real data (see below) |
 | 3 — eval harness | **Done.** One command produces `reports/eval.md`; regression bounds pinned |
-| 4 — real detector | **Interface + benchmark only.** Needs a YOLO11n CoreML export |
+| 4 — real detector | **Done.** YOLO11n on the ANE, p95 11.4 ms against a 100 ms budget |
 | — mono-depth ranger | **Added.** Size prior from bbox height; initialisation and gating only |
 | 5 — publish | **CoT done** (round-trips over a real socket). **Lattice written**, needs credentials |
 | 6 — agent layer | **Done.** `reports/agent_eval.md` with the pattern comparison |

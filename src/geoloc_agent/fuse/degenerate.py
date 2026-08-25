@@ -26,9 +26,13 @@ So there are two further tests that do not depend on the estimate at all:
 
 3. **Observation count.** Two bearings give one degree of redundancy. There is
    not enough information to notice that the fix is wrong.
-4. **Absolute perpendicular baseline.** A camera that has moved a metre sideways
-   has not earned a confident fix on anything at street distance, whatever its
-   covariance happens to say.
+4. **Absolute perpendicular baseline.** A floor, not a threshold. Whether a given
+   baseline is adequate depends on range -- 1.5 m of sideways motion is ample for
+   an object at 7 m and useless for one at 90 m -- and that range-dependent test
+   is exactly what the parallax check above already does. This floor only catches
+   the case of essentially no motion at all, where the parallax angle is computed
+   from a range estimate that nothing has constrained. Setting it high enough to
+   act as a real threshold mislabels every well-fixed nearby object.
 """
 
 from __future__ import annotations
@@ -43,7 +47,7 @@ from geoloc_agent.geometry import parallax_angle, perpendicular_projector
 DEFAULT_MIN_PARALLAX_DEG = 1.0
 DEFAULT_MAX_RELATIVE_RANGE_SIGMA = 0.25
 DEFAULT_MIN_OBS = 3
-DEFAULT_MIN_PERP_BASELINE_M = 2.0
+DEFAULT_MIN_PERP_BASELINE_M = 0.5
 
 
 @dataclass

@@ -46,11 +46,13 @@ class CoreMLDetector(Detector):
         self,
         model_path: str | Path,
         score_threshold: float = 0.35,
+        iou_threshold: float = 0.45,
         input_size: int = 640,
         compute_units: str = "ALL",
     ) -> None:
         self.model_path = Path(model_path)
         self.score_threshold = score_threshold
+        self.iou_threshold = iou_threshold
         self.input_size = input_size
         self.compute_units = compute_units
         self._model = None
@@ -72,26 +74,56 @@ class CoreMLDetector(Detector):
             raise FileNotFoundError(
                 f"no CoreML model at {self.model_path}. Export one with:\n"
                 f"  from ultralytics import YOLO\n"
-                f"  YOLO('yolo11n.pt').export(format='coreml', nms=True, imgsz={self.input_size})"
+                f"  YOLO('yolo11n.pt').export(format='coreml', nms=True, "
+                f"imgsz={self.input_size})\n"
+                f"Note: the Torch->CoreML converter needs numpy<2."
             )
         try:
             import coremltools as ct
         except ImportError as exc:  # pragma: no cover - optional dependency
             raise ImportError(
-                "coremltools is required for CoreMLDetector. It is an optional "
-                "dependency; the rest of the pipeline runs without it."
+                "coremltools is required for CoreMLDetector. Install with "
+                "`uv sync --extra coreml`; the rest of the pipeline runs without it."
             ) from exc
         unit_name = "CPU_AND_NE" if self.compute_units == "ANE" else "ALL"
         units = getattr(ct.ComputeUnit, unit_name)
         self._model = ct.models.MLModel(str(self.model_path), compute_units=units)
         return self._model
 
-    def _predict(self, image: np.ndarray):
+    def _letterbox(self, image: np.ndarray):
+        """Resize preserving aspect ratio, padding to a square.
+
+        The model was trained on letterboxed input. Squashing 1600x900 into
+        640x640 stretches everything vertically by 1.78x, which the network has
+        never seen. Coordinates still map back correctly either way -- the squash
+        is a pure per-axis scale -- so this is about detection quality, not
+        geometry, but object *height* is exactly what the size prior reads.
+
+        Returns the padded image and the (scale, pad_x, pad_y) needed to invert it.
+        """
         from PIL import Image
 
+        height, width = image.shape[:2]
+        size = self.input_size
+        scale = min(size / width, size / height)
+        new_w, new_h = int(round(width * scale)), int(round(height * scale))
+        resized = Image.fromarray(image).resize((new_w, new_h), Image.BILINEAR)
+        canvas = Image.new("RGB", (size, size), (114, 114, 114))  # YOLO's pad grey
+        pad_x, pad_y = (size - new_w) // 2, (size - new_h) // 2
+        canvas.paste(resized, (pad_x, pad_y))
+        return canvas, scale, float(pad_x), float(pad_y)
+
+    def _predict(self, image: np.ndarray):
         model = self._ensure_model()
-        resized = Image.fromarray(image).resize((self.input_size, self.input_size))
-        return model.predict({"image": resized})
+        canvas, scale, pad_x, pad_y = self._letterbox(image)
+        raw = model.predict(
+            {
+                "image": canvas,
+                "iouThreshold": self.iou_threshold,
+                "confidenceThreshold": self.score_threshold,
+            }
+        )
+        return raw, scale, pad_x, pad_y
 
     def detect(self, frame: Frame) -> list[Detection]:
         if frame.image is None:
@@ -100,18 +132,30 @@ class CoreMLDetector(Detector):
                 "use StubDetector for geometry-only sessions."
             )
         height, width = frame.image.shape[:2]
-        raw = self._predict(frame.image)
-        return self._to_detections(raw, frame, width, height)
+        raw, scale, pad_x, pad_y = self._predict(frame.image)
+        return self._to_detections(raw, frame, width, height, scale, pad_x, pad_y)
 
-    def _to_detections(self, raw: dict, frame: Frame, width: int, height: int) -> list[Detection]:
+    def _to_detections(
+        self,
+        raw: dict,
+        frame: Frame,
+        width: int,
+        height: int,
+        scale: float = 1.0,
+        pad_x: float = 0.0,
+        pad_y: float = 0.0,
+    ) -> list[Detection]:
         """Ultralytics CoreML NMS export emits `confidence` (N,C) and `coordinates` (N,4).
 
-        Coordinates are normalised centre-form (cx, cy, w, h); they are scaled back
-        to the ORIGINAL frame size, not the 640x640 network input, because every
-        bearing downstream is taken through the original intrinsics.
+        Coordinates are normalised centre-form (cx, cy, w, h) against the padded
+        network input. They are mapped back to the ORIGINAL frame -- undoing the
+        letterbox pad and scale -- because every bearing downstream is taken
+        through the original intrinsics. A box left in network coordinates yields
+        a plausible-looking and entirely wrong map.
         """
         confidence = np.asarray(raw.get("confidence", np.empty((0, 0))))
         coordinates = np.asarray(raw.get("coordinates", np.empty((0, 4))))
+        size = float(self.input_size)
         detections: list[Detection] = []
         for i in range(coordinates.shape[0]):
             scores = confidence[i]
@@ -119,11 +163,13 @@ class CoreMLDetector(Detector):
             score = float(scores[class_index])
             if score < self.score_threshold or class_index not in COCO_KEEP:
                 continue
-            cx, cy, bw, bh = (float(v) for v in coordinates[i])
-            x1 = (cx - bw / 2) * width
-            y1 = (cy - bh / 2) * height
-            x2 = (cx + bw / 2) * width
-            y2 = (cy + bh / 2) * height
+            cx, cy, bw, bh = (float(v) * size for v in coordinates[i])
+            x1 = (cx - bw / 2 - pad_x) / scale
+            y1 = (cy - bh / 2 - pad_y) / scale
+            x2 = (cx + bw / 2 - pad_x) / scale
+            y2 = (cy + bh / 2 - pad_y) / scale
+            x1, x2 = np.clip([x1, x2], 0.0, width - 1.0)
+            y1, y2 = np.clip([y1, y2], 0.0, height - 1.0)
             if x2 <= x1 or y2 <= y1:
                 continue
             detections.append(

@@ -277,3 +277,106 @@ def test_wgs84_conversion_lands_in_boston():
     # And the assumption is stated, not implied.
     assert "assumed origin" in session.georeference_note
     assert "no georeference" in session.georeference_note
+
+
+# --- real detector (needs the exported model) --------------------------------
+
+MODEL = Path("models/yolo11n.mlpackage")
+needs_model = pytest.mark.skipif(
+    not MODEL.exists(), reason="YOLO11n CoreML model not exported"
+)
+
+
+@needs_model
+def test_real_detector_finds_vehicles_in_a_real_frame():
+    from geoloc_agent.detect.coreml import CoreMLDetector
+    from geoloc_agent.io.nuscenes import NuScenesSession
+
+    if not HAS_NUSCENES:
+        pytest.skip("nuScenes not downloaded")
+    session = NuScenesSession(
+        dataroot=DATAROOT, scene="scene-0655", version="v1.0-mini", load_images=True
+    )
+    frames = list(session.frames())
+    detector = CoreMLDetector(MODEL, score_threshold=0.35)
+    detector.warmup()
+
+    detections = detector.detect(frames[8])
+    assert detections, "no detections on a frame full of parked cars"
+    assert any(d.cls == "car" for d in detections)
+    for detection in detections:
+        # Boxes must be in ORIGINAL image pixels, not network coordinates.
+        assert 0 <= detection.bbox[0] < detection.bbox[2] <= 1600
+        assert 0 <= detection.bbox[1] < detection.bbox[3] <= 900
+        assert 0.35 <= detection.score <= 1.0
+
+
+@needs_model
+def test_perception_fits_the_fast_loop_budget():
+    """Phase 4 acceptance: confirm the three-loop budget holds with a real model."""
+    from geoloc_agent.detect.coreml import BUDGET_MS, CoreMLDetector, benchmark_stage
+
+    if not HAS_NUSCENES:
+        pytest.skip("nuScenes not downloaded")
+    from geoloc_agent.io.nuscenes import NuScenesSession
+
+    session = NuScenesSession(
+        dataroot=DATAROOT, scene="scene-0655", version="v1.0-mini", load_images=True
+    )
+    frame = list(session.frames())[8]
+    detector = CoreMLDetector(MODEL, score_threshold=0.35)
+    detector.warmup()  # never benchmark the first call: it pays compilation cost
+
+    timing = benchmark_stage(lambda: detector.detect(frame), iterations=15, stage="perception")
+    assert timing.within_budget, f"p95 {timing.p95_ms:.1f} ms > {BUDGET_MS['perception']} ms"
+
+
+@needs_model
+def test_real_detector_is_worse_than_the_oracle_and_the_harness_shows_it():
+    """The point of keeping both: detector error must be separable from geometry error.
+
+    Asserts the ordering, not the absolute numbers -- those move with the model.
+    """
+    import collections
+
+    from geoloc_agent.detect.coreml import CoreMLDetector
+    from geoloc_agent.fuse.tracker import TrackerConfig
+    from geoloc_agent.io.nuscenes import NuScenesSession
+    from geoloc_agent.pipeline import run_pipeline
+
+    if not HAS_NUSCENES:
+        pytest.skip("nuScenes not downloaded")
+    session = NuScenesSession(
+        dataroot=DATAROOT, scene="scene-0655", version="v1.0-mini", load_images=True
+    )
+    truth = session.truth()
+
+    def median_error(detector, sigma_px):
+        result = run_pipeline(
+            session, detector=detector, bearing_sigma_px=sigma_px, use_size_prior=True,
+            tracker_config=TrackerConfig(process_noise_per_s=0.0),
+        )
+        last = result.frames[-1].frame_id
+        errors = []
+        for track in result.all_tracks:
+            record = result.track_records.get(track.track_id)
+            if not record or not record.truth_ids or track.truth_id not in truth:
+                continue
+            counts = collections.Counter(record.truth_ids)
+            if counts.most_common(1)[0][1] != len(record.truth_ids):
+                continue
+            if track.n_obs >= 3 and not track.degenerate:
+                errors.append(
+                    float(np.linalg.norm(track.mean - truth[track.truth_id].at(last)))
+                )
+        return float(np.median(errors)), result
+
+    oracle_error, _ = median_error(TruthProjectionDetector(truth, max_range_m=60.0), 4.0)
+    detector = CoreMLDetector(MODEL, score_threshold=0.35)
+    detector.warmup()
+    real_error, real_result = median_error(detector, 6.0)
+
+    assert oracle_error < real_error, (oracle_error, real_error)
+    assert real_error < 5.0, real_error
+    # A real detector also invents objects, which the oracle never does.
+    assert real_result.n_false_positives > 0

@@ -2,7 +2,7 @@
 name = "geoloc-agent"
 version = "0.1.0"
 description = "Posed video -> geolocated object tracks with honest uncertainty -> agent surfacing decisions"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
 dependencies = [
     "numpy>=1.24",
     "pyyaml>=6.0",
@@ -12,6 +12,10 @@ dependencies = [
 [project.optional-dependencies]
 plot = ["matplotlib>=3.7"]
 nuscenes = ["pillow>=10.0"]  # metadata is read by io/nuscenes_tables.py; devkit optional
+# CoreML ships compiled extensions only up to 3.13, and its Torch converter needs
+# numpy<2 (it calls int() on shape-(1,) arrays, which numpy 2 rejects). Both
+# constraints are the reason this project pins below Python 3.14.
+coreml = ["coremltools>=8.0", "numpy<2", "pillow>=10.0"]
 
 [project.scripts]
 geoloc-eval = "geoloc_agent.eval.cli:main"
