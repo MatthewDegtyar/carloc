@@ -27,6 +27,7 @@ import numpy as np
 from scipy import stats
 
 from geoloc_agent.contracts import TrackStatus
+from geoloc_agent.fuse.degenerate import DEFAULT_MAX_RELATIVE_RANGE_SIGMA
 from geoloc_agent.geometry import perpendicular_projector
 from geoloc_agent.pipeline import PipelineResult
 
@@ -148,7 +149,7 @@ def score_result(
     result: PipelineResult,
     scenario: str = "",
     seed: int = 0,
-    truly_degenerate_threshold: float = 0.25,
+    truly_degenerate_threshold: float = DEFAULT_MAX_RELATIVE_RANGE_SIGMA,
     convergence_sigma: float = CONVERGENCE_SIGMA_M,
 ) -> ScenarioMetrics:
     metrics = ScenarioMetrics(

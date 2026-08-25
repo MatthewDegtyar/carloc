@@ -457,6 +457,11 @@ class Tracker:
             n_obs=track.state.n_obs,
             min_obs=self.config.min_obs_for_confidence,
             min_perp_baseline=self.config.min_perp_baseline,
+            bearing_sigma=(
+                float(np.mean([o.bearing_sigma for o in track.observations]))
+                if track.observations
+                else None
+            ),
         )
         degenerate = report.degenerate
         reason = report.reason

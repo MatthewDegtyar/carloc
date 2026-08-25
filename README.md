@@ -96,6 +96,33 @@ it is a property of how little the geometry changes over the observation, and at
 short range a long approach changes it a lot. The forward-motion fixture now uses
 a slower approach (12 m of travel) to stay in the regime it is meant to test.
 
+### Two threshold bugs the scope cut exposed
+
+Re-running the eval at 50 m produced a *degeneracy precision of 0.04* — 26 false
+alarms for every true one. Both causes were mine, and neither was the flag being
+over-eager.
+
+**The parallax gate contradicted the accuracy target it implements.** Along-range
+error is `sqrt(2) R^2 sigma_theta / B`, so *relative* range error is
+`sqrt(2) sigma_theta / parallax`. A 25% accuracy target at 1.6 mrad bearing noise
+therefore means 0.51 degrees of parallax — but the gate was hard-coded at 1.0,
+twice as strict, so tracks that comfortably met the target were flagged anyway.
+It is now derived from the bearing sigma, which also makes it self-adjust: noisier
+bearings genuinely do need more parallax for the same accuracy.
+
+**The ground-truth definition of "degenerate" was calibrated above the knee.**
+Across 268 tracks, gross errors (>5 m) are absent below a true relative range
+sigma of 0.15, appear in 10% of tracks at 0.15–0.20, and reach 26% at 0.20–0.25.
+The threshold was 0.25 — so tracks were being *labelled* well-conditioned while a
+quarter of them were grossly wrong, and the system was penalised for flagging
+them. A linearised sigma understates error where geometry is marginal, because
+the error distribution there is heavy-tailed.
+
+With the threshold set where errors actually appear, forward-motion degeneracy
+detection is **recall 1.00, precision 1.00**. Under heavy GPS noise recall drops
+to 0.52 — half of genuinely degenerate tracks go unflagged, which is reported
+rather than tuned away.
+
 ## What it does
 
 ```
