@@ -203,3 +203,78 @@ def test_stray_georeference_note_states_the_assumption():
 
     assert "no lat/lon" in _Stub(None).georeference_note
     assert "assumed origin" in _Stub(GeoOrigin(42.0, -71.0)).georeference_note
+
+
+def _write_capture(root, n=40, lateral=True, quat=(0.0, 0.0, 0.0, 1.0)):
+    """A minimal Stray Scanner capture on disk, in ARKit conventions."""
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "camera_matrix.csv").write_text("1000,0,960\n0,1000,720\n0,0,1\n")
+    rows = ["timestamp,frame,x,y,z,qx,qy,qz,qw"]
+    for i in range(n):
+        # ARKit is y-up; a camera at identity looks down -z, so lateral motion is
+        # along x and forward motion is along -z.
+        x, z = (i * 0.05, 0.0) if lateral else (0.0, -i * 0.05)
+        rows.append(f"{100.0 + i / 60:.6f},{i},{x:.4f},1.50,{z:.4f}," + ",".join(map(str, quat)))
+    (root / "odometry.csv").write_text("\n".join(rows) + "\n")
+    return root
+
+
+def test_stray_loader_applies_frame_stride(tmp_path):
+    """ARKit runs at 60 Hz; consecutive frames add no baseline but cost a full pass."""
+    from geoloc_agent.io.stray_scanner import StrayScannerSession
+
+    capture = _write_capture(tmp_path / "cap", n=60)
+    assert len(list(StrayScannerSession(capture).frames())) == 60
+    strided = list(StrayScannerSession(capture, frame_stride=10).frames())
+    assert len(strided) == 6
+    assert [f.frame_id for f in strided] == [0, 10, 20, 30, 40, 50]
+
+
+def test_stray_loader_refuses_images_when_the_video_is_missing(tmp_path):
+    """Silence here would pair poses with no imagery and look like a working run."""
+    from geoloc_agent.io.stray_scanner import StrayScannerSession
+
+    capture = _write_capture(tmp_path / "cap", n=5)
+    with pytest.raises(FileNotFoundError, match="rgb.mp4"):
+        StrayScannerSession(capture, load_images=True)
+
+
+def test_stray_capture_maps_arkit_axes_into_enu(tmp_path):
+    """The highest-risk conversion in the loader, pinned.
+
+    ARKit: +y up, camera looks down -z. Ours: +z up, camera looks down +z.
+    Getting this wrong yields a self-consistent, entirely wrong map.
+    """
+    from geoloc_agent.io.stray_scanner import StrayScannerSession
+
+    capture = _write_capture(tmp_path / "cap", n=3)
+    frames = list(StrayScannerSession(capture).frames())
+    pose = frames[0].pose
+    # ARKit y=1.5 (up) must become world z=1.5.
+    assert pose.t[2] == pytest.approx(1.5)
+    # The camera's -y axis (its "up") must point at the world sky.
+    assert (pose.R @ [0, -1, 0])[2] == pytest.approx(1.0, abs=1e-9)
+    # Its optical axis must be horizontal for a level phone.
+    assert abs((pose.R @ [0, 0, 1])[2]) < 1e-9
+
+
+def test_validator_passes_a_good_capture_and_flags_forward_motion(tmp_path):
+    """The validator must actually catch the mistake it exists to catch."""
+    import subprocess
+    import sys
+
+    def run(capture):
+        return subprocess.run(
+            [sys.executable, "scripts/validate_capture.py", str(capture)],
+            capture_output=True, text=True,
+        )
+
+    good = run(_write_capture(tmp_path / "lateral", n=40, lateral=True))
+    assert good.returncode == 0, good.stdout
+    assert "across the view" in good.stdout
+
+    # Walking straight at the subject: the degenerate case. Must be reported as a
+    # failure AND reflected in the exit code, or it is useless in a script.
+    forward = run(_write_capture(tmp_path / "forward", n=40, lateral=False))
+    assert forward.returncode != 0, forward.stdout
+    assert "0% of motion is perpendicular" in forward.stdout

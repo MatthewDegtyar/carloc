@@ -208,6 +208,39 @@ band**. Pooled over all confirmed tracks it sits at ~4.2 — the excess is
 association error, which is a real error source the covariance does not model, so
 it is reported rather than tuned away. Track purity is reported alongside.
 
+## Capturing your own (Stray Scanner, iPhone)
+
+A normal iPhone video is useless here: the Camera app records pixels and no pose,
+and without per-frame 6-DoF pose there is no geolocation, only detection. Stray
+Scanner records ARKit's pose alongside the video.
+
+```bash
+uv run python scripts/validate_capture.py sessions/my_capture
+```
+
+Run that first. It checks the conventions that fail *silently* — axis handedness,
+principal point, intrinsics-vs-video resolution — and the one capture mistake
+that quietly wastes the whole shoot:
+
+**Move sideways, not forwards.** Walking toward your subject gives near-zero
+perpendicular baseline, and range stays unobservable no matter how long you
+record. Strafe across the scene, or arc around it. The validator reports what
+fraction of your motion was perpendicular to the look direction and fails below
+35%.
+
+Two things a phone capture cannot give you:
+
+- **No ground truth**, so geolocation error is not scoreable. The harness reports
+  coverage, convergence and self-consistency for this source, not accuracy it
+  cannot measure.
+- **No north and no origin.** ARKit is metric and gravity-aligned but starts at an
+  arbitrary position with arbitrary yaw. Pass `origin=` and `heading_offset_deg=`
+  explicitly; until you do, output is metric-relative and emits no lat/lon.
+
+The iPhone 16 Pro also writes `depth/` (LiDAR). That is a direct range measurement
+and would remove the degenerate-geometry problem entirely for close objects — the
+`RangeMethod.LIDAR` path exists for it but is not yet wired up.
+
 ## Limitations, stated plainly
 
 - **Bounding-box centroid drift.** Bearings go through the centroid of a 2-D box,

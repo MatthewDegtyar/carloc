@@ -30,6 +30,7 @@ explicit, documented input rather than being silently assumed to be zero.
 from __future__ import annotations
 
 import csv
+import subprocess
 from collections.abc import Iterator
 from pathlib import Path
 
@@ -75,7 +76,9 @@ class StrayScannerSession(Session):
         heading_sigma_deg: float = 1.0,
         load_images: bool = False,
         max_frames: int | None = None,
+        frame_stride: int = 1,
         truth: dict[str, TruthObject] | None = None,
+        cache_dir: str | Path | None = None,
     ) -> None:
         self.path = Path(path)
         if not self.path.exists():
@@ -83,6 +86,11 @@ class StrayScannerSession(Session):
         self.name = f"stray:{self.path.name}"
         self.load_images = load_images
         self.max_frames = max_frames
+        # ARKit records at 60 Hz. Nothing downstream needs that: the geometry
+        # cares about baseline, not frame count, and consecutive frames 16 ms
+        # apart add almost no parallax while costing a full detector pass each.
+        self.frame_stride = max(1, int(frame_stride))
+        self.cache_dir = Path(cache_dir) if cache_dir else self.path / "_frames"
         self._origin = origin
         self._truth = truth or {}
         # ARKit VIO drift is small and smooth over a short capture; these are
@@ -152,7 +160,7 @@ class StrayScannerSession(Session):
         if not odometry_path.exists():
             raise FileNotFoundError(f"expected {odometry_path}")
 
-        frames: list[Frame] = []
+        rows: list[tuple[float, np.ndarray, tuple]] = []
         with odometry_path.open() as handle:
             reader = csv.reader(handle)
             header = next(reader, None)
@@ -161,29 +169,92 @@ class StrayScannerSession(Session):
             if header and _looks_numeric(header):
                 handle.seek(0)
                 reader = csv.reader(handle)
-            t0: float | None = None
-            for index, row in enumerate(reader):
+            for row in reader:
                 if not row or len(row) < 8:
                     continue
                 values = [float(v) for v in row[:8]]
                 timestamp, _frame_index, x, y, z, qx, qy, qz = values
                 qw = float(row[8]) if len(row) > 8 else _recover_w(qx, qy, qz)
-                if t0 is None:
-                    t0 = timestamp
-                frames.append(
-                    Frame(
-                        frame_id=index,
-                        timestamp=timestamp - t0,
-                        intrinsics=self.intrinsics,
-                        pose=self._make_pose(np.array([x, y, z]), (qx, qy, qz, qw)),
-                        image=None,
-                        source=self.name,
-                        is_keyframe=True,
-                    )
+                rows.append((timestamp, np.array([x, y, z]), (qx, qy, qz, qw)))
+
+        kept = list(range(0, len(rows), self.frame_stride))
+        if self.max_frames:
+            kept = kept[: self.max_frames]
+
+        images = self._load_images(kept) if self.load_images else {}
+
+        t0 = rows[0][0] if rows else 0.0
+        frames: list[Frame] = []
+        for index in kept:
+            timestamp, translation, quaternion = rows[index]
+            frames.append(
+                Frame(
+                    frame_id=index,
+                    timestamp=timestamp - t0,
+                    intrinsics=self.intrinsics,
+                    pose=self._make_pose(translation, quaternion),
+                    image=images.get(index),
+                    source=self.name,
+                    is_keyframe=True,
                 )
-                if self.max_frames and len(frames) >= self.max_frames:
-                    break
+            )
         return frames
+
+    def _load_images(self, indices: list[int]) -> dict[int, np.ndarray]:
+        """Decode the wanted frames out of rgb.mp4.
+
+        Extracted to JPEG once via ffmpeg and cached on disk, because a capture
+        is 60 Hz at 1920x1440 -- holding a whole one in memory as raw arrays runs
+        to tens of gigabytes. Only the strided subset is read back.
+        """
+        video = self.path / "rgb.mp4"
+        if not video.exists():
+            raise FileNotFoundError(
+                f"expected {video}. Stray Scanner writes the imagery there; without it "
+                f"the session is pose-only and load_images must be False."
+            )
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise ImportError("Pillow is required to load Stray Scanner imagery") from exc
+
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        if not any(self.cache_dir.glob("*.jpg")):
+            command = [
+                "ffmpeg", "-loglevel", "error", "-i", str(video),
+                "-q:v", "2", "-start_number", "0",
+                str(self.cache_dir / "%06d.jpg"),
+            ]
+            try:
+                subprocess.run(command, check=True, capture_output=True)
+            except FileNotFoundError as exc:
+                raise RuntimeError(
+                    "ffmpeg is required to decode rgb.mp4. Install it, or run the "
+                    "session with load_images=False for a pose-only run."
+                ) from exc
+            except subprocess.CalledProcessError as exc:
+                raise RuntimeError(
+                    f"ffmpeg failed to decode {video}: {exc.stderr.decode()[:400]}"
+                ) from exc
+
+        images: dict[int, np.ndarray] = {}
+        missing = 0
+        for index in indices:
+            path = self.cache_dir / f"{index:06d}.jpg"
+            if not path.exists():
+                missing += 1
+                continue
+            images[index] = np.asarray(Image.open(path).convert("RGB"))
+        if missing:
+            # Odometry rows and video frames should be 1:1. If they are not, say
+            # so loudly rather than silently pairing a pose with the wrong image,
+            # which produces a confident and completely wrong map.
+            raise RuntimeError(
+                f"{missing} of {len(indices)} frames missing from {self.cache_dir}: "
+                f"odometry.csv and rgb.mp4 disagree on frame count. Refusing to guess "
+                f"the alignment."
+            )
+        return images
 
     def _make_pose(self, translation: np.ndarray, quaternion: tuple) -> Pose:
         """ARKit world/camera conventions -> ours, then apply the heading offset."""
