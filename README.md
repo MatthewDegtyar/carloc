@@ -119,9 +119,15 @@ them. A linearised sigma understates error where geometry is marginal, because
 the error distribution there is heavy-tailed.
 
 With the threshold set where errors actually appear, forward-motion degeneracy
-detection is **recall 1.00, precision 1.00**. Under heavy GPS noise recall drops
-to 0.52 — half of genuinely degenerate tracks go unflagged, which is reported
-rather than tuned away.
+detection is **recall 1.00, precision 1.00** across 44 truly degenerate tracks,
+and that scenario's NEES lands **inside the chi-square band** — the first
+scenario in this project to be formally calibrated rather than merely close.
+
+Under heavy GPS noise it is **recall 0.44, precision 1.00**: nothing is falsely
+flagged, but more than half of genuinely degenerate tracks are missed. That is
+the largest remaining hole in the degeneracy story and it is reported, not tuned
+away. The cause is the one identified earlier — white per-frame position noise
+corrupts the baseline itself, so the geometry looks better than it is.
 
 ## What it does
 
