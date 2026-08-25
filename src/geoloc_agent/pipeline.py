@@ -22,6 +22,7 @@ from geoloc_agent.geometry import observation_from_detection
 from geoloc_agent.io.base import Session
 from geoloc_agent.noise import DetectionNoiseInjector, NoiseModel, PoseNoiseInjector
 from geoloc_agent.range.base import Ranger
+from geoloc_agent.range.size_prior import range_prior_from_size
 
 TRUTH_MATCH_PIXELS = 60.0
 
@@ -74,6 +75,14 @@ class PipelineResult:
     n_detections: int = 0
     n_false_positives: int = 0
     track_records: dict[int, TrackRecord] = field(default_factory=dict)
+    completed_tracks: list[TrackState] = field(default_factory=list)
+    """Tracks that died before the run ended -- objects that left the field of
+    view. On real driving data these are most of them, so scoring `final_tracks`
+    alone measures a small and unrepresentative tail."""
+
+    @property
+    def all_tracks(self) -> list[TrackState]:
+        return [*self.final_tracks, *self.completed_tracks]
 
     @property
     def n_frames(self) -> int:
@@ -120,8 +129,14 @@ def run_pipeline(
     ranger: Ranger | None = None,
     range_every_n: int = 3,
     record_every_n: int = 1,
+    use_size_prior: bool = False,
 ) -> PipelineResult:
     """Replay a session through the full stack and record everything scoreable.
+
+    ``use_size_prior`` attaches a coarse range guess from apparent object size to
+    each observation. It is off by default because the synthetic scenarios do not
+    need it, and on for real scenes where a wide default range prior makes the
+    association gate so permissive that tracks merge.
 
     ``bearing_sigma_px`` is what the filter is *told* the centroid sigma is. The
     noise model controls what is actually injected. Deliberately separating the
@@ -163,6 +178,11 @@ def run_pipeline(
             truth_id = _match_truth(detection, clean_frame, truth_uv)
             if truth_id is None:
                 total_false_positives += 1
+            prior = None
+            if use_size_prior:
+                prior = range_prior_from_size(detection, frame.intrinsics)
+                if not prior.valid:
+                    prior = None
             observations.append(
                 observation_from_detection(
                     detection,
@@ -170,6 +190,7 @@ def run_pipeline(
                     bearing_sigma_px=bearing_sigma_px,
                     truth_position=truth_now.get(truth_id) if truth_id else None,
                     truth_id=truth_id,
+                    range_prior=prior,
                 )
             )
         total_detections += len(detections)
@@ -199,17 +220,18 @@ def run_pipeline(
                 )
             )
 
+    all_tracks = tracker.all_tracks()
     track_records = {
-        track_id: TrackRecord(
-            track_id=track_id,
+        track.track_id: TrackRecord(
+            track_id=track.track_id,
             origins=list(track.origins),
             truth_ids=[o.truth_id for o in track.observations],
             times=[o.t for o in track.observations],
             bearing_sigmas=[o.bearing_sigma for o in track.observations],
             first_t=track.state.first_t,
-            sigma_history=sigma_history.get(track_id, []),
+            sigma_history=sigma_history.get(track.track_id, []),
         )
-        for track_id, track in tracker.tracks.items()
+        for track in all_tracks
     }
 
     return PipelineResult(
@@ -217,6 +239,7 @@ def run_pipeline(
         noise=noise,
         frames=records,
         final_tracks=tracker.live_states(),
+        completed_tracks=[t.state.copy() for t in tracker.completed],
         track_records=track_records,
         truth=truth_static,
         truth_classes=truth_classes,

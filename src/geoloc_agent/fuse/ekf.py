@@ -56,6 +56,11 @@ def initial_state(
     if obs.has_range:
         range_estimate = obs.range.value
         along_sigma = obs.range.sigma
+    elif obs.range_prior is not None and obs.range_prior.valid:
+        # A weak size-based prior beats an arbitrary default: it places the track
+        # within a factor of two, which is what makes its association gate usable.
+        range_estimate = obs.range_prior.value
+        along_sigma = obs.range_prior.sigma
     else:
         range_estimate = float(prior_range)
         along_sigma = float(range_sigma)

@@ -80,10 +80,21 @@ def _segment(ax, a: np.ndarray, b: np.ndarray, frame: Frame, **kwargs) -> None:
 
 
 def draw_scene(ax, frame: Frame, truth: dict[str, TruthObject]) -> None:
-    """Ground plane, horizon and object bodies, drawn through the real camera."""
+    """The camera image if there is one, otherwise a render of the true geometry."""
     from matplotlib.patches import Rectangle
 
     intr: Intrinsics = frame.intrinsics
+
+    if frame.image is not None:
+        # Real imagery. The 3-D truth boxes are still drawn, faintly, because
+        # they are what the truth-projection detector is boxing -- showing them
+        # keeps the provenance of every 2-D box visible.
+        ax.imshow(frame.image, extent=(0, intr.width, intr.height, 0), zorder=0,
+                  interpolation="bilinear")
+        for obj in truth.values():
+            _draw_box(ax, obj, frame, alpha=0.30)
+        return
+
     ax.add_patch(Rectangle((0, 0), intr.width, intr.height, color=SKY, zorder=0))
 
     # Horizon: where the ground plane images. Project a very distant ground point.
@@ -106,35 +117,24 @@ def draw_scene(ax, frame: Frame, truth: dict[str, TruthObject]) -> None:
                  np.array([cx + 40.0, cy + depth, 0.0]),
                  frame, color=GRID, lw=0.7, zorder=1)
 
-    # Object bodies as boxes, so a viewer can see what the detector is boxing.
     for obj in truth.values():
         _draw_box(ax, obj, frame)
 
 
-def _draw_box(ax, obj: TruthObject, frame: Frame) -> None:
+def _draw_box(ax, obj: TruthObject, frame: Frame, alpha: float = 0.85) -> None:
+    """Project the object's oriented 3-D box. Real vehicles are not axis-aligned."""
     from matplotlib.patches import Polygon
 
-    w, length, h = obj.size
-    cx, cy, cz = obj.position
-    base = cz - h / 2
-    corners = np.array(
-        [
-            [cx - w / 2, cy - length / 2, base], [cx + w / 2, cy - length / 2, base],
-            [cx + w / 2, cy + length / 2, base], [cx - w / 2, cy + length / 2, base],
-            [cx - w / 2, cy - length / 2, base + h], [cx + w / 2, cy - length / 2, base + h],
-            [cx + w / 2, cy + length / 2, base + h], [cx - w / 2, cy + length / 2, base + h],
-        ]
-    )
-    uv, valid = project(corners, frame)
+    uv, valid = project(obj.corners(frame.frame_id), frame)
     if valid.sum() < 8:
         return
     color = CLASS_COLORS.get(obj.cls, MUTED)
     edges = [(0, 1), (1, 2), (2, 3), (3, 0), (4, 5), (5, 6), (6, 7), (7, 4),
              (0, 4), (1, 5), (2, 6), (3, 7)]
     top = [uv[i] for i in (4, 5, 6, 7)]
-    ax.add_patch(Polygon(top, closed=True, color=color, alpha=0.18, zorder=2))
+    ax.add_patch(Polygon(top, closed=True, color=color, alpha=0.18 * alpha, zorder=2))
     for i, j in edges:
-        ax.plot(uv[[i, j], 0], uv[[i, j], 1], color=color, lw=1.1, alpha=0.85, zorder=3)
+        ax.plot(uv[[i, j], 0], uv[[i, j], 1], color=color, lw=1.1, alpha=alpha, zorder=3)
 
 
 def _fmt_m(value: float) -> str:
@@ -164,7 +164,7 @@ def _range_and_sigma(track: TrackState, frame: Frame) -> tuple[float, float]:
     return r, float(np.sqrt(max(direction @ track.cov @ direction, 0.0)))
 
 
-def _match_track(detection, tracks: list[TrackState], frame: Frame) -> TrackState | None:
+def _match_track(detection, tracks: list[TrackState], frame: Frame):
     """Pair a detection with the track whose estimate reprojects nearest to it."""
     best, best_d = None, 120.0
     for track in tracks:
@@ -174,56 +174,87 @@ def _match_track(detection, tracks: list[TrackState], frame: Frame) -> TrackStat
         distance = float(np.hypot(*(uv[0] - detection.centroid)))
         if distance < best_d:
             best, best_d = track, distance
-    return best
+    return best, best_d
 
 
-def draw_overlays(ax, record, tracks: list[TrackState]) -> None:
-    """Detection boxes with class, range and uncertainty."""
+def draw_overlays(ax, record, tracks: list[TrackState], max_labels: int = 8) -> None:
+    """Detection boxes with class, range and uncertainty.
+
+    One label per TRACK, not per detection. Several detections can reproject
+    nearest to the same track, and labelling each of them prints the same range
+    two or three times in different places -- which reads as three objects at
+    that range rather than one.
+    """
     from matplotlib.patches import Rectangle
 
     frame = record.frame
-    placed: list[tuple[float, float, float, float]] = []
 
-    # Draw far objects first so near labels win any remaining overlap.
-    items = []
+    # Best (nearest-reprojecting) detection for each track.
+    best: dict[int, tuple[float, object]] = {}
+    unmatched = []
     for detection in record.detections:
-        track = _match_track(detection, tracks, frame)
-        depth = float(np.linalg.norm(track.mean - frame.pose.t)) if track else 1e6
-        items.append((depth, detection, track))
-    items.sort(key=lambda row: -row[0])
-
-    for _, detection, track in items:
-        x1, y1, x2, y2 = detection.bbox
+        track, distance = _match_track(detection, tracks, frame)
         if track is None:
-            color, label = MUTED, f"{detection.cls} {detection.score:.2f} / no track"
+            unmatched.append(detection)
+            continue
+        if track.track_id not in best or distance < best[track.track_id][0]:
+            if track.track_id in best:
+                unmatched.append(best[track.track_id][1])
+            best[track.track_id] = (distance, detection)
         else:
-            r, sigma = _range_and_sigma(track, frame)
-            cls, confidence = track.top_class
-            if track.degenerate:
-                # Never print a confident range the geometry cannot support.
-                color = BAD
-                label = f"{cls} {confidence:.2f}\n{r:.0f} m +/- {_fmt_m(sigma)} m  UNRELIABLE"
-            else:
-                color = GOOD if sigma < 2.0 else WARN
-                label = f"{cls} {confidence:.2f}\n{r:.1f} m +/- {_fmt_m(sigma)} m"
+            unmatched.append(detection)
+
+    for detection in unmatched:
+        x1, y1, x2, y2 = detection.bbox
+        ax.add_patch(
+            Rectangle((x1, y1), x2 - x1, y2 - y1, fill=False, edgecolor=MUTED,
+                      lw=0.9, alpha=0.5, zorder=4)
+        )
+
+    by_track = {tid: t for t in tracks for tid in [t.track_id]}
+    rows = []
+    for track_id, (_, detection) in best.items():
+        track = by_track[track_id]
+        r, sigma = _range_and_sigma(track, frame)
+        rows.append((r, track, detection, sigma))
+    rows.sort(key=lambda row: row[0])  # nearest first: they matter most
+
+    placed: list[tuple[float, float, float, float]] = []
+    for index, (r, track, detection, sigma) in enumerate(rows):
+        x1, y1, x2, y2 = detection.bbox
+        cls, confidence = track.top_class
+        if sigma > 0.5 * r:
+            # The uncertainty is the same size as the estimate. Printing "50 m"
+            # here would be reporting the birth PRIOR as if it were a fix; the
+            # track has not yet earned a range at all.
+            color = BAD
+            label = f"{cls} {confidence:.2f}\nRANGE INDETERMINATE"
+        elif track.degenerate:
+            color = BAD
+            # Never print a confident range the geometry cannot support.
+            label = f"{cls} {confidence:.2f}\n{r:.0f} m +/- {_fmt_m(sigma)} m  UNRELIABLE"
+        else:
+            color = GOOD if sigma < 2.0 else WARN
+            label = f"{cls} {confidence:.2f}\n{r:.1f} m +/- {_fmt_m(sigma)} m"
 
         ax.add_patch(
             Rectangle((x1, y1), x2 - x1, y2 - y1, fill=False, edgecolor=color, lw=2.0, zorder=5)
         )
+        if index >= max_labels:
+            continue  # box only: past this the labels obscure the scene
 
         # Lift the label until it clears every label already placed. Overlapping
         # range readouts are worse than useless -- they are misattributable.
         #
         # The collision box has to be sized in DATA units, not pixels: the text is
         # drawn in points, so its extent depends on the axes scale. At 8.5 pt
-        # monospace a character is ~0.6 em wide and a line ~1.35 em tall; convert
-        # both through (image width / axes width in inches).
+        # monospace a character is ~0.6 em wide and a line ~1.35 em tall.
         units_per_inch = frame.intrinsics.width / 10.0
         char_w = 0.60 * 8.5 / 72.0 * units_per_inch
         line_h = 1.35 * 8.5 / 72.0 * units_per_inch
-        rows = label.split("\n")
-        width = max(len(row) for row in rows) * char_w + 6.0
-        height = len(rows) * line_h + 6.0
+        text_rows = label.split("\n")
+        width = max(len(row) for row in text_rows) * char_w + 6.0
+        height = len(text_rows) * line_h + 6.0
         lx, ly = float(x1), float(y1) - 6.0
         for _ in range(20):
             box = (lx, ly - height, lx + width, ly)
@@ -243,7 +274,10 @@ def draw_overlays(ax, record, tracks: list[TrackState]) -> None:
         )
 
 
-def draw_map(ax, record, truth: dict[str, TruthObject], trail: np.ndarray) -> None:
+def draw_map(
+    ax, record, truth: dict[str, TruthObject], trail: np.ndarray,
+    xlim: tuple | None = None, ylim: tuple | None = None,
+) -> None:
     """Top-down view: truth, estimates, and 1-sigma error ellipses."""
     from matplotlib.patches import Ellipse
 
@@ -251,7 +285,12 @@ def draw_map(ax, record, truth: dict[str, TruthObject], trail: np.ndarray) -> No
     ax.set_facecolor(SKY)
 
     for obj in truth.values():
-        ax.plot(obj.position[0], obj.position[1], "x", color=TRUTH, ms=8, mew=1.6, zorder=3)
+        position = obj.at(record.frame_id)
+        if xlim is not None and not (xlim[0] <= position[0] <= xlim[1]):
+            continue
+        if ylim is not None and not (ylim[0] <= position[1] <= ylim[1]):
+            continue
+        ax.plot(position[0], position[1], "x", color=TRUTH, ms=7, mew=1.4, alpha=0.8, zorder=3)
 
     for track in record.track_states:
         color = BAD if track.degenerate else (GOOD if track.sigma_horizontal < 2.0 else WARN)
@@ -305,6 +344,14 @@ class Segment:
     caption: str = ""
     hold_frames: int = 0
     """Extra frames held on the final state, so a viewer can read the result."""
+    map_half_span: float | None = None
+    """If set, the top-down panel follows the camera with this half-width instead
+    of covering the whole scene. A driving run spans hundreds of metres; a fixed
+    extent shrinks every error ellipse to a dot."""
+
+    banner: str = ""
+    """Provenance line drawn over the camera panel. Defaults to stating whether
+    the pixels are real or synthesised, which a viewer must never have to guess."""
 
 
 def build_timeline(segments: list[Segment]) -> list[tuple]:
@@ -333,11 +380,27 @@ def build_timeline(segments: list[Segment]) -> list[tuple]:
         cy = 0.5 * (all_xy[:, 1].min() + all_xy[:, 1].max())
         half = 0.5 * max(np.ptp(all_xy[:, 0]), np.ptp(all_xy[:, 1])) + pad
         xlim, ylim = (cx - half, cx + half), (cy - half, cy + half)
+
+        # Defaults bind the loop variables explicitly: a bare closure over them
+        # would make every segment use the last segment's extent.
+        def limits_for(record, span=segment.map_half_span, fallback=(xlim, ylim)):
+            if span is None:
+                return fallback
+            # Centre ahead of the camera, since that is where the objects are.
+            eye = record.frame.pose.t
+            ahead = eye + (record.frame.pose.R @ [0, 0, 1]) * span * 0.45
+            return (
+                (float(ahead[0] - span), float(ahead[0] + span)),
+                (float(ahead[1] - span), float(ahead[1] + span)),
+            )
+
         for index, record in enumerate(records):
-            timeline.append((segment, record, positions[: index + 1], xlim, ylim))
+            lo, hi = limits_for(record)
+            timeline.append((segment, record, positions[: index + 1], lo, hi))
         # Hold on the final state so a viewer can read the converged result.
+        lo, hi = limits_for(records[-1])
         for _ in range(segment.hold_frames):
-            timeline.append((segment, records[-1], positions, xlim, ylim))
+            timeline.append((segment, records[-1], positions, lo, hi))
     if not timeline:
         raise ValueError("nothing to render: no segment recorded any frames")
     return timeline
@@ -395,9 +458,18 @@ def render_segments(
 
         draw_scene(cam_ax, record.frame, segment.truth)
         draw_overlays(cam_ax, record, record.track_states)
+        banner = (
+            segment.banner
+            if segment.banner
+            else (
+                "REAL IMAGERY  |  boxes, class and range are live pipeline output"
+                if record.frame.image is not None
+                else "SYNTHETIC RENDER  |  boxes, class and range are live pipeline output"
+            )
+        )
         cam_ax.text(
-            10, 22, "SYNTHETIC RENDER  |  boxes, class and range are live pipeline output",
-            color=MUTED, fontsize=8, family="monospace", va="top", zorder=7,
+            10, 26, banner, color=TEXT, fontsize=8, family="monospace", va="top", zorder=7,
+            bbox={"facecolor": "#0d1117", "edgecolor": "none", "alpha": 0.55, "pad": 2.0},
         )
 
         map_ax.set_xlim(*xlim)
@@ -406,7 +478,7 @@ def render_segments(
         map_ax.tick_params(colors=MUTED, labelsize=7)
         for spine in map_ax.spines.values():
             spine.set_color(GRID)
-        draw_map(map_ax, record, segment.truth, trail)
+        draw_map(map_ax, record, segment.truth, trail, xlim, ylim)
         map_ax.set_title(
             "top-down  |  x truth   o estimate   ellipse = 1 sigma",
             color=MUTED, fontsize=8.5, family="monospace",

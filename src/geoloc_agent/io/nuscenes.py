@@ -117,14 +117,15 @@ class NuScenesSession(Session):
     # -- construction -----------------------------------------------------
 
     def _load_devkit(self, version: str):
-        try:
-            from nuscenes.nuscenes import NuScenes
-        except ImportError as exc:  # pragma: no cover - depends on optional extra
-            raise ImportError(
-                "nuscenes-devkit is required for NuScenesSession. "
-                "Install it with:  uv sync --extra nuscenes"
-            ) from exc
-        return NuScenes(version=version, dataroot=str(self.dataroot), verbose=False)
+        """Prefer the bundled JSON reader; fall back to the devkit if installed.
+
+        The reader answers the same two questions and avoids a dependency chain
+        (shapely/GEOS, opencv, scikit-learn) that is heavy for reading nine JSON
+        files. Pass ``nusc=NuScenes(...)`` explicitly to use the devkit instead.
+        """
+        from geoloc_agent.io.nuscenes_tables import NuScenesTables
+
+        return NuScenesTables(self.dataroot, version)
 
     def _resolve_scene(self, scene: str | int) -> dict:
         if isinstance(scene, int):
@@ -211,6 +212,7 @@ class NuScenesSession(Session):
                 continue
             instance = annotation["instance_token"]
             position = np.asarray(annotation["translation"], dtype=float)
+            rotation = quaternion_to_matrix(np.asarray(annotation["rotation"], dtype=float))
             width, length, height = (float(v) for v in annotation["size"])
             if instance not in self._truth:
                 self._truth[instance] = TruthObject(
@@ -218,8 +220,10 @@ class NuScenesSession(Session):
                     position=position,
                     cls=_simplify_class(annotation["category_name"]),
                     size=(width, length, height),
+                    rotation=rotation,
                 )
             self._truth[instance].positions[frame_id] = position
+            self._truth[instance].rotations[frame_id] = rotation
 
     def _read_image(self, sample_data: dict):  # pragma: no cover - needs real data
         try:

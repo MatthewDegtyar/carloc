@@ -16,7 +16,26 @@ uv run geoloc-render          # -> reports/geoloc_demo.mp4
 
 ## Video
 
-`geoloc-render` produces a two-part clip: the camera view with class, range and
+```bash
+uv run geoloc-render                                    # synthetic, two-part
+uv run geoloc-render --source nuscenes --scene scene-0655   # real imagery
+```
+
+### Real data (nuScenes)
+
+`reports/geoloc_real_nuscenes.mp4` — a real Boston street from CAM_FRONT with
+real ego pose, every box carrying class, range and 1-sigma. Parked cars along the
+kerb read 20.0 m +/- 0.35 m, 27.3 m +/- 0.75 m, 33.8 m +/- 1.73 m; objects the
+geometry cannot support turn red and read `UNRELIABLE`.
+
+The detector there is `TruthProjectionDetector` — an **oracle**, not a perception
+model. It projects the annotated 3-D boxes so that geometry and filter error can
+be measured without detector error mixed in, and the frame says so. Real
+perception is Phase 4 and still needs a YOLO11n CoreML export.
+
+### Synthetic
+
+`geoloc-render` also produces a two-part clip: the camera view with class, range and
 1-sigma range uncertainty on every box, beside a top-down map with error ellipses.
 
 Part 1 is lateral motion (good geometry) — ranges converge and the ellipses
@@ -25,7 +44,7 @@ forward motion — the ellipses stretch into streaks *along the line of sight* a
 every box reads `RANGE UNRELIABLE`. Putting them in one file is deliberate: the
 well-conditioned result only means something next to the degenerate one.
 
-**Every pixel is synthesised.** A `SyntheticSession` has no imagery; the ground
+In the synthetic clip **every pixel is synthesised.** A `SyntheticSession` has no imagery; the ground
 grid and object bodies are drawn from true geometry through the real camera
 matrix, and the frame is labelled `SYNTHETIC RENDER` throughout. What is *not*
 synthesised is the output: boxes come from the same projection the tracker
@@ -126,6 +145,43 @@ estimate-independent gates cut RMSE from 12.3 m to 0.76 m at 2.5 px bearing nois
 noise on a static object is pure covariance inflation — it drove NEES to 1.36
 against a nominal 3, which is the filter discarding information.
 
+## Real-data results (nuScenes v1.0-mini, scene-0655, boston-seaport)
+
+Same `fuse/` code as the synthetic runs, unchanged — the Phase 2 acceptance
+criterion. Scored against the annotated 3-D boxes, 41 keyframes, 114 tracks:
+
+| | median error | p90 |
+|---|---|---|
+| pure tracks, good geometry | **0.56 m** | 4.84 m |
+| tracks flagged degenerate | 11.7 m | — |
+
+Getting there surfaced two real problems that synthetic data never exercised:
+
+**Scoring only surviving tracks measured almost nothing.** On a driving scene
+objects sweep through the field of view, so `final_tracks` held 3 of 95. The
+tracker now retains tracks at death.
+
+**Association, not geometry, was the dominant error.** Pure tracks had median
+1.4 m error while impure ones had 17 m and a 948 m worst case — one track had
+absorbed observations from **14 distinct objects**. The cause was that an
+unlocalised track carries a deliberately wide range prior, which made its
+Mahalanobis gate large enough to swallow any nearby detection. Three fixes, all
+of which use information the tracker already had:
+
+- **Epipolar gating** for unlocalised tracks. Such a track knows its bearing ray
+  exactly; requiring a new bearing to be consistent with *some* range along it is
+  a 1-D constraint instead of a loose 2-D one.
+- **A size prior** (`range/size_prior.py`) from bounding-box height, which places
+  a new track within a factor of two instead of at an arbitrary default. Used for
+  initialisation and gating only, never fused as a measurement.
+- **A class penalty**, not a class veto. Vetoing made the posterior
+  self-reinforcing — a track that drifted to "car" would reject every pedestrian
+  observation and could never discover it was wrong. The synthetic test suite
+  caught that immediately.
+
+Worst-case error fell from 948 m to 118 m and pure tracks rose from 33 to 63.
+Association remains the leading error source and is reported, not hidden.
+
 ## Calibration status
 
 NEES is the honesty metric: `eᵀP⁻¹e`, chi-square with 3 DOF, so the mean should
@@ -166,9 +222,10 @@ environment and are never committed.
 |---|---|
 | 0 — skeleton, synthetic | **Done.** `pytest` green; synthetic object geolocated to 0.00 m (accept: < 0.5 m) |
 | 1 — geometry and filter | **Done.** Covariance shrinks monotonically with baseline; matches analytic prediction within 20% |
-| 2 — nuScenes loader | **Written, not validated.** Needs the ~4 GB `v1.0-mini` download |
+| 2 — nuScenes loader | **Done and validated.** Median 0.56 m on real data (see below) |
 | 3 — eval harness | **Done.** One command produces `reports/eval.md`; regression bounds pinned |
 | 4 — real detector | **Interface + benchmark only.** Needs a YOLO11n CoreML export |
+| — mono-depth ranger | **Added.** Size prior from bbox height; initialisation and gating only |
 | 5 — publish | **CoT done** (round-trips over a real socket). **Lattice written**, needs credentials |
 | 6 — agent layer | **Done.** `reports/agent_eval.md` with the pattern comparison |
 

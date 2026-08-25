@@ -267,6 +267,15 @@ class Observation:
     cls: str = "unknown"
     score: float = 1.0
     range: RangeMeas | None = None
+    range_prior: RangeMeas | None = None
+    """A weak range guess, e.g. from apparent object size.
+
+    Deliberately separate from ``range``. A prior is used to initialise a track
+    and to tighten its association gate; a measurement is fused into the state.
+    Treating a size prior as a measurement would fold the same class-size
+    assumption into the estimate on every single frame, and the filter would
+    converge confidently onto whatever that assumption happened to be."""
+
     origin_cov: np.ndarray = field(default_factory=lambda: np.zeros((3, 3)))
     truth_position: np.ndarray | None = None
     truth_id: str | None = None

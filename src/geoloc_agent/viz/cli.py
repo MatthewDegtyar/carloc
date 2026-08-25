@@ -10,6 +10,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from geoloc_agent.fuse.tracker import TrackerConfig
 from geoloc_agent.io.synthetic import SyntheticScenario, SyntheticSession
 from geoloc_agent.noise import NoiseModel
 from geoloc_agent.pipeline import run_pipeline
@@ -32,8 +33,50 @@ def _run(path: str, frames: int, seed: int, arc_radius: float = 40.0):
     return result, session.truth()
 
 
+def _nuscenes_segment(dataroot: str, scene: str, fps: int) -> Segment:
+    """A real nuScenes scene, scored end to end.
+
+    Keyframes only. Camera sweeps run at 12 Hz and would make a smoother clip,
+    but they carry no annotations -- the truth-projection detector would have to
+    reuse the last keyframe's boxes, which smears every moving object. A 2 Hz
+    clip that is right beats a 12 Hz one that is interpolated.
+    """
+    from geoloc_agent.detect.truth_projection import TruthProjectionDetector
+    from geoloc_agent.io.nuscenes import NuScenesSession
+
+    session = NuScenesSession(
+        dataroot=dataroot, scene=scene, version="v1.0-mini", load_images=True
+    )
+    truth = session.truth()
+    result = run_pipeline(
+        session,
+        detector=TruthProjectionDetector(truth, max_range_m=60.0),
+        bearing_sigma_px=4.0,
+        use_size_prior=True,
+        tracker_config=TrackerConfig(process_noise_per_s=0.0),
+    )
+    return Segment(
+        result=result,
+        truth=truth,
+        hold_frames=fps * 2,
+        map_half_span=55.0,
+        title=f"REAL DATA — nuScenes {scene} ({session.map_name}), CAM_FRONT",
+        banner=(
+            "REAL IMAGERY  |  real ego pose  |  detector = ground-truth projection "
+            "(an oracle, not a perception model)"
+        ),
+        caption=(
+            "Every box carries a range and its 1-sigma. Green is a fix worth acting on,\n"
+            "red is geometry that cannot support one. Faint wireframes are the 3-D truth boxes."
+        ),
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="geoloc-render", description=__doc__)
+    parser.add_argument("--source", choices=("synthetic", "nuscenes"), default="synthetic")
+    parser.add_argument("--dataroot", default="sessions/nuscenes")
+    parser.add_argument("--scene", default="scene-0655")
     parser.add_argument("--out", type=Path, default=Path("reports/geoloc_demo.mp4"))
     parser.add_argument("--frames", type=int, default=40)
     parser.add_argument("--fps", type=int, default=10)
@@ -47,6 +90,14 @@ def main(argv: list[str] | None = None) -> int:
 
     config = RenderConfig(fps=args.fps, dpi=args.dpi)
     segments = []
+
+    if args.source == "nuscenes":
+        segments.append(_nuscenes_segment(args.dataroot, args.scene, args.fps))
+        for segment in segments:
+            print(f"[render] {args.scene}: {len(segment.result.all_tracks)} tracks")
+        out = render_segments(segments, args.out, config)
+        print(f"\nwrote {out}")
+        return 0
 
     if args.path in ("lateral", "both"):
         result, truth = _run("lateral", args.frames, args.seed)

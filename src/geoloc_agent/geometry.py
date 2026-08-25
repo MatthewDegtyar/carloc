@@ -119,6 +119,7 @@ def observation_from_detection(
     range_meas: RangeMeas | None = None,
     truth_position: np.ndarray | None = None,
     truth_id: str | None = None,
+    range_prior: RangeMeas | None = None,
 ) -> Observation:
     """Detection + posed frame -> the world-frame Observation that ``fuse/`` eats.
 
@@ -139,6 +140,7 @@ def observation_from_detection(
         cls=detection.cls,
         score=detection.score,
         range=range_meas,
+        range_prior=range_prior,
         origin_cov=frame.pose.position_cov,
         truth_position=truth_position,
         truth_id=truth_id,

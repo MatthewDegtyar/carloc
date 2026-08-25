@@ -11,7 +11,7 @@ dependencies = [
 
 [project.optional-dependencies]
 plot = ["matplotlib>=3.7"]
-nuscenes = ["nuscenes-devkit>=1.1.11"]
+nuscenes = ["pillow>=10.0"]  # metadata is read by io/nuscenes_tables.py; devkit optional
 
 [project.scripts]
 geoloc-eval = "geoloc_agent.eval.cli:main"

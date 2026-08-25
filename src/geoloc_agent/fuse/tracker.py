@@ -59,12 +59,38 @@ class TrackerConfig:
     class_floor: float = 1e-3
     known_classes: tuple[str, ...] = ("car", "pedestrian", "truck", "clutter", "unknown")
     localize_min_obs: int = 2
-    max_range: float = 400.0
+    max_range: float = 150.0
     max_position_sigma: float = 200.0
     # Every observation. The batch solve is what makes the covariance match the
     # estimator's real spread; refining less often lets sequential-EKF optimism
     # accumulate between refinements (NEES ~3.5 at every=5 versus ~3.3 at 1).
     # Raise it to trade calibration for compute on large track counts.
+    class_mismatch_penalty: float = 9.21
+    """Cost added when a detection's class contradicts a track's confident class.
+
+    A PENALTY, not a veto. Refusing the association outright makes the class
+    posterior self-reinforcing: a track that has drifted to "car" would reject
+    every pedestrian observation and could never discover it was wrong. That is
+    confirmation bias built into the tracker, and it would also quietly destroy
+    the ambiguous-class cases the agent layer exists to escalate.
+
+    As a penalty it does the useful half of the job and none of the harmful half.
+    In a crowded scene a same-class detection is available and wins on cost; when
+    the contradicting detection is the only candidate it is still associated, and
+    the posterior updates honestly on evidence that disagrees."""
+
+    epipolar_gating: bool = True
+    """Gate unlocalised tracks on the epipolar constraint instead of Mahalanobis.
+
+    An unlocalised track carries a deliberately wide range prior, which makes its
+    Mahalanobis gate enormous and lets it swallow any nearby detection. On a busy
+    real scene that is the dominant failure: one track absorbed observations from
+    14 distinct objects and reported 500 m for something 130 m away. But an
+    unlocalised track is not actually ignorant -- it knows its bearing ray
+    exactly. Requiring the new bearing to be consistent with SOME range along
+    that ray is a one-dimensional constraint instead of a loose two-dimensional
+    one, and it uses precisely the information the track has."""
+
     batch_refine_every: int = 1
     batch_window: int = 60
 
@@ -89,6 +115,14 @@ class Tracker:
     def __init__(self, config: TrackerConfig | None = None) -> None:
         self.config = config or TrackerConfig()
         self.tracks: dict[int, Track] = {}
+        self.completed: list[Track] = []
+        """Tracks retained at death.
+
+        On synthetic runs objects stay in view and the live set is the whole
+        story. On real driving data objects sweep through the field of view, so
+        scoring only the survivors at the last frame throws away almost every
+        track the system produced -- 3 of 40-odd on the first nuScenes scene.
+        """
         self._next_id = 1
         self._last_t: float | None = None
 
@@ -127,6 +161,13 @@ class Tracker:
     def live_states(self) -> list[TrackState]:
         return [t.state.copy() for t in self.tracks.values()]
 
+    def all_tracks(self) -> list[Track]:
+        """Every track this run produced, live and completed."""
+        return [*self.tracks.values(), *self.completed]
+
+    def all_states(self) -> list[TrackState]:
+        return [t.state.copy() for t in self.all_tracks()]
+
     def confirmed_states(self) -> list[TrackState]:
         return [
             t.state.copy()
@@ -135,6 +176,35 @@ class Tracker:
         ]
 
     # -- association ------------------------------------------------------
+
+    def _epipolar_cost(self, track: Track, obs: Observation) -> float:
+        """Squared normalised angular distance from the track's epipolar plane.
+
+        For a track whose first bearing is ``b0`` from centre ``o0``, every point
+        it could possibly be lies on that ray, so any later bearing from ``o1``
+        must lie in the plane spanned by ``b0`` and the baseline ``o1 - o0``.
+        The out-of-plane angle is therefore pure inconsistency, and it is a chi-
+        square(1) statistic once divided by the bearing sigma.
+        """
+        baseline = np.asarray(obs.origin, dtype=float) - track.origins[0]
+        if np.linalg.norm(baseline) < 1e-6:
+            return 0.0  # no baseline yet: nothing to contradict
+        normal = np.cross(track.bearings[0], baseline)
+        norm = float(np.linalg.norm(normal))
+        if norm < 1e-9:
+            return 0.0  # motion exactly along the ray: no epipolar information
+        normal = normal / norm
+        out_of_plane = float(np.arcsin(np.clip(abs(normal @ obs.bearing), -1.0, 1.0)))
+        sigma = max(obs.bearing_sigma, 1e-9)
+        return float((out_of_plane / sigma) ** 2)
+
+    def _class_penalty(self, track: Track, obs: Observation) -> float:
+        cls, confidence = track.state.top_class
+        if cls in ("unknown", "") or obs.cls in ("unknown", ""):
+            return 0.0
+        if cls == obs.cls or confidence <= 0.6:
+            return 0.0
+        return self.config.class_mismatch_penalty
 
     def _associate(
         self, observations: Sequence[Observation], pose: Pose | None
@@ -147,11 +217,25 @@ class Tracker:
         track_ids = list(self.tracks)
         cost = np.full((len(track_ids), len(observations)), GATE_INFEASIBLE)
         for i, track_id in enumerate(track_ids):
-            ekf = self.tracks[track_id].ekf
+            track = self.tracks[track_id]
+            ekf = track.ekf
+            check_epipolar = self.config.epipolar_gating and not track.localized
             for j, obs in enumerate(observations):
+                # Both constraints must hold. They are independent: Mahalanobis
+                # asks "could the object be there given what I believe", the
+                # epipolar residual asks "is this bearing consistent with my ray
+                # at ANY range". Requiring both is strictly tighter than either,
+                # and each covers the other's blind spot -- Mahalanobis is
+                # toothless while the range prior is wide, and the epipolar test
+                # says nothing about where along the ray the object sits.
                 distance = ekf.mahalanobis(obs, pose)
-                if distance <= self.config.gate_chi2:
-                    cost[i, j] = distance
+                if distance > self.config.gate_chi2:
+                    continue
+                if check_epipolar and self._epipolar_cost(track, obs) > self.config.gate_chi2:
+                    continue
+                # Gating is decided on the raw distance; the class penalty only
+                # ranks the feasible options.
+                cost[i, j] = distance + self._class_penalty(track, obs)
 
         rows, cols = linear_sum_assignment(cost)
         matches = [
@@ -324,7 +408,9 @@ class Tracker:
             if track.state.misses > self.config.max_misses
         ]
         for track_id in dead:
-            self.tracks[track_id].state.status = TrackStatus.DEAD
+            track = self.tracks[track_id]
+            track.state.status = TrackStatus.DEAD
+            self.completed.append(track)
             del self.tracks[track_id]
 
     # -- attributes -------------------------------------------------------
@@ -369,6 +455,15 @@ class Tracker:
             min_obs=self.config.min_obs_for_confidence,
             min_perp_baseline=self.config.min_perp_baseline,
         )
-        track.state.degenerate = report.degenerate
-        track.state.degeneracy_reason = report.reason
+        degenerate = report.degenerate
+        reason = report.reason
+        # Sensor envelope. An estimate that has drifted past the range at which
+        # this sensor could resolve the object at all is not a long-range fix, it
+        # is a broken one, and it must not be reported as a number.
+        if report.range_m > self.config.max_range:
+            degenerate = True
+            envelope = f"estimate at {report.range_m:.0f} m is beyond the sensor envelope"
+            reason = f"{reason}; {envelope}" if reason else envelope
+        track.state.degenerate = degenerate
+        track.state.degeneracy_reason = reason
         track.state.max_perp_baseline = report.perp_baseline
