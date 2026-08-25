@@ -20,6 +20,7 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 
 from geoloc_agent.contracts import Observation, Pose, TrackState, TrackStatus
+from geoloc_agent.envelope import DEFAULT_ENVELOPE
 from geoloc_agent.fuse.degenerate import (
     DEFAULT_MAX_RELATIVE_RANGE_SIGMA,
     DEFAULT_MIN_OBS,
@@ -35,15 +36,17 @@ GATE_INFEASIBLE = 1e6
 
 @dataclass
 class TrackerConfig:
-    """Defaults are deliberately conservative about range.
+    """Range defaults are derived from the declared operating envelope.
 
     ``prior_range`` / ``init_range_sigma`` describe the *sensor's* usable range
     interval, not a guess about any particular object. Before a track localises,
-    that wide prior is used only for gating, never reported as a fix.
+    that prior is used only for gating, never reported as a fix -- but its width
+    directly sets how permissive a new track's gate is, so it is derived from the
+    envelope rather than picked. See ``geoloc_agent.envelope``.
     """
 
-    prior_range: float = 50.0
-    init_range_sigma: float = 60.0
+    prior_range: float = DEFAULT_ENVELOPE.prior_range
+    init_range_sigma: float = DEFAULT_ENVELOPE.init_range_sigma
     # Zero by default: these tracks model static objects, and process noise on a
     # static object is pure covariance inflation -- it drives NEES below the
     # chi-square band, which is the filter throwing away information. Raise it
@@ -59,7 +62,7 @@ class TrackerConfig:
     class_floor: float = 1e-3
     known_classes: tuple[str, ...] = ("car", "pedestrian", "truck", "clutter", "unknown")
     localize_min_obs: int = 2
-    max_range: float = 150.0
+    max_range: float = DEFAULT_ENVELOPE.track_max_range
     max_position_sigma: float = 200.0
     # Every observation. The batch solve is what makes the covariance match the
     # estimator's real spread; refining less often lets sequential-EKF optimism

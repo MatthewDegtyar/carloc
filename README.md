@@ -71,6 +71,31 @@ the filter covariance projected onto the line of sight. Range is never shown as 
 bare number, and a sigma of 0.03 m prints as `0.030` rather than `0.0` — "0.0 m"
 reads as certainty, which is the one claim this system must not make.
 
+## Operating envelope: 2–50 m
+
+The declared reach lives in one place, `geoloc_agent/envelope.py`. Everything
+range-dependent derives from it — the birth prior and its sigma, the association
+gate, the "this estimate is broken" guard, the size-prior cap, the detector
+cutoff. Change `DEFAULT_MAX_RANGE_M` and they all move together; before this they
+were six hand-tuned constants and any one missed silently kept the old behaviour.
+
+Cutting from 150 m to 50 m improved everything, because geolocation error scales
+as `R^2`:
+
+| scenario | median error @150 m envelope | @50 m envelope |
+|---|---|---|
+| `clean_lateral` | 0.102 m | **0.031 m** |
+| `cluttered` | 0.177 m | **0.063 m** |
+| `heading_bias` | 2.505 m | **1.501 m** |
+| `gps_degraded` | 42.15 m | **8.99 m** |
+
+It also changed what counts as degenerate. Inside 50 m, driving forward 20 m
+closes 40% of the distance to a 40 m object — and that alone makes its range
+observable (sigma 1.1 m). Degeneracy is not a property of forward motion as such;
+it is a property of how little the geometry changes over the observation, and at
+short range a long approach changes it a lot. The forward-motion fixture now uses
+a slower approach (12 m of travel) to stay in the regime it is meant to test.
+
 ## What it does
 
 ```

@@ -18,6 +18,7 @@ from __future__ import annotations
 import numpy as np
 
 from geoloc_agent.contracts import Detection, Intrinsics, RangeMeas, RangeMethod
+from geoloc_agent.envelope import DEFAULT_ENVELOPE
 
 # Typical real-world height in metres, and the fractional spread within the class.
 # Heights are used rather than widths because height is invariant to viewing
@@ -36,7 +37,7 @@ CLASS_HEIGHTS: dict[str, tuple[float, float]] = {
 
 MIN_PIXELS = 6.0
 BBOX_SIGMA_PX = 6.0
-MAX_RANGE_M = 200.0
+MAX_RANGE_M = DEFAULT_ENVELOPE.size_prior_max
 
 HULL_SPREAD = 0.25
 """A 2-D box is the convex hull of a 3-D object, not a measurement of its height.

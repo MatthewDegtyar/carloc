@@ -88,13 +88,19 @@ def default_object_layout() -> list[dict]:
     With the default ``lateral`` path the camera moves east along y=0 facing
     north, so objects far up the +y axis sit near the optical axis (degenerate)
     and objects offset in x are well-conditioned.
+
+    Every object sits inside the declared operating envelope. The degenerate case
+    is produced by the *direction of motion*, not by distance -- an object at
+    45 m straight ahead is just as unobservable in range as one at 95 m -- so
+    there is no reason for the fixtures to sit outside the range the system
+    claims to work at.
     """
     return [
         {"id": "car_left", "pos": [-12.0, 30.0, 0.8], "cls": "car", "size": [1.9, 4.5, 1.6]},
         {"id": "car_right", "pos": [14.0, 26.0, 0.8], "cls": "car", "size": [1.9, 4.5, 1.6]},
         {"id": "ped_near", "pos": [5.0, 18.0, 0.9], "cls": "pedestrian", "size": [0.7, 0.7, 1.8]},
-        {"id": "car_ahead", "pos": [0.5, 70.0, 0.8], "cls": "car", "size": [1.9, 4.5, 1.6]},
-        {"id": "ped_far_ahead", "pos": [-1.0, 95.0, 0.9], "cls": "pedestrian",
+        {"id": "car_ahead", "pos": [0.5, 40.0, 0.8], "cls": "car", "size": [1.9, 4.5, 1.6]},
+        {"id": "ped_far_ahead", "pos": [-1.0, 47.0, 0.9], "cls": "pedestrian",
          "size": [0.7, 0.7, 1.8]},
     ]
 

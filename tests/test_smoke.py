@@ -85,8 +85,18 @@ def test_ranger_attaches_ranges_without_breaking_the_pipeline():
 
 
 def test_degenerate_and_good_geometry_are_reported_separately():
-    """Forward motion must be flagged; lateral motion must not be."""
-    straight = run_pipeline(SyntheticSession(SyntheticScenario(path="straight", n_frames=40)))
+    """Forward motion must be flagged; lateral motion must not be.
+
+    The slow approach is deliberate. Inside a 50 m operating envelope, driving
+    forward 20 m closes 40% of the distance to a 40 m object, and that alone
+    makes its range observable (sigma 1.1 m). Degeneracy is not a property of
+    driving forward as such -- it is a property of how little the geometry
+    changes over the observation, and at short range a long approach changes it
+    a lot. 12 m of travel is the regime where it genuinely stays unobservable.
+    """
+    straight = run_pipeline(
+        SyntheticSession(SyntheticScenario(path="straight", n_frames=40, speed_mps=3.0))
+    )
     lateral = run_pipeline(SyntheticSession(SyntheticScenario(path="lateral", n_frames=40)))
     assert any(t.degenerate for t in straight.final_tracks)
     good = [t for t in lateral.final_tracks if not t.degenerate]
@@ -162,3 +172,84 @@ def test_no_ml_dependencies_are_imported():
         capture_output=True, text=True, check=True,
     )
     assert result.stdout.strip() == "[]", result.stdout
+
+
+def test_operating_envelope_derives_every_range_default():
+    """One number drives the rest. Changing it must move all of them together."""
+    from geoloc_agent.envelope import OperatingEnvelope
+    from geoloc_agent.fuse.tracker import TrackerConfig
+
+    small, large = OperatingEnvelope(max_range_m=50.0), OperatingEnvelope(max_range_m=200.0)
+    for attr in ("prior_range", "init_range_sigma", "track_max_range", "detector_max_range"):
+        assert getattr(large, attr) > getattr(small, attr), attr
+
+    # The prior must actually cover its envelope: the far edge inside ~2 sigma,
+    # or new tracks at range are born outside their own prior.
+    for envelope in (small, large):
+        z = (envelope.max_range_m - envelope.prior_range) / envelope.init_range_sigma
+        assert 1.0 < z < 2.5, (envelope.max_range_m, z)
+        assert envelope.track_max_range > envelope.max_range_m  # headroom before "broken"
+
+    with pytest.raises(ValueError, match="must exceed"):
+        OperatingEnvelope(max_range_m=1.0, min_range_m=2.0)
+
+    # And the tracker actually uses them rather than keeping its own numbers.
+    config = TrackerConfig()
+    assert config.prior_range == pytest.approx(OperatingEnvelope().prior_range)
+    assert config.max_range == pytest.approx(OperatingEnvelope().track_max_range)
+
+
+def test_unreachable_objects_are_flagged_somehow_rather_than_reported():
+    """A 300 m object seen from a 12 m baseline must never come back as a fix.
+
+    Deliberately does not assert *which* guard catches it. The estimate collapses
+    toward the prior rather than running out to 300 m, so it is the relative
+    range-sigma test that fires, not the envelope one -- and pinning the specific
+    reason would make this test about the internals rather than the property.
+    """
+    import numpy as np
+
+    from geoloc_agent.contracts import Observation
+    from geoloc_agent.fuse.tracker import Tracker, TrackerConfig
+
+    tracker = Tracker(TrackerConfig())
+    target = np.array([0.0, 300.0, 0.0])
+    for i in range(12):
+        origin = np.array([-6.0 + i * 1.0, 0.0, 0.0])
+        tracker.step(
+            [Observation(t=i * 0.1, frame_id=i, origin=origin, bearing=target - origin,
+                         bearing_sigma=1e-3)],
+            t=i * 0.1,
+        )
+    states = tracker.live_states()
+    assert states
+    assert states[0].degenerate
+    assert states[0].degeneracy_reason.strip()
+
+
+def test_envelope_guard_catches_an_estimate_that_escapes_the_envelope():
+    """The guard itself: an estimate past the envelope is broken, not long-range."""
+    import numpy as np
+
+    from geoloc_agent.contracts import Observation
+    from geoloc_agent.envelope import DEFAULT_ENVELOPE
+    from geoloc_agent.fuse.tracker import Tracker, TrackerConfig
+
+    tracker = Tracker(TrackerConfig())
+    target = np.array([0.0, 30.0, 0.0])
+    for i in range(6):
+        origin = np.array([-5.0 + i * 2.0, 0.0, 0.0])
+        tracker.step(
+            [Observation(t=i * 0.1, frame_id=i, origin=origin, bearing=target - origin,
+                         bearing_sigma=1e-3)],
+            t=i * 0.1,
+        )
+    track = next(iter(tracker.tracks.values()))
+    assert not track.state.degenerate  # a good fix inside the envelope
+
+    # Now shove the estimate past the envelope and re-assess.
+    beyond = DEFAULT_ENVELOPE.track_max_range * 2.0
+    track.state.mean = np.array([0.0, beyond, 0.0])
+    tracker._refresh_geometry(track)
+    assert track.state.degenerate
+    assert "envelope" in track.state.degeneracy_reason

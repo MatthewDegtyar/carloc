@@ -121,7 +121,9 @@ def test_degenerate_tracks_are_labelled_unreliable_not_given_a_bare_range():
 
 def test_forward_motion_render_actually_contains_degenerate_tracks():
     """Guards the demo: if this stops being degenerate the video stops making its point."""
-    session = SyntheticSession(SyntheticScenario(path="straight", n_frames=40))
+    # Slow approach: inside a 50 m envelope, 20 m of forward travel is enough to
+    # make a 40 m object's range observable. See test_smoke for the full note.
+    session = SyntheticSession(SyntheticScenario(path="straight", n_frames=40, speed_mps=3.0))
     result = run_pipeline(session)
     assert any(t.degenerate for t in result.final_tracks)
     lateral = run_pipeline(SyntheticSession(SyntheticScenario(path="lateral", n_frames=40)))

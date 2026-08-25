@@ -20,9 +20,11 @@ BEARING_SIGMA_PX = 2.0
 BEARING_SIGMA_RAD = BEARING_SIGMA_PX / 1266.4
 
 
-def _run(path: str, frames: int, seed: int, arc_radius: float = 40.0):
+def _run(path: str, frames: int, seed: int, arc_radius: float = 40.0, speed_mps: float = 5.0):
     session = SyntheticSession(
-        SyntheticScenario(path=path, n_frames=frames, arc_radius_m=arc_radius, name=path)
+        SyntheticScenario(
+            path=path, n_frames=frames, arc_radius_m=arc_radius, name=path, speed_mps=speed_mps
+        )
     )
     result = run_pipeline(
         session,
@@ -136,7 +138,9 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     if args.path in ("straight", "both"):
-        result, truth = _run("straight", args.frames, args.seed)
+        # Slow approach: within a 50 m envelope a fast one gains enough parallax
+        # to become observable, which is not the case being demonstrated.
+        result, truth = _run("straight", args.frames, args.seed, speed_mps=3.0)
         segments.append(
             Segment(
                 result=result, truth=truth, hold_frames=args.fps * 2,

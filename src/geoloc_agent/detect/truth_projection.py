@@ -16,6 +16,7 @@ import numpy as np
 
 from geoloc_agent.contracts import Detection, Frame
 from geoloc_agent.detect.base import Detector
+from geoloc_agent.envelope import DEFAULT_ENVELOPE
 from geoloc_agent.io.base import TruthObject
 
 MIN_BOX_PX = 14.0
@@ -30,7 +31,7 @@ class TruthProjectionDetector(Detector):
     def __init__(
         self,
         truth: dict[str, TruthObject],
-        max_range_m: float = 80.0,
+        max_range_m: float = DEFAULT_ENVELOPE.detector_max_range,
         min_box_px: float = MIN_BOX_PX,
         classes: tuple[str, ...] | None = ("car", "pedestrian", "truck", "bus"),
         score: float = 0.95,

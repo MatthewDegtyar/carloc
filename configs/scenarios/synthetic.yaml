@@ -25,7 +25,10 @@ scenarios:
     source: synthetic
     seeds: 20
     bearing_sigma_px: 2.0
-    synthetic: {path: straight, n_frames: 40, speed_mps: 5.0}
+    # 3 m/s, not 5: inside a 50 m envelope a 20 m approach closes enough distance
+    # to make range observable on its own. Degeneracy needs the geometry to stay
+    # nearly unchanged across the observation.
+    synthetic: {path: straight, n_frames: 40, speed_mps: 3.0}
     noise: {bearing_sigma: 0.00158}
 
   - name: arc_sweep
