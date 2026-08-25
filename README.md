@@ -11,7 +11,28 @@ uv sync --extra plot
 uv run pytest                 # 150 tests
 uv run geoloc-eval            # -> reports/eval.md + plots + CSVs
 uv run geoloc-agent-eval      # -> reports/agent_eval.md
+uv run geoloc-render          # -> reports/geoloc_demo.mp4
 ```
+
+## Video
+
+`geoloc-render` produces a two-part clip: the camera view with class, range and
+1-sigma range uncertainty on every box, beside a top-down map with error ellipses.
+
+Part 1 is lateral motion (good geometry) — ranges converge and the ellipses
+collapse to centimetres. Part 2 is the same objects, detector and filter under
+forward motion — the ellipses stretch into streaks *along the line of sight* and
+every box reads `RANGE UNRELIABLE`. Putting them in one file is deliberate: the
+well-conditioned result only means something next to the degenerate one.
+
+**Every pixel is synthesised.** A `SyntheticSession` has no imagery; the ground
+grid and object bodies are drawn from true geometry through the real camera
+matrix, and the frame is labelled `SYNTHETIC RENDER` throughout. What is *not*
+synthesised is the output: boxes come from the same projection the tracker
+consumes, class and confidence from the class posterior, and range +/- sigma from
+the filter covariance projected onto the line of sight. Range is never shown as a
+bare number, and a sigma of 0.03 m prints as `0.030` rather than `0.0` — "0.0 m"
+reads as certainty, which is the one claim this system must not make.
 
 ## What it does
 
@@ -68,6 +89,7 @@ src/geoloc_agent/
   fuse/             ekf | tracker | degenerate
   eval/             scenario | metrics | runner | report | cli
   agent/            tools | policy | patterns | backend | eval | report | cli
+  viz/              render | cli — pipeline run to mp4/gif
   publish/cot/      Cursor-on-Target to a local TAK server
   publish/lattice/  Lattice SDK — SEPARATE TREE, see licensing below
 ```

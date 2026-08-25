@@ -16,6 +16,7 @@ nuscenes = ["nuscenes-devkit>=1.1.11"]
 [project.scripts]
 geoloc-eval = "geoloc_agent.eval.cli:main"
 geoloc-agent-eval = "geoloc_agent.agent.cli:main"
+geoloc-render = "geoloc_agent.viz.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=7.4", "ruff>=0.4"]

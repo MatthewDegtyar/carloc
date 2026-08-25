@@ -28,7 +28,12 @@ TRUTH_MATCH_PIXELS = 60.0
 
 @dataclass
 class FrameRecord:
-    """Per-frame snapshot, kept so any stage can be scored in isolation."""
+    """Per-frame snapshot, kept so any stage can be scored in isolation.
+
+    Also carries what a visualiser needs -- the detections as the tracker saw
+    them and the (noisy) pose it used -- so a rendered frame shows what the
+    system actually believed at that instant rather than a re-derivation of it.
+    """
 
     frame_id: int
     t: float
@@ -36,6 +41,8 @@ class FrameRecord:
     n_observations: int
     track_states: list[TrackState] = field(default_factory=list)
     truth_positions: dict[str, np.ndarray] = field(default_factory=dict)
+    detections: list[Detection] = field(default_factory=list)
+    frame: Frame | None = None
 
 
 @dataclass
@@ -187,6 +194,8 @@ def run_pipeline(
                     n_observations=len(observations),
                     track_states=states,
                     truth_positions=dict(truth_now),
+                    detections=list(detections),
+                    frame=frame,
                 )
             )
 
