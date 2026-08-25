@@ -276,6 +276,14 @@ With tiling, geolocation error at 100-200 m came out at **under 1% of range**
 (0.46-0.94 m median) — though on only 3 tracks per bin after the purity filter,
 so read that as indicative rather than precise.
 
+**Monocular depth was evaluated and rejected.** `depth-anything-3`
+(`DA3METRIC-LARGE`) was tested against 307 annotated nuScenes objects spanning
+17-188 m. It is worse than the free bbox-height size prior at *every* range (58%
+vs 13% median error overall) because learned depth cues saturate: it predicts
+34.5 m for objects genuinely 95-190 m away, and cannot distinguish 75 m from
+190 m. Apparent size is a clean 1/R relationship and does not saturate. Full
+writeup and caveats in `reports/depth_anything_3_eval.md`.
+
 **How far can a given camera actually work?**
 
 ```bash
