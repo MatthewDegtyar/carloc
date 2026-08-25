@@ -237,9 +237,44 @@ Two things a phone capture cannot give you:
   arbitrary position with arbitrary yaw. Pass `origin=` and `heading_offset_deg=`
   explicitly; until you do, output is metric-relative and emits no lat/lon.
 
-The iPhone 16 Pro also writes `depth/` (LiDAR). That is a direct range measurement
-and would remove the degenerate-geometry problem entirely for close objects — the
-`RangeMethod.LIDAR` path exists for it but is not yet wired up.
+The iPhone 16 Pro also writes `depth/` (LiDAR), but it is good to roughly 5 m —
+useful for close objects, irrelevant at street distance. `RangeMethod.LIDAR`
+exists for it and is not yet wired up.
+
+### Working at 150 m
+
+Two separate constraints, and they bind in the opposite order to what you would
+expect.
+
+**Geometry is the easy one.** `sigma_R = sqrt(2) R^2 sigma_theta / B`, so range
+accuracy is bought with sideways walk. At 150 m with a phone camera:
+
+| sideways walk | 1-sigma range error @150 m |
+|---|---|
+| 2 m | 21 m (14%) |
+| 5 m | 8.5 m (5.7%) |
+| 10 m | 4.2 m (2.8%) |
+| 20 m | 2.1 m (1.4%) |
+
+**Detection is the hard one.** A person at 150 m is 17 px tall in a 1920-wide
+frame. A 640-input detector downscales it 3x, so it arrives at under 6 px and is
+simply not there. No ranging cleverness recovers an object that was never detected.
+
+`detect/tiled.py` fixes it by running the same detector over overlapping
+*native-resolution* crops, so a 17 px object stays 17 px. Measured on nuScenes:
+
+| | detections >50 m | 125-150 m | latency p95 |
+|---|---|---|---|
+| full frame | 96 | 8 | 8.1 ms |
+| tiled | **227** | **24** | 29.4 ms |
+
+Tiles are restricted to a band around the horizon, because that is where distant
+objects image — 3 tiles instead of 12, which is what keeps it inside the 100 ms
+fast-loop budget. The full-frame pass still runs, so near objects are unaffected.
+
+With tiling, geolocation error at 100-200 m came out at **under 1% of range**
+(0.46-0.94 m median) — though on only 3 tracks per bin after the purity filter,
+so read that as indicative rather than precise.
 
 ## Limitations, stated plainly
 
