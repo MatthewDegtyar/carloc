@@ -33,11 +33,37 @@ which beats the ViT-large PyTorch model's 1.16 m/1.33 m median at a tenth of the
 size. It is worse in the tail (p90 5.92 m vs 3.83 m) and at 40-50 m (5.85 m vs
 2.81 m).
 
-CAVEAT, and it decides the deployment: **the Neural Engine will not take this
-graph.** Measured CPU_ONLY 442 ms vs ALL 421 ms -- the ANE contributes nothing,
-because `unfold` and the iterative decoder are rejected op by op. So this is a
-~420 ms CPU model. That is far outside a per-frame perception budget but inside a
-500 ms ranging loop, which is where depth belongs anyway.
+DEPLOYMENT: the Neural Engine DOES run this graph. An earlier note here claimed it
+did not, inferred from CPU_ONLY (442 ms) being barely slower than ALL (421 ms).
+That inference was wrong. `MLComputePlan` assigns 100% of estimated cost to the
+Neural Engine, and a control against Apple's own DAv2-small build confirms the ANE
+is live on this machine (24.9 ms ANE vs 64.7 ms CPU).
+
+What actually governs speed is COMPUTE VOLUME, which is quadratic in tokens:
+
+    tokens   attn matrix   ANE ms   CPU ms   speedup   achieved GFLOPS
+       558       3.7 MB      22.0     60.6     2.76x            1338
+       836       8.4 MB      38.2     88.4     2.32x            1267
+      1792      38.5 MB     116.1    183.0     1.58x            1165
+      3344     134.2 MB     412.3    475.9     1.15x             844
+
+The ANE advantage decays as the attention matrix outgrows on-chip memory. Chunking
+attention over the query axis (scripts/chunk_attn.py) caps the live block at
+chunk x N instead of N x N; it is exact, not an approximation, because softmax runs
+along the key axis which each chunk keeps whole. That recovers efficiency
+844 -> 994 GFLOPS and 412 -> 350 ms, with accuracy unchanged (1.16 m, 95%, 50 m).
+
+It does not go faster than that, and the reason is arithmetic rather than
+scheduling: 616x1064 is 348 GFLOP against 48 GFLOP at 836 tokens -- 7.2x the work.
+At the best efficiency this ANE ever reaches, 348 GFLOP is still ~260 ms.
+
+Metal would be a step backwards: measured CPU_AND_GPU is 56.7 ms where the ANE
+does 24.9 ms on the same model. The GPU is 1.5-2x slower than the ANE here.
+
+    input        ANE ms   median   delta<1.25   usable to
+    616x1064 chunked  350    1.16 m      95%        50 m
+    448x784           116    2.64 m      81%        20 m
+    308x532            38    4.28 m      39%        10 m
 
 Run in a separate environment:
 
