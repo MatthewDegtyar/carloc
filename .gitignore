@@ -14,3 +14,4 @@ depthbench/data/
 ios/build/
 ios/*.xcodeproj/xcuserdata/
 ios/DerivedData/
+ios/Local.xcconfig
