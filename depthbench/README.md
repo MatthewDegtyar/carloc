@@ -49,6 +49,34 @@ Two findings worth keeping:
 
 Depth Pro was cancelled mid-run; its earlier HuggingFace-port run scored 2.51 m.
 
+## On-device (iOS / CoreML)
+
+`scripts/export_metric3d_coreml.py` converts Metric3D to CoreML. No published
+build exists because conversion hits four blockers; the last looks architectural
+and is not. Full write-up in that file. The key one:
+
+> Core ML caps tensors at rank 5, and RAFT convex upsampling builds rank 7 --
+> `mask.view(N, 1, 9, f, f, H, W)`. It only splits the two upsample axes so it can
+> recombine them into the output grid at the end, which is exactly what
+> `pixel_shuffle` does. Rewritten within rank 5 and verified bit-identical.
+
+Converted ViT-small, scored on the same 324 objects:
+
+| | ViT-large PyTorch | ViT-small CoreML |
+|---|---|---|
+| median | 1.33 m | **1.16 m** |
+| delta<1.25 | 95% | 95% |
+| usable to | 50 m | 50 m |
+| p90 | 3.83 m | 5.92 m |
+| 40-50 m | 2.81 m | 5.85 m |
+| size | 1.6 GB | **72 MB** |
+
+**The Neural Engine will not take it.** CPU_ONLY 442 ms vs ALL 421 ms -- the ANE
+contributes nothing, because `unfold` and the iterative decoder are rejected op by
+op. So it is a ~420 ms CPU model: outside a per-frame perception budget, inside a
+500 ms ranging loop. For ANE-resident depth, Apple ships CoreML Depth Anything V2
+(25 ms, 50 MB) -- faster, but the sub-15 m specialist.
+
 ## Running
 
     uv run python -m depthbench.cli manifest --out depthbench/data/manifest.json
