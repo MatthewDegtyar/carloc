@@ -1,20 +1,8 @@
-sessions/
-reports/*.png
-reports/*.csv
 __pycache__/
 *.pyc
 .venv/
-.pytest_cache/
-.ruff_cache/
-*.egg-info/
 .env
+sessions/
+reports/*.mp4
+reports/*.png
 models/
-depthbench/runs/
-depthbench/data/
-ios/build/
-ios/*.xcodeproj/xcuserdata/
-ios/DerivedData/
-ios/Local.xcconfig
-
-# aerial render output; regenerate with aerial/
-aerial/reports/*.mp4

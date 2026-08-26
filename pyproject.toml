@@ -1,42 +1,19 @@
 [project]
-name = "geoloc-agent"
+name = "carloc"
 version = "0.1.0"
-description = "Posed video -> geolocated object tracks with honest uncertainty -> agent surfacing decisions"
-requires-python = ">=3.10,<3.14"
-dependencies = [
-    "numpy>=1.24",
-    "pyyaml>=6.0",
-    "scipy>=1.10",
-]
+description = "Every car in a drone scene, once, with a real lat/lon"
+requires-python = ">=3.11,<3.14"
+dependencies = ["numpy>=1.26", "pillow>=10.0"]
 
 [project.optional-dependencies]
+# CoreML ships compiled extensions only up to 3.13. The numpy<2 pin that used to
+# sit here belongs to *conversion*, not inference: running an exported .mlpackage
+# is fine under numpy 2 (verified, coremltools 9.0 / numpy 2.5.2).
+detect = ["coremltools>=8.0"]
 plot = ["matplotlib>=3.7"]
-nuscenes = ["pillow>=10.0"]  # metadata is read by io/nuscenes_tables.py; devkit optional
-# CoreML ships compiled extensions only up to 3.13, which is why this project
-# pins below Python 3.14.
-#
-# The numpy<2 pin belongs to *conversion*, not inference: the Torch converter
-# calls int() on shape-(1,) arrays, which numpy 2 rejects. Running an already
-# exported .mlpackage is unaffected -- verified with coremltools 9.0 under
-# numpy 2.5.2. Keeping the pin on the inference extra would be a false
-# constraint, and it collides with `tracking`, which needs numpy>=2.0.2.
-coreml = ["coremltools>=8.0", "pillow>=10.0"]
-coreml-convert = ["coremltools>=8.0", "numpy<2", "pillow>=10.0"]
-tracking = ["trackers>=2.6", "supervision>=0.26"]
-
-[tool.uv]
-# coreml-convert pins numpy<2 for the Torch converter; tracking needs numpy>=2.
-# They are never needed in the same environment -- conversion is a one-off export
-# step, tracking is a runtime dependency -- so they are declared incompatible
-# rather than one of them being loosened to a version it does not support.
-conflicts = [[{ extra = "coreml-convert" }, { extra = "tracking" }]]
 
 [project.scripts]
-geoloc-eval = "geoloc_agent.eval.cli:main"
-geoloc-agent-eval = "geoloc_agent.agent.cli:main"
-geoloc-render = "geoloc_agent.viz.cli:main"
-geoloc-exhibit = "geoloc_agent.viz.exhibit_cli:main"
-geoloc-parking = "geoloc_agent.parking.cli:main"
+carloc = "carloc.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=7.4", "ruff>=0.4"]
@@ -46,19 +23,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/geoloc_agent"]
+packages = ["carloc"]
 
 [tool.ruff]
 line-length = 100
-src = ["src", "tests"]
+target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B"]
+select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
-# archive/ is deliberately off the path. Its trees -- depthbench, the iOS
-# harness -- are finished work kept for reference, not live dependencies,
-# and their tests travel with them.
-addopts = "-q"
