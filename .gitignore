@@ -11,3 +11,6 @@ __pycache__/
 models/
 depthbench/runs/
 depthbench/data/
+ios/build/
+ios/*.xcodeproj/xcuserdata/
+ios/DerivedData/
