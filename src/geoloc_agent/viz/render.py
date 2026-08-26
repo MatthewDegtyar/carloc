@@ -164,10 +164,26 @@ def _range_and_sigma(track: TrackState, frame: Frame) -> tuple[float, float]:
     return r, float(np.sqrt(max(direction @ track.cov @ direction, 0.0)))
 
 
-def _match_track(detection, tracks: list[TrackState], frame: Frame):
-    """Pair a detection with the track whose estimate reprojects nearest to it."""
+def _match_track(detection, tracks: list[TrackState], frame: Frame,
+                 require_class: bool = True):
+    """Pair a detection with the track whose estimate reprojects nearest to it.
+
+    Reprojection distance alone is not enough. A 120 px gate is generous for a
+    large box at range, so a pedestrian track whose estimate has drifted can sit
+    within the gate of a car or bus box and adopt it -- after which the track
+    reads as a pedestrian sixteen metres wide and three metres tall, and any
+    query deriving physical size from that box is answering about the wrong
+    object. Requiring the detection's class to agree with the track's top class
+    costs nothing when they agree and prevents the nonsense when they do not.
+
+    When no track of the right class is in range the detection is left unmatched,
+    which draws as an unlabelled box. That is the better way to be wrong here:
+    it shows something is there without asserting what.
+    """
     best, best_d = None, 120.0
     for track in tracks:
+        if require_class and track.top_class[0] != detection.cls:
+            continue
         uv, valid = project(track.mean[None, :], frame)
         if not valid[0]:
             continue
@@ -175,6 +191,32 @@ def _match_track(detection, tracks: list[TrackState], frame: Frame):
         if distance < best_d:
             best, best_d = track, distance
     return best, best_d
+
+
+def resolve_matches(detections, tracks: list[TrackState], frame: Frame):
+    """Best (nearest-reprojecting) detection per track, plus the leftovers.
+
+    Several detections can reproject nearest to the same track. Letting the last
+    one win silently pairs a track with whatever box happened to come last in the
+    list, which is how a pedestrian track ends up carrying a bus-sized box and
+    then derives as three metres tall. Resolving to the nearest one keeps the box
+    and the class describing the same object.
+    """
+    best: dict[int, tuple[float, object]] = {}
+    unmatched: list = []
+    for detection in detections:
+        track, distance = _match_track(detection, tracks, frame)
+        if track is None:
+            unmatched.append(detection)
+            continue
+        held = best.get(track.track_id)
+        if held is None or distance < held[0]:
+            if held is not None:
+                unmatched.append(held[1])
+            best[track.track_id] = (distance, detection)
+        else:
+            unmatched.append(detection)
+    return best, unmatched
 
 
 def draw_overlays(ax, record, tracks: list[TrackState], max_labels: int = 8) -> None:
@@ -189,20 +231,7 @@ def draw_overlays(ax, record, tracks: list[TrackState], max_labels: int = 8) -> 
 
     frame = record.frame
 
-    # Best (nearest-reprojecting) detection for each track.
-    best: dict[int, tuple[float, object]] = {}
-    unmatched = []
-    for detection in record.detections:
-        track, distance = _match_track(detection, tracks, frame)
-        if track is None:
-            unmatched.append(detection)
-            continue
-        if track.track_id not in best or distance < best[track.track_id][0]:
-            if track.track_id in best:
-                unmatched.append(best[track.track_id][1])
-            best[track.track_id] = (distance, detection)
-        else:
-            unmatched.append(detection)
+    best, unmatched = resolve_matches(record.detections, tracks, frame)
 
     for detection in unmatched:
         x1, y1, x2, y2 = detection.bbox

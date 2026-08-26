@@ -21,6 +21,7 @@ coreml = ["coremltools>=8.0", "numpy<2", "pillow>=10.0"]
 geoloc-eval = "geoloc_agent.eval.cli:main"
 geoloc-agent-eval = "geoloc_agent.agent.cli:main"
 geoloc-render = "geoloc_agent.viz.cli:main"
+geoloc-exhibit = "geoloc_agent.viz.exhibit_cli:main"
 
 [dependency-groups]
 dev = ["pytest>=7.4", "ruff>=0.4"]

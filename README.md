@@ -51,6 +51,63 @@ budget, benchmarked after warm-up (the first inference pays model compilation an
 would overstate latency by an order of magnitude). The three-loop budget holds
 with room to spare.
 
+### Query-driven exhibition
+
+```bash
+uv run geoloc-exhibit                             # scene-0103, all seven queries
+uv run geoloc-exhibit --query "concealment"       # one section only
+uv run geoloc-exhibit --scene scene-0757 --detector yolo
+```
+
+`reports/exhibition.mp4` runs perception and filtering **once**, then interrogates
+the resulting tracks seven ways. Between sections nothing is re-detected and
+nothing is re-filtered — only the predicate changes. That ordering is the point:
+"light vehicles" and "dark vehicles" over the same frames, with different boxes
+lit, is evidence the system holds attributes about persistent objects rather than
+re-reading the picture each time it is asked a question.
+
+| query | asks |
+|---|---|
+| everything | every confirmed track; green under 2 m 1-sigma, amber beyond, red where the geometry cannot support a fix |
+| light vehicles | bodywork samples white / silver / pale grey |
+| dark vehicles | the same tracks, inverted selection |
+| concealment | large enough to hide a **standing** person, plus a ground-shadow wedge |
+| partial cover | hides a **crouching** person only |
+| people | pedestrians, each with its own error ellipse |
+| unreliable | tracks the system explicitly does **not** trust |
+
+Every predicate reads only pipeline output — class posterior, position,
+covariance, sampled appearance, and physical extent derived from box and range.
+None of them reads the nuScenes annotations, which would make the selection look
+better and mean nothing. Matched tracks are drawn in the query's colour with the
+numbers behind the match; unmatched ones stay visible but dimmed, because hiding
+them would make the selection look more decisive than it is.
+
+Three things the queries had to get right, each of which was wrong first:
+
+- **Colour is the median over a track's whole life, not per frame.** One frame
+  catches sun, shadow or a reflection and flips a car between buckets; the
+  selection then flickers while the underlying attribute has not changed.
+- **A bounding box is the hull of a 3-D object.** Derived height runs ~1.15x true
+  (measured: pedestrian 1.10, car 1.15, truck 1.14). A standing person is 1.75 m
+  and a sedan roof is ~1.5 m, so that bias alone flips every car from "cannot
+  conceal" to "can", and the query matches everything and means nothing.
+- **A truncated box is a lower bound, not a measurement.** The nearest, largest
+  vehicle usually runs off the bottom of the frame; its derived height is then
+  meaningless and calling it "too small to conceal a person" is a false negative
+  on the one query where that is the dangerous direction to be wrong. Those are
+  reported as *unknown size*, which is not the same as harmless.
+
+`scene-0103` is the default because it carries all seven: 116 tracks over 40
+frames, no frame empty, and 41 pedestrians so `people` is not a two-box section.
+
+**The default detector is the oracle**, for the same reason as the render above:
+it isolates the query layer from detector error so what the sections show is the
+selection, not YOLO's recall. `--detector yolo` runs the whole thing on real
+perception; expect fewer tracks and some misses, per the table above. The
+appearance sampling, the size derivation and every predicate are identical
+either way — the oracle supplies boxes, not answers.
+
 ### Synthetic
 
 `geoloc-render` also produces a two-part clip: the camera view with class, range and
@@ -406,6 +463,7 @@ environment and are never committed.
 | — mono-depth ranger | **Added.** Size prior from bbox height; initialisation and gating only |
 | 5 — publish | **CoT done** (round-trips over a real socket). **Lattice written**, needs credentials |
 | 6 — agent layer | **Done.** `reports/agent_eval.md` with the pattern comparison |
+| — query exhibition | **Added.** `reports/exhibition.mp4`; one perception pass, seven operator queries |
 
 ### Agent pattern comparison (from `reports/agent_eval.md`)
 
