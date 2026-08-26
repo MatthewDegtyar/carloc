@@ -6,3 +6,6 @@ sessions/
 reports/*.mp4
 reports/*.png
 models/
+*.mp4
+Screenshot*.png
+research/*.html

@@ -106,6 +106,23 @@ Licence plates. Occupancy timing. Payment integration. Tracking moving vehicles.
 Anything on-device. Those were explored in `archive/v1/`; none of them is needed
 to put a car on a map exactly once, and each one hid whether that part worked.
 
+## Parallel track: Miami on-street zones
+
+See `research/FINDINGS.md`. Short version: the zone geometry is not public
+anywhere — ParkMobile has no zone API (its search box geocodes the number as an
+address and returns Costa Rica for 40703), MPA publishes only garages, and OSM
+carries 8 parking tags across 1,610 downtown streets.
+
+It **is** a public record though: MPA is an independent agency of the City of
+Miami and therefore subject to Fla. Stat. Ch. 119. Draft request in
+`research/records_request.md`.
+
+Built `carloc/blockface.py` as the container that data drops into — every
+downtown block face as a box with lat/lon and estimated capacity, exported as
+GeoJSON for Google My Maps. It is an **upper bound**: 31,676 spaces for downtown
+against MPA's ~11,800 for the whole city, because street geometry cannot say
+which faces carry managed parking.
+
 ## Blocked: AirZoo cannot support this task
 
 Built the chain end to end and it refuses every detection, correctly.
