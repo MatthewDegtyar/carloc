@@ -21,7 +21,7 @@ the slow thing.
 | **capture** | 60 Hz | ARKit pose + pixel buffer | — | free (ARKit does it) |
 | **perception** | 10 Hz | YOLO11n detect | 11 ms | ~5 ms |
 | **fuse** | 10 Hz | bearings, association, EKF, batch refine | 11 ms | ~11 ms (CPU) |
-| **ranging** | **0.3 Hz** | Metric3D depth | 116 ms @448x784 | ~71 ms (52-194) |
+| **ranging** | **0.3 Hz** | Metric3D depth | **121 ms** @504x672 | ~74 ms (54-202) |
 | **decision** | 0.2 Hz | surfacing policy | <1 ms | <1 ms |
 
 At 0.3 Hz the depth model is a **2-6% duty cycle**. That is the reason to start
@@ -30,9 +30,49 @@ first build measures the things nobody has measured yet (ARKit pose quality,
 thermals, sustained throughput) rather than re-measuring inference.
 
 Per-second load at these cadences: perception 10x5 = 50 ms, fuse 10x11 = 110 ms,
-ranging 0.3x71 = 21 ms. Roughly **180 ms of work per second**, ~18% of one core's
+ranging 0.3x74 = 22 ms. Roughly **180 ms of work per second**, ~18% of one core's
 wall clock, spread across three queues. There is headroom; the risk is thermal and
 scheduling, not raw throughput.
+
+Note the shape of that: **filtering costs five times more than depth** at these
+cadences. The expensive-looking component is the one that barely matters, because
+it runs rarely. The filter runs on every frame and is the thing to watch.
+
+## The shipping model
+
+`models/metric3d_vit_small_ios_504x672.mlpackage` -- 72 MB, built by
+`scripts/export_metric3d_ios.py`. Two things about it are deployment-specific:
+
+**Image input.** ARKit gives a `CVPixelBuffer`. A model taking an `MLMultiArray`
+forces a multi-MB CPU conversion per inference before any compute starts. This one
+takes the buffer directly. ImageNet normalisation is baked into the graph, because
+Core ML's `ImageType` offers only a scalar scale plus per-channel bias and cannot
+divide by three different per-channel standard deviations -- approximating it would
+cost ~2% per channel.
+
+**4:3, matching the camera.** ARKit's frame is 1920x1440 (aspect 0.750). The
+benchmark config 448x784 is 0.571, so letterboxing a phone frame into it puts
+**24% of the tokens on grey bars**. 504x672 is exactly 4:3 at 1728 tokens against
+1792 -- same cost, every token on image.
+
+Measured on M2, scored on nuScenes (324 objects):
+
+| config | M2 ANE | median | delta<1.25 | usable to |
+|---|---|---|---|---|
+| 616x1064 chunked | 350 ms | 1.16 m | 95% | 50 m |
+| **504x672 iOS** | **121 ms** | **2.61 m** | 81% | **35 m** |
+| 448x784 | 116 ms | 2.64 m | 81% | 20 m |
+| 308x532 | 38 ms | 4.28 m | 39% | 10 m |
+
+**That 2.61 m is a floor, not an estimate.** nuScenes is 16:9, so scoring a 4:3
+model there wastes ~25% of its tokens on padding -- exactly the waste the sizing
+removes on a 4:3 ARKit frame. On device it should do better; by how much cannot be
+measured without 4:3 ground truth. Every other number in this project errs the
+other way, so this one is worth flagging twice.
+
+Other 4:3 sizes are available for trading latency against range once there are real
+device numbers: 336x448 (768 tokens), 420x560 (1200), 504x672 (1728), 546x728
+(2028). Cost is quadratic in tokens.
 
 ## What depth is actually for
 
@@ -63,8 +103,8 @@ is not a compromise forced by the hardware; it is what the role calls for.
 Xcode's Core ML Performance Report runs an `.mlpackage` on a connected device and
 reports per-op device placement and real latency.
 
-- [ ] Run `m3d_small_448x784.mlpackage` and `m3d_small_chunked_616x1064.mlpackage`
-      through it on a physical iPhone 16 Pro
+- [ ] Run `models/metric3d_vit_small_ios_504x672.mlpackage` -- the shipping model
+- [ ] Run `m3d_small_chunked_616x1064.mlpackage` -- the 50 m option, for comparison
 - [ ] Run `yolo11n.mlpackage` through it
 - [ ] Record: latency, and the fraction of ops landing on the Neural Engine
 
@@ -76,6 +116,10 @@ token counts. Those ratios pull in opposite directions: 448x784 could be 52 ms o
 
 **Accept:** real latency for all three models, and a decision on which depth
 resolution to ship.
+
+Xcode: open the `.mlpackage`, select the connected device, run the Performance
+Report. Two minutes. It replaces the 54-202 ms bracket above with a number, and the
+whole budget is sized off it.
 
 ## Milestone 1 -- capture and pose
 
