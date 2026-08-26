@@ -139,6 +139,7 @@ def observation_from_detection(
         bearing_sigma=angular_sigma,
         cls=detection.cls,
         score=detection.score,
+        track_hint=detection.track_hint,
         range=range_meas,
         range_prior=range_prior,
         origin_cov=frame.pose.position_cov,

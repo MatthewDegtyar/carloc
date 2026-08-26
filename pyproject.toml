@@ -12,10 +12,24 @@ dependencies = [
 [project.optional-dependencies]
 plot = ["matplotlib>=3.7"]
 nuscenes = ["pillow>=10.0"]  # metadata is read by io/nuscenes_tables.py; devkit optional
-# CoreML ships compiled extensions only up to 3.13, and its Torch converter needs
-# numpy<2 (it calls int() on shape-(1,) arrays, which numpy 2 rejects). Both
-# constraints are the reason this project pins below Python 3.14.
-coreml = ["coremltools>=8.0", "numpy<2", "pillow>=10.0"]
+# CoreML ships compiled extensions only up to 3.13, which is why this project
+# pins below Python 3.14.
+#
+# The numpy<2 pin belongs to *conversion*, not inference: the Torch converter
+# calls int() on shape-(1,) arrays, which numpy 2 rejects. Running an already
+# exported .mlpackage is unaffected -- verified with coremltools 9.0 under
+# numpy 2.5.2. Keeping the pin on the inference extra would be a false
+# constraint, and it collides with `tracking`, which needs numpy>=2.0.2.
+coreml = ["coremltools>=8.0", "pillow>=10.0"]
+coreml-convert = ["coremltools>=8.0", "numpy<2", "pillow>=10.0"]
+tracking = ["trackers>=2.6", "supervision>=0.26"]
+
+[tool.uv]
+# coreml-convert pins numpy<2 for the Torch converter; tracking needs numpy>=2.
+# They are never needed in the same environment -- conversion is a one-off export
+# step, tracking is a runtime dependency -- so they are declared incompatible
+# rather than one of them being loosened to a version it does not support.
+conflicts = [[{ extra = "coreml-convert" }, { extra = "tracking" }]]
 
 [project.scripts]
 geoloc-eval = "geoloc_agent.eval.cli:main"

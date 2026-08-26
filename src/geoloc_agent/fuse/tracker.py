@@ -68,6 +68,30 @@ class TrackerConfig:
     # estimator's real spread; refining less often lets sequential-EKF optimism
     # accumulate between refinements (NEES ~3.5 at every=5 versus ~3.3 at 1).
     # Raise it to trade calibration for compute on large track counts.
+    hint_gate_scale: float = 6.0
+    """How far an upstream tracker's identity claim may widen the geometric gate.
+
+    An image-plane tracker answering "same pixels" is evidence independent of the
+    filter's "same place", so agreement between them justifies a looser threshold
+    than geometry alone would allow. That is ordinary evidence combination, not a
+    shortcut.
+
+    It matters most where the geometric gate is least reliable: a fast platform
+    over small static objects moves a track's predicted reprojection a long way
+    between frames, and the gate then rejects correct associations. On the aerial
+    flight that produced one track per detection.
+
+    It widens the gate; it never opens it. A hinted pair still has to be
+    geometrically possible, so an upstream tracker that swaps two identities
+    cannot force a match that the geometry refuses -- the failure stays
+    recoverable, which is the same reason ``class_mismatch_penalty`` is a
+    penalty rather than a veto."""
+
+    hint_bonus: float = 4.0
+    """Cost subtracted when a hint agrees, so the assignment prefers it among
+    otherwise comparable candidates. Bounded below at zero so a hint can never
+    make a match look better than a perfect geometric fit."""
+
     class_mismatch_penalty: float = 9.21
     """Cost added when a detection's class contradicts a track's confident class.
 
@@ -128,6 +152,14 @@ class Tracker:
         """
         self._next_id = 1
         self._last_t: float | None = None
+        self._hint_owner: dict[int, int] = {}
+        """Upstream tracker id -> the track that currently answers to it.
+
+        Learned rather than declared: the first time a hinted observation is
+        matched or births a track, that pairing is recorded. Nothing forces the
+        two id spaces to agree, so if the upstream tracker loses and re-acquires
+        an object under a new id, this simply stops helping for a frame instead
+        of asserting a wrong identity."""
 
     # -- main entry point -------------------------------------------------
 
@@ -146,8 +178,11 @@ class Tracker:
 
         matched_ids = set()
         for track_id, obs_index in matches:
-            self._update_track(self.tracks[track_id], observations[obs_index], t, pose)
+            observation = observations[obs_index]
+            self._update_track(self.tracks[track_id], observation, t, pose)
             matched_ids.add(track_id)
+            if observation.track_hint is not None:
+                self._hint_owner[observation.track_hint] = track_id
 
         for track_id, track in self.tracks.items():
             if track_id not in matched_ids:
@@ -156,7 +191,10 @@ class Tracker:
                     track.state.status = TrackStatus.COASTING
 
         for obs_index in unmatched_obs:
-            self._birth(observations[obs_index], t)
+            observation = observations[obs_index]
+            born = self._birth(observation, t)
+            if observation.track_hint is not None:
+                self._hint_owner[observation.track_hint] = born.state.track_id
 
         self._reap()
         return self.live_states()
@@ -224,6 +262,11 @@ class Tracker:
             ekf = track.ekf
             check_epipolar = self.config.epipolar_gating and not track.localized
             for j, obs in enumerate(observations):
+                hinted = (
+                    obs.track_hint is not None
+                    and self._hint_owner.get(obs.track_hint) == track_id
+                )
+                gate = self.config.gate_chi2 * (self.config.hint_gate_scale if hinted else 1.0)
                 # Both constraints must hold. They are independent: Mahalanobis
                 # asks "could the object be there given what I believe", the
                 # epipolar residual asks "is this bearing consistent with my ray
@@ -232,13 +275,16 @@ class Tracker:
                 # toothless while the range prior is wide, and the epipolar test
                 # says nothing about where along the ray the object sits.
                 distance = ekf.mahalanobis(obs, pose)
-                if distance > self.config.gate_chi2:
+                if distance > gate:
                     continue
-                if check_epipolar and self._epipolar_cost(track, obs) > self.config.gate_chi2:
+                if check_epipolar and self._epipolar_cost(track, obs) > gate:
                     continue
-                # Gating is decided on the raw distance; the class penalty only
-                # ranks the feasible options.
-                cost[i, j] = distance + self._class_penalty(track, obs)
+                # Gating is decided on the raw distance; the class penalty and
+                # the hint bonus only rank the feasible options.
+                score = distance + self._class_penalty(track, obs)
+                if hinted:
+                    score = max(0.0, score - self.config.hint_bonus)
+                cost[i, j] = score
 
         rows, cols = linear_sum_assignment(cost)
         matches = [

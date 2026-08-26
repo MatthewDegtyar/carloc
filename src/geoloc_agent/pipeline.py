@@ -289,6 +289,7 @@ def _apply_ranger(
             Observation(
                 t=obs.t, frame_id=obs.frame_id, origin=obs.origin, bearing=obs.bearing,
                 bearing_sigma=obs.bearing_sigma, cls=obs.cls, score=obs.score,
+                track_hint=obs.track_hint,
                 range=measurement if measurement.valid else None, origin_cov=obs.origin_cov,
                 truth_position=obs.truth_position, truth_id=obs.truth_id,
             )

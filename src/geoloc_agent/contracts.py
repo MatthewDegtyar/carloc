@@ -276,6 +276,15 @@ class Observation:
     assumption into the estimate on every single frame, and the filter would
     converge confidently onto whatever that assumption happened to be."""
 
+    track_hint: int | None = None
+    """Identity asserted by an upstream image-plane tracker, if one ran.
+
+    Independent evidence: an IoU/appearance tracker answers "is this the same
+    pixels" while the filter answers "is this the same place". Combining them is
+    the point -- see ``TrackerConfig.hint_gate_scale``. Never authoritative on
+    its own; an external tracker that swaps two identities must remain
+    recoverable."""
+
     origin_cov: np.ndarray = field(default_factory=lambda: np.zeros((3, 3)))
     truth_position: np.ndarray | None = None
     truth_id: str | None = None
