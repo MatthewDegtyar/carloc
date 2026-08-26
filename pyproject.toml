@@ -42,5 +42,8 @@ select = ["E", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src", "."]  # "." so depthbench/ is importable in tests
+pythonpath = ["src"]
+# archive/ is deliberately off the path. Its trees -- depthbench, the iOS
+# harness -- are finished work kept for reference, not live dependencies,
+# and their tests travel with them.
 addopts = "-q"

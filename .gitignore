@@ -15,3 +15,6 @@ ios/build/
 ios/*.xcodeproj/xcuserdata/
 ios/DerivedData/
 ios/Local.xcconfig
+
+# aerial render output; regenerate with aerial/
+aerial/reports/*.mp4
