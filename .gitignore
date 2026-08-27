@@ -9,3 +9,4 @@ models/
 *.mp4
 Screenshot*.png
 research/*.html
+.cache/
