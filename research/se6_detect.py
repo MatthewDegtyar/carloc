@@ -32,7 +32,7 @@ PALETTE = {
 }
 
 
-def name_colour(rgb):
+def classify_colour(rgb):
     r, g, b = rgb
     best, bd = "grey", 1e9
     for name, (pr, pg, pb) in PALETTE.items():
@@ -60,7 +60,8 @@ def main():
     from PIL import Image
     from rfdetr import RFDETRBase
 
-    from carloc.rfdetr_detect import COCO_VEHICLES
+    from carloc.appearance import classify_colour, dominant_rgb
+from carloc.rfdetr_detect import COCO_VEHICLES
 
     with open("reports/se6_track.json") as fh:
         track = json.load(fh)
@@ -102,7 +103,7 @@ def main():
                 "sigma_along_m": fix["sigma_along_m"], "sigma_cross_m": fix["sigma_cross_m"],
                 "heading_deg": fix["heading_deg"],
                 "vehicle_class": COCO_VEHICLES.get(int(cid), "car"),
-                "color_rgb": list(rgb), "color": name_colour(rgb),
+                "color_rgb": list(rgb), "color": classify_colour(rgb),
                 "size_px": int(y2-y1), "range_m": round(along, 1),
             })
         if i % 80 == 0:

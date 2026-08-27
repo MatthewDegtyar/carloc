@@ -12,7 +12,7 @@
    65,
    70
   ],
-  "color": "green",
+  "color": "grey",
   "size_px": 292,
   "range_m": 16.8
  },
@@ -63,7 +63,7 @@
    86,
    80
   ],
-  "color": "green",
+  "color": "grey",
   "size_px": 123,
   "range_m": 17.0
  },
@@ -131,7 +131,7 @@
    69,
    77
   ],
-  "color": "green",
+  "color": "grey",
   "size_px": 222,
   "range_m": 6.1
  },
@@ -148,7 +148,7 @@
    67,
    75
   ],
-  "color": "green",
+  "color": "grey",
   "size_px": 165,
   "range_m": 5.8
  },
@@ -216,7 +216,7 @@
    63,
    60
   ],
-  "color": "green",
+  "color": "black",
   "size_px": 158,
   "range_m": 6.8
  },
@@ -301,7 +301,7 @@
    55,
    56
   ],
-  "color": "green",
+  "color": "black",
   "size_px": 211,
   "range_m": 5.1
  },
@@ -318,7 +318,7 @@
    140,
    135
   ],
-  "color": "tan",
+  "color": "silver",
   "size_px": 129,
   "range_m": 16.1
  },
@@ -369,7 +369,7 @@
    67,
    63
   ],
-  "color": "green",
+  "color": "grey",
   "size_px": 99,
   "range_m": 16.6
  },
@@ -437,7 +437,7 @@
    37,
    39
   ],
-  "color": "black",
+  "color": "red",
   "size_px": 96,
   "range_m": 11.7
  },
@@ -556,7 +556,7 @@
    58,
    56
   ],
-  "color": "green",
+  "color": "black",
   "size_px": 94,
   "range_m": 11.5
  },
@@ -590,7 +590,7 @@
    28,
    28
   ],
-  "color": "black",
+  "color": "red",
   "size_px": 228,
   "range_m": 5.3
  },
@@ -641,7 +641,7 @@
    61,
    54
   ],
-  "color": "green",
+  "color": "black",
   "size_px": 201,
   "range_m": 5.5
  },

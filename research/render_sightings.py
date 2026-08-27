@@ -15,8 +15,7 @@ from matplotlib.patches import Ellipse
 from carloc.basemap import ATTRIBUTION, fetch_extent, imshow_mercator, mercator_y
 from carloc.sightings import Sighting, SightingLog, synthetic_ts
 
-SWATCH = {"black":"#1a1a1c","white":"#e8e8e8","silver":"#aaacaf","grey":"#6e7073",
-          "red":"#c0342c","blue":"#3550a0","green":"#3aa35a","tan":"#b6a06e"}
+from carloc.appearance import SWATCH
 EPOCH = datetime(2025, 6, 2, 9, 0, 0)
 W, E, S, N = -80.19290, -80.18980, 25.76735, 25.76895
 
