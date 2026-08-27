@@ -9,7 +9,10 @@ dependencies = ["numpy>=1.26", "pillow>=10.0"]
 # CoreML ships compiled extensions only up to 3.13. The numpy<2 pin that used to
 # sit here belongs to *conversion*, not inference: running an exported .mlpackage
 # is fine under numpy 2 (verified, coremltools 9.0 / numpy 2.5.2).
-detect = ["coremltools>=8.0"]
+detect = [
+    "coremltools>=8.0",
+    "inference-sdk>=0.9",
+]
 plot = ["matplotlib>=3.7"]
 
 [project.scripts]
