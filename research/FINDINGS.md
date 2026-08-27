@@ -529,3 +529,56 @@ that exist. What would work is a camera an enforcement agency already owns and
 could point at the kerb -- MPA pay-station cameras, or a fixed patrol-mounted
 one -- none of which is a public stream. The overstay half still needs a second
 pass; a public fixed vantage is not it.
+
+## 18. The sightings log: was a car here?
+
+The substrate for overstay. Each of the 40 parked cars on the SE 6th Street pass
+is recorded as one **sighting**: a place (lat/lon), a synthetic timestamp, an
+appearance, and the position uncertainty from section 15. `carloc/sightings.py`
+holds the store (`reports/sightings.csv` / `.json`).
+
+Three things make it fit for the loitering question that comes later:
+
+**No plates.** The system's whole point is that it works without reading one, so
+a car's identity across sightings is *class + coarse colour + location*, never an
+ID. RF-DETR gives the class; the dominant body colour (median of the box centre,
+glare and under-car road trimmed) gives the rest. Observed mix over the 40 cars:
+34 cars / 6 trucks; 15 grey, 13 black, 9 green (tree-shadowed), plus a silver, a
+tan and a blue.
+
+**Time is synthetic and labelled.** The footage has no chronology, so each
+timestamp is a fixed epoch (09:00:00) plus the video moment the car was seen;
+every record carries `synthetic=True`. The mechanism is real, the clock invented.
+
+**Presence is a Mahalanobis gate, not a radius.** A fix here has a 1.8 m
+cross-track sigma and a 3-50 m along-track one, so "within X metres" is wrong on
+both axes. The query rotates the query point into the sighting's along/cross
+frame and asks whether it falls inside the error ellipse. Worked example:
+
+    query a known spot at 09:08:22  -> HIT: green car, 0.0 sigma
+    query 6 m out into the lane     -> 3.3 sigma, no hit
+
+## 19. Overstay fires, and where its ceiling is
+
+With one pass every car is seen once, so `overstay()` against that pass is
+correctly empty. Replaying the same 40 cars 40 minutes later with realistic churn
+(40% turn over, the rest stay, ~1.2 m re-detection jitter) makes the primitive
+fire:
+
+    pass 1: 40 sightings @ 09:07
+    pass 2: 40 sightings @ 09:47  (23 stayed, 17 turned over)
+    overstay candidates: 20  ->  20/23 real loiterers found, 0 false positives
+
+**Zero false positives is the property that matters** -- the system never flags a
+free parker as an overstayer. The 3 missed loiterers are the honest ceiling: the
+first matcher tried all-pairs and returned **81** candidates, because along-track
+sigma is metres wide and "grey car" is not a unique key, so every grey car on the
+block matched every other. One-to-one **mutual-nearest** matching fixes it -- a
+pair is kept only when each car is the other's closest admissible match -- but
+what it cannot recover are cars whose descriptor and position are genuinely
+ambiguous against a neighbour.
+
+That names exactly what a real deployment must improve: tighter along-track
+localisation (denser anchors -> smaller sigma) and a stronger re-id descriptor
+than eight colours. Both raise recall; neither is needed to prove the mechanism,
+which is what `reports/sightings.png` shows.
