@@ -32,10 +32,24 @@ That matters for what they can and cannot tell you:
 * they do NOT say which **side** of the street is metered
 * they do NOT locate the **parking lane**, since they sit on the centreline
 
-Zone extents are large -- 13 points over 700 x 429 m for 40703, 35 over
-1886 x 679 m for 40711 -- so a zone is a corridor spanning many blocks, not the
-block-face unit the MUTCD default implies. Miami numbers far coarser than the
-signage rule suggests.
+**A zone is a set of disjoint patches, not one stretch of kerb.** Bounding-box
+extents are misleading and I quoted them before checking: zone 40713's "2087 x
+2054 m" is a box drawn around three separate patches. Linking anchors closer than
+300 m and counting connected components gives the real shape:
+
+    40701    7 pts   1 piece    267 m
+    40703   13 pts   1 piece    700 m
+    40711   35 pts   2 pieces   1886 m + a single stray point
+    40712   30 pts   2 pieces   1259 m + 205 m
+    40713   40 pts   3 pieces   852 m, 445 m, 822 m
+
+So no zone is really kilometres across. Downtown zones (40701, 40703) are single
+compact areas of a few hundred metres; outlying ones share a number across
+several detached patches. Use the components, never the bounding box, and never
+call a zone a "corridor" -- I did, and it was wrong.
+
+The 40711 stray is worth flagging as suspect: one anchor 1.9 km from the other
+34, alone in its own component.
 
 There is no bulk listing: `/api/locations` requires an `internalZoneCode`, and
 supplier-only queries 404. Zones are therefore found by probing signage codes,
