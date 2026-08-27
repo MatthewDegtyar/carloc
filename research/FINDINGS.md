@@ -407,3 +407,90 @@ Either would close leg 1:
    texture, blades become OCR-able, and both odometry and anchoring return.
 
 Leg 1 is the only missing leg. Legs 2 and 3 are already demonstrated.
+
+## 14. The 4K source changes the answer
+
+The `640x360` file was a re-encode. The genuine source is `3840x2160 @ 60 fps`
+(av01, format 401); the 00:01:00-00:10:00 section is 1.5 GB. Two things follow
+immediately.
+
+**Street blades become legible, and they falsified the route.** At 640x360 a
+blade is ~12 px wide and unreadable, so the route had been inferred from
+landmarks -- and the landmark was wrong. The church at t=482-500 is not Gesu
+(downtown); the first legible blade, `SE 7 ST`, put the whole pass in **Brickell**,
+and the facade reads `FIRST PRESB` -- First Presbyterian Church of Miami, 609
+Brickell Avenue, at **25.767679, -80.189544**, which is *east* of both Brickell
+Avenue carriageways.
+
+Every downtown route hypothesis in section 13 was therefore wrong, including the
+premise. The corrected route, read off blades rather than inferred:
+
+    t=30    Brickell Ave northbound at SE 13 ST / Coral Way
+    t=300   Brickell Bay Drive
+    t=412   SE 6th St x SE 1st Avenue        (blade "SE 1 Av")
+    t=420   all-way STOP, SE 1st Avenue
+    t=480   blade "SE 6 ST", "SE 7 ST NEXT SIGNAL"
+    t=505   right turn onto Brickell Avenue southbound
+    t=520   SE 7 ST signal, One Brickell City Centre hoarding
+
+Travel direction is fixed independently: the colourful Brickell City Centre
+garage is on the **left** at t=430, and BCC is south of SE 6th Street, so the car
+is running **east**. That also settles the yaw sign -- a camera turning right
+shifts the scene left, so negative image translation is a **right** turn, and the
+turn labels in section 13 were inverted.
+
+**Road texture is still not the problem it was assumed to be.** At 4K the
+near-field asphalt still measures 2-6 grey levels and dense flow still returns
+exactly `0.00` px. Resolution was never the issue: Miami asphalt in direct sun
+has no texture to track. Ground-plane visual odometry is unavailable on this
+footage at any resolution, and that is a property of the road, not the camera.
+
+## 15. What replaced odometry, and the pass that came out of it
+
+Speed comes from **residual scene motion** instead. After the rigid part of the
+frame-to-frame transform is removed, what remains is parallax against buildings
+and parked cars, which have ample texture. It gives a reliable stopped/moving
+shape -- the car is stopped for **50%** of the window -- and the anchors supply
+the scale. Distance is then distributed by observed motion rather than uniformly
+in time.
+
+Anchors are the two crossings the blades pin: SE 1st Avenue at t=420 and the
+Brickell Avenue turn at t=505, **190.6 m apart over 85 s** (mean 2.24 m/s, a
+crawl, which the frames confirm).
+
+Along-track error accumulates only while the car moves and must vanish at both
+anchors, so it is a fraction of the distance to the *nearer* anchor, not of the
+whole span. The result is a sawtooth: **median 11.4 m, best 1.4 m at the
+anchors, 50 m worst mid-segment.**
+
+**Monocular range is never used.** The satellite survey already measured where a
+kerbside car sits -- 4.73 m from the centreline, from 185 observations (section
+9) -- so lateral offset is known a priori and only bearing is needed:
+
+    along = lateral / tan(|bearing|),  bearing = atan((cx - W/2)/f)
+
+with `f` self-calibrated from a 90-degree turn. This is why the chain survives a
+weak camera: the hard quantity was measured from orbit, and the video only has to
+supply an angle.
+
+Result over 190 m of SE 6th Street: **576 kerbside detections collapsing to 40
+distinct parked cars**, each with a lat/lon and a 1-sigma ellipse
+(`reports/se6_pass.png`, `se6_cars.csv`, `se6_track.csv`).
+
+## 16. The remaining gap: no ParkMobile geometry for Brickell
+
+The verdict cannot be computed for these 40 cars, and the reason is data, not
+method. **260 signage codes were scanned** (40600-40859) against the zone API at
+a 0.6 s delay. Twenty resolved as `OnStreet`, and the nearest anchor to SE 6th
+Street is **371 m away** (zone 40610, a single anchor north of the river). None
+covers Brickell.
+
+The zones on file cluster downtown (40701, 40703), Coconut Grove (40711-40714)
+and Edgewater (40715). ParkMobile's own Brickell page lists only garages and
+lots, and confirms kerbside is "limited and metered" without publishing a code.
+The plaque visible at SE 1st Avenue is a backlit kiosk and unreadable even at 4K.
+
+So the honest verdict for these 40 cars is **UNKNOWN -- no zone geometry**, which
+is not the same as OUTSIDE. Closing it needs the Brickell signage code, from a
+legible plaque or from the operator; the lookup itself is already built and
+demonstrated downtown in sections 10-11.
