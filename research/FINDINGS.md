@@ -582,3 +582,45 @@ That names exactly what a real deployment must improve: tighter along-track
 localisation (denser anchors -> smaller sigma) and a stronger re-id descriptor
 than eight colours. Both raise recall; neither is needed to prove the mechanism,
 which is what `reports/sightings.png` shows.
+
+## 20. Atomic counting: track, triangulate, slot
+
+The place-then-merge counter over-counted. It placed every detection
+independently at `range = lateral / tan(bearing)` and merged points within 3.5 m,
+which fails both ways: one car seen across many frames scatters along the street
+(range is wildly bearing-sensitive at shallow angles) and splits, while two
+adjacent cars merge. On SE 6th it returned **40** for a block that holds about
+half that.
+
+`carloc/tracking.py` rebuilds the count around the fact a parked car is a fixed
+point whose bearing sweeps as the camera passes -- the camera-orientation
+variable doing the work:
+
+1. **associate** -- link detections across frames by image motion (a kerb car
+   drifts left and grows) plus appearance, into tracklets. 699 detections -> 168
+   tracklets.
+2. **triangulate** -- each tracklet's along-position from *all* its bearings:
+   `S_i = s_cam_i + L/tan(|bearing|)`, combined weighted by `sin^4(bearing)` so
+   the near-abeam views (precise) dominate the far ones (useless), with a 30-degree
+   floor below which a detection is discarded. This pins a car's position to
+   ~1.5 m *relative to its neighbours*, which is what makes the count atomic. A
+   tracklet with no abeam view is dropped -- a useful filter against distant and
+   moving vehicles.
+3. **slot** -- collapse tracklets to physical cars with a minimum-separation
+   prior. The first attempt used union-find on "within N m" and chained the whole
+   crawl-section into one blob (single-linkage: every fragment sat <4 m from the
+   next). Replaced with confidence-ranked non-maximum suppression -- seed a slot
+   with the best-supported tracklet, absorb weaker ones within 4.5 m, start a new
+   slot only beyond that. Seeding by support, not chaining, is what stops the
+   runaway merge; the min separation stops fragments becoming phantom cars.
+
+Result: **40 -> 20 cars**, evenly spaced at real parking intervals, **13 of them
+rebuilt from occlusion-split tracklets** (`reports/count_compare.png`). Median
+13 detections per car.
+
+**Honest limits.** The count is atomic and the *relative* spacing is good to
+~1.5 m, but *absolute* lat/lon still inherits the camera-trajectory sigma (up to
+~25 m mid-block, from the sawtooth between only two anchors). And the west end,
+where the camera moved faster, yields fewer detections per car and is the most
+likely place to under-count. Both shrink with more anchors (more cross-street
+crossings), not with a better detector.

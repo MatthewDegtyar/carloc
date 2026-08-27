@@ -10,14 +10,7 @@
   "ndet": 3,
   "n_tracklets": 1,
   "video_t": 423.88,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-001",
@@ -30,14 +23,7 @@
   "ndet": 20,
   "n_tracklets": 2,
   "video_t": 425.0,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-002",
@@ -50,14 +36,7 @@
   "ndet": 8,
   "n_tracklets": 1,
   "video_t": 427.75,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   195,
-   198,
-   204
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-003",
@@ -70,14 +49,7 @@
   "ndet": 15,
   "n_tracklets": 2,
   "video_t": 428.88,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-004",
@@ -90,14 +62,7 @@
   "ndet": 11,
   "n_tracklets": 1,
   "video_t": 430.38,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-005",
@@ -110,14 +75,7 @@
   "ndet": 5,
   "n_tracklets": 1,
   "video_t": 433.12,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   232,
-   87,
-   77
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-006",
@@ -130,14 +88,7 @@
   "ndet": 5,
   "n_tracklets": 1,
   "video_t": 434.75,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   232,
-   87,
-   77
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-007",
@@ -150,14 +101,7 @@
   "ndet": 11,
   "n_tracklets": 2,
   "video_t": 434.88,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-008",
@@ -170,14 +114,7 @@
   "ndet": 19,
   "n_tracklets": 2,
   "video_t": 436.5,
-  "heading_deg": 103.2,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.2
  },
  {
   "id": "SE6-009",
@@ -190,14 +127,7 @@
   "ndet": 9,
   "n_tracklets": 4,
   "video_t": 438.0,
-  "heading_deg": 103.0,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.0
  },
  {
   "id": "SE6-010",
@@ -210,14 +140,7 @@
   "ndet": 5,
   "n_tracklets": 2,
   "video_t": 439.12,
-  "heading_deg": 103.0,
-  "color_rgb": [
-   58,
-   58,
-   64
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.0
  },
  {
   "id": "SE6-011",
@@ -230,14 +153,7 @@
   "ndet": 11,
   "n_tracklets": 2,
   "video_t": 440.75,
-  "heading_deg": 103.0,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.0
  },
  {
   "id": "SE6-012",
@@ -250,14 +166,7 @@
   "ndet": 12,
   "n_tracklets": 1,
   "video_t": 442.25,
-  "heading_deg": 103.0,
-  "color_rgb": [
-   58,
-   58,
-   64
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.0
  },
  {
   "id": "SE6-013",
@@ -270,14 +179,7 @@
   "ndet": 23,
   "n_tracklets": 2,
   "video_t": 444.0,
-  "heading_deg": 103.0,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.0
  },
  {
   "id": "SE6-014",
@@ -290,14 +192,7 @@
   "ndet": 36,
   "n_tracklets": 2,
   "video_t": 446.38,
-  "heading_deg": 103.4,
-  "color_rgb": [
-   195,
-   198,
-   204
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.4
  },
  {
   "id": "SE6-015",
@@ -310,14 +205,7 @@
   "ndet": 34,
   "n_tracklets": 1,
   "video_t": 449.62,
-  "heading_deg": 103.4,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.4
  },
  {
   "id": "SE6-016",
@@ -330,14 +218,7 @@
   "ndet": 106,
   "n_tracklets": 5,
   "video_t": 457.88,
-  "heading_deg": 103.4,
-  "color_rgb": [
-   195,
-   198,
-   204
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.4
  },
  {
   "id": "SE6-017",
@@ -350,14 +231,7 @@
   "ndet": 42,
   "n_tracklets": 5,
   "video_t": 466.62,
-  "heading_deg": 103.4,
-  "color_rgb": [
-   58,
-   58,
-   64
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.4
  },
  {
   "id": "SE6-018",
@@ -370,14 +244,7 @@
   "ndet": 37,
   "n_tracklets": 9,
   "video_t": 470.38,
-  "heading_deg": 103.4,
-  "color_rgb": [
-   139,
-   143,
-   152
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.4
  },
  {
   "id": "SE6-019",
@@ -390,13 +257,6 @@
   "ndet": 41,
   "n_tracklets": 2,
   "video_t": 479.12,
-  "heading_deg": 103.4,
-  "color_rgb": [
-   58,
-   58,
-   64
-  ],
-  "size_px": 0,
-  "range_m": null
+  "heading_deg": 103.4
  }
 ]

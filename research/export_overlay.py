@@ -52,13 +52,17 @@ def main():
     for i, c in enumerate(sorted(cars, key=lambda c: c["video_t"])):
         s = sights.get(c["video_t"], {})
         ts = s.get("ts", "")
-        desc = (f"id: SE6-{i:03d}<br/>synthetic time: {escape(str(ts))}<br/>"
+        desc = (f"id: {c.get('id') or f'SE6-{i:03d}'}<br/>"
+                f"synthetic time: {escape(str(ts))}<br/>"
                 f"class: {c['vehicle_class']}<br/>colour: {c['color']}<br/>"
-                f"range from camera: {c['range_m']} m<br/>"
+                f"tracked across: {c.get('ndet', 0)} frames<br/>"
+                f"tracklets: {c.get('n_tracklets', 1)}"
+                f"{' (occlusion-split)' if c.get('n_tracklets', 1) > 1 else ''}<br/>"
                 f"along-track sigma: {c['sigma_along_m']} m<br/>"
                 f"cross-track sigma: {c['sigma_cross_m']} m")
         out.append(
-            f'<Placemark><name>SE6-{i:03d} · {c["color"]} {c["vehicle_class"]}</name>'
+            f'<Placemark><name>{c.get("id") or f"SE6-{i:03d}"} '
+            f'· {c["color"]} {c["vehicle_class"]}</name>'
             f'<description><![CDATA[{desc}]]></description>'
             f'<styleUrl>#c_{c["color"]}</styleUrl>'
             f'<Point><coordinates>{c["lon"]:.7f},{c["lat"]:.7f},0</coordinates></Point>'
