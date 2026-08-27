@@ -654,3 +654,44 @@ this time the two timestamps are real (30.5 min measured from the frame offset),
 not fabricated. Running the track-triangulate-count pipeline on both passes and
 matching the two sighting sets is the next step, and the first overstay result
 that would not carry a synthetic clock.
+
+## 22. The first real overstay
+
+Both Biscayne passes (22:26 and 53:00) were run through the full pipeline and
+matched. `overstay_biscayne.py`:
+
+* **One coordinate frame, by construction.** Each pass is anchored to two shared
+  physical points -- the Flagler and NE 3rd crossings -- with the second point
+  transferred pass-1->pass-2 by ORB (110 and 65 inliers). Pass 2 was faster
+  (Flagler->NE 3rd in 21 s vs 30 s), which the ORB transfer absorbs. Any residual
+  absolute error is therefore common-mode and cancels in the match.
+* **A moving-vehicle filter, added here.** The first run flagged the white lead
+  van as an overstayer. A parked car's triangulated `S = s_cam + L/tan(bearing)`
+  stays constant as the camera advances; a vehicle keeping pace ahead has `S`
+  climbing with `s_cam` (slope ~ +1). `triangulate` now rejects a tracklet whose
+  `S`-vs-`s_cam` slope exceeds 0.75 over >10 m of camera travel. It has to be
+  gentle -- `s_cam` comes from scene motion and is noisy -- so it removes clear
+  co-movers without nuking parked cars.
+
+Result:
+
+    pass 1 @ 09:22:26 : 12 parked cars
+    pass 2 @ 09:52:56 : 11 parked cars   (real gap 30.5 min, from the frame offset)
+    present in both   : 2   -> overstay >= 30 min
+
+Both overstayers are dark pickups on the west kerb near Flagler.
+`overstay_verify.png` crops each from both passes: pair 2 is convincingly the same
+dark extended-cab pickup; pair 1's pass-1 crop is too small to be sure.
+
+**What is and isn't proven.** The chain runs end to end on real data with a real
+30.5-minute gap -- localise both passes, count atomically, match, flag. The flags
+are *candidates*: a plateless system cannot distinguish two identical vehicles or
+a same-spot turnover, so final confirmation is visual. That is not a hedge, it is
+the deployment workflow -- the system narrows a block of parked cars to the two an
+officer should look at, and the officer confirms. Lane-level absolute placement is
+still approximate (the anchor line is the OSM centreline, not the exact camera
+lane); the match does not depend on it.
+
+This closes the loop the whole project set out to close: **which cars are in a
+paid zone, where they are, and -- now, on real timestamps -- which have
+overstayed.**

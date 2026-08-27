@@ -116,17 +116,26 @@ def triangulate(track: Track, lateral_m: float,
     combined weighted by sin^4(bearing) -- abeam dominates -- with one robust
     reweight, and the spread of those views is the 1-sigma.
     """
-    S, wsum = [], []
+    S, wsum, scam = [], [], []
     for d in track.dets:
         b = math.radians(abs(d["bearing"]))
         if b < math.radians(floor_deg):
             continue
         S.append(d["s_cam"] + lateral_m / math.tan(b))
         wsum.append(math.sin(b) ** 4)
+        scam.append(d["s_cam"])
     if len(S) < 1:
         return float("nan"), float("nan"), 0
     S = np.array(S)
     wsum = np.array(wsum)
+    scam = np.array(scam)
+    # Reject a vehicle moving with traffic. For a stationary car S_i is constant
+    # as the camera advances; for one keeping pace ahead, S_i climbs with s_cam
+    # (slope ~ +1), and for oncoming it falls. Only a near-flat slope is parked.
+    if len(S) >= 3 and np.ptp(scam) > 10.0:
+        slope = float(np.polyfit(scam, S, 1)[0])
+        if abs(slope) > 0.75:
+            return float("nan"), float("nan"), 0
     mu = float(np.average(S, weights=wsum))
     keep = np.ones(len(S), bool)
     for _ in range(2):
