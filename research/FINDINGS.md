@@ -336,3 +336,74 @@ lots, garages and rooftop decks, and RF-DETR finds cars in all of them. "349 car
 detected, 29 in a paid zone" is not an 8% hit rate -- most of those 349 were never
 candidates. The denominator for enforcement is cars on the kerb of a paid block
 face, and against that the method is working.
+
+## 13. The dashcam pass: what works and what does not
+
+Satellite answers *which cars are in a paid zone now*. Overstay needs two passes
+separated in time, which is what a patrol vehicle gives. So the clip was cut
+00:01:00-00:10:00 (540 s, 2160 quarter-second frames) and the chain tested leg by
+leg.
+
+**Leg 2, detection, works.** RF-DETR on the 640x360 frames upscaled 2x returns
+270 vehicles over 40 sampled frames, median 7 per frame, boxes 38-309 px wide,
+and cleanly separates the kerbside row from traffic ahead
+(`reports/dashcam_detect.png`).
+
+**Leg 1, localisation, does not.** Four independent measurements, each fatal on
+its own:
+
+| | |
+|---|---|
+| GPS telemetry | **none.** Two streams, video + audio, `encoder: Google`. It is a YouTube re-encode; any original telemetry is gone. |
+| Google Maps API key | **none available.** Street View matching -- the requested method -- cannot run. ParkMobile's own key leaks in their page query string and was not used: those are someone else's paid credentials. |
+| Road texture for visual odometry | **3-5 grey levels** std on the road surface at rows 300-355. Dense Farneback flow returns exactly `0.00` px there. |
+| Street-name blades | **illegible.** A blade is ~12 px wide at source; upscaled 8x it is a green smudge. |
+
+The file is named `4K` and is **640x360**.
+
+### What the odometry does give
+
+Yaw survives, because a camera rotation shifts the whole image and needs no road
+texture -- an affine fit over all tracked features recovers it. That yields a
+clean turn signature over the 9 minutes:
+
+    t=120 L    t=222 R (large)    t=335 L    t=347 R
+    t=382 L    t=400 L            t=504 L
+
+and `f` self-calibrates from any turn whose true angle the grid fixes at 90
+degrees, giving ~229 px/rad, i.e. a 109-degree horizontal field of view --
+plausible for a dashcam, and derived rather than assumed.
+
+Speed does not survive. `_ground_speed` fits `dy = c*(y-cy)**2` and rejects what
+does not lie on the road plane, which is the right model and still returns a
+coefficient ~30x too small: in a street scene most strong corners are on
+buildings, parked cars and other traffic, and after those are rejected what is
+left on the asphalt has no texture to track.
+
+### Turns alone cannot place the car
+
+The route was narrowed to the block face at Gesu Church (footprint
+25.775808-25.776072 N, 25.775940 centroid, west edge **10 m** from NE 1st Avenue)
+and then three candidate routes were each falsified:
+
+* **Northbound NE 1st Ave, left at NE 2nd St** -- NE 2nd St (way/11165263) is
+  one-way **eastbound**. The turn would be illegal.
+* **Southbound NE 2nd Ave, left at NE 2nd St** -- legal, but puts the church
+  100 m away and sends the car east toward Biscayne, away from the `TO 95`
+  trailblazer visible at t=509.
+* **Southbound North Miami Ave** -- puts the church on the left; the video has it
+  on the right.
+
+In a uniform grid a turn sequence is not a position fix. Without one anchor of
+absolute position, the shape matches many places at once.
+
+### The unblock
+
+Either would close leg 1:
+
+1. **A Google Maps API key** -- the originally requested method. Street View
+   Static frames matched against video frames give absolute anchors directly.
+2. **The genuine 4K source.** At 4x the linear resolution the road recovers
+   texture, blades become OCR-able, and both odometry and anchoring return.
+
+Leg 1 is the only missing leg. Legs 2 and 3 are already demonstrated.
