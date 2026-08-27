@@ -42,8 +42,41 @@ statutory exemption if they refuse.
 MPA has a standing Public Records Request page and a Public Records Division.
 
 **This is the single highest-value action available and it costs an email.** A
-draft is in `research/records_request.md` — written narrowly on purpose, because
-MPA's own guidance warns that broad requests return thousands of documents.
+draft is in `research/records_request.md`.
+
+### What to actually ask for — corrected
+
+My first draft led with GIS layers and polygons. That was wrong, and worth
+recording as a mistake: **no city stores parking zones as boxes.** Checking how
+other cities hold the same data settles it.
+
+New York publishes *"Parking Meters — ParkNYC Block Faces"* — ParkNYC being their
+mobile-payment system, the direct equivalent of ParkMobile zones. 11,185 records,
+schema:
+
+    the_geom     MultiLineString        <- a LINE along the kerb, not a polygon
+    pay_by_cel   100009                 <- the mobile-payment zone number
+    on_street    William Street
+    side_of_st   E
+    from_stree   Cedar Street
+    to_street    Liberty Street
+    meter_rate   Zone M1
+
+Los Angeles holds it at the individual space level: `spaceid`, `blockface`
+("700 HOPE ST"), `metertype`, `ratetype`, `timelimit`, `latlng`.
+
+So the real data model is **zone number -> street + side + from-cross-street +
+to-cross-street**, which is the MUTCD block-face rule written down. The "box" is
+something you *derive* from that line plus a lane width — it is not something any
+authority stores.
+
+That reframes the request. Asking for a shapefile invites an accurate "we don't
+have one". Asking for the **table** is much harder to refuse, because the mobile
+payment vendor cannot charge for zone 40703 without having been told what 40703
+is, and MPA is who told them.
+
+Miami publishes none of this: no parking dataset on any Socrata portal, and
+nothing on the county or city ArcGIS hubs.
 
 ### The signage rules answer your zone-boundary question
 

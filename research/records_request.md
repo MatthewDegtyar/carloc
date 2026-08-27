@@ -3,13 +3,20 @@
 Send to MPA's Public Records Division (address on
 `miamiparking.com/public-records-request/`).
 
-**Why it is written this way.** MPA's own guidance warns that broad requests
-return thousands of documents and slow everything down. So this names specific
-record types, offers to narrow, and asks for native formats — a shapefile costs
-them nothing to export and saves you re-typing a PDF. It also cites the
-constitutional provision alongside the statute, and asks for the exemption to be
-stated in writing if anything is withheld, because that converts a vague refusal
-into a specific one you can evaluate.
+**Why it is written this way.** An earlier draft led with "GIS layer, shapefile,
+geodatabase" — which was a mistake. A parking authority is not a GIS shop, and
+leading with a format they probably do not hold invites an accurate "we don't have
+that" that closes the conversation.
+
+What they must hold is the **table**, because the mobile-payment vendor cannot
+charge for zone 40703 without being told what 40703 is. That mapping was created
+by MPA and handed over. So this asks for the table first, names the exact fields
+by reference to a city that publishes the same thing, and explicitly says a
+spreadsheet is fine and that they need not create anything.
+
+It also cites the constitutional provision alongside the statute, and asks for any
+exemption to be stated in writing, which converts a vague refusal into a specific
+one you can evaluate.
 
 Two things worth doing before you send: replace the bracketed fields, and decide
 whether to include item 5 — the vendor contracts are the most likely thing to
@@ -27,28 +34,45 @@ Constitution, I request copies of the following records. I am requesting records
 not asking questions, and I do not seek any personal information about any
 individual.
 
-1. **The on-street parking zone inventory.** Any current record listing the
-   parking zone numbers used for mobile payment (for example zone 40703), and for
-   each zone: its street location, block or block-face extent, the cross streets
-   bounding it, and the number of parking spaces it contains.
+1. **The on-street parking zone inventory**, in whatever form it is maintained.
+   Specifically, the record that maps each mobile-payment zone number (for
+   example zone 40703) to its physical location. A tabular export is entirely
+   sufficient. Based on how other cities maintain the same information, the
+   fields I am seeking are:
 
-2. **Geospatial data for on-street parking.** Any GIS layer, shapefile,
-   geodatabase, KML/KMZ, GeoJSON, or coordinate list depicting on-street parking
-   spaces, parking zones, parking meter locations, or pay station locations
-   within the City of Miami. Native GIS format is preferred over PDF or printed
-   maps.
+   - the zone / pay-by-phone number
+   - the street the zone is on
+   - which side of the street
+   - the cross street the zone begins at
+   - the cross street the zone ends at
+   - the number of parking spaces
+   - the rate or rate class, if held in the same record
 
-3. **Meter and pay station location data.** Any list or export of parking meter
-   or multi-space pay station assets including asset identifier, street address
-   or coordinates, and associated zone number.
+   For reference, this is the same information the City of New York publishes as
+   *"Parking Meters - ParkNYC Block Faces"* (NYC Open Data, 11,185 records), which
+   carries the fields `pay_by_cel`, `on_street`, `side_of_st`, `from_stree`,
+   `to_street` and a centreline geometry. **I am not asking you to create a
+   dataset in that format** — I am asking for whatever equivalent record you
+   already hold, in its existing format, including a spreadsheet or database
+   export.
 
-4. **The sign inventory,** if maintained: any record of parking regulation sign
-   locations, including zone plaques, with position and the zone number displayed.
+2. **Parking meter and pay station asset locations.** Any list or export of meter
+   or multi-space pay station assets with asset identifier, street address or
+   coordinates, and associated zone number.
+
+3. **Any geospatial version of the above**, if one exists — shapefile,
+   geodatabase, KML, or GeoJSON of on-street parking spaces, zones, or meter
+   locations. If no GIS version exists, items 1 and 2 are what I am after and I
+   do not need you to produce one.
+
+4. **The sign inventory,** if maintained: parking regulation sign or zone plaque
+   locations with the zone number displayed.
 
 5. **The current agreements** between the Miami Parking Authority and ParkMobile
    LLC and/or PayByPhone Technologies for mobile parking payment services,
-   including any exhibit, appendix, or schedule that describes the parking zone
-   numbering scheme or how zone identifiers map to physical locations.
+   including any exhibit, appendix, schedule, or data specification describing the
+   parking zone numbering scheme or how zone identifiers are communicated to the
+   vendor.
 
 I request these in electronic format, delivered by email or download link, in the
 format in which they are ordinarily maintained.
