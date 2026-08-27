@@ -624,3 +624,33 @@ rebuilt from occlusion-split tracklets** (`reports/count_compare.png`). Median
 where the camera moved faster, yields fewer detections per car and is the most
 likely place to under-count. Both shrink with more anchors (more cross-street
 crossings), not with a better detector.
+
+## 21. A real repeat: the same block, 30 minutes apart
+
+To move overstay off a synthetic second pass, the 83-minute source was scanned for
+loop closures -- places the drive revisits. Two stages (`scan_repeats.py`,
+`verify_repeats.py`):
+
+1. A global descriptor over 1 fps thumbnails (upper frame only -- buildings and
+   skyline, which survive between passes; road and traffic dropped) proposes
+   candidate pairs >2 min apart. 60 candidates.
+2. ORB + RANSAC-homography verification. A real revisit has many geometrically
+   consistent inliers; a look-alike downtown block does not.
+
+Six pairs verified. The three highest (1240/906/760 inliers, all involving
+00:00-00:15) are the video's own **intro montage replaying later footage** -- the
+same frames, not a revisit, flagged by the "15 SECOND PREVIEW" overlay. The
+usable revisits are mid-drive:
+
+| pass 1 | pass 2 | gap | inliers | notes |
+|---|---|---|---|---|
+| **22:26** | **53:00** | **~30 min** | 60-90 over a 20 s stretch | Biscayne Blvd, same direction, parked cars on the left kerb, near zone 40703 |
+| 07:35 | 17:53 | ~10 min | 43 | curved through-road, few parked cars |
+
+The Biscayne pair is the overstay candidate: same kerb, same heading, 30 minutes
+between looks, and it sits near ParkMobile geometry already on file. A car parked
+on that block in both passes has demonstrably overstayed by half an hour -- and
+this time the two timestamps are real (30.5 min measured from the frame offset),
+not fabricated. Running the track-triangulate-count pipeline on both passes and
+matching the two sighting sets is the next step, and the first overstay result
+that would not carry a synthetic clock.
