@@ -494,3 +494,38 @@ So the honest verdict for these 40 cars is **UNKNOWN -- no zone geometry**, whic
 is not the same as OUTSIDE. Closing it needs the Brickell signage code, from a
 legible plaque or from the operator; the lookup itself is already built and
 demonstrated downtown in sections 10-11.
+
+## 17. Public cameras do not overlap kerbside parking
+
+The idea: a fixed public camera over a paid kerb gives the time dimension
+satellite and a single dashcam pass both lack -- two looks at the same space,
+hours apart, is overstay. Tested against the only public camera network in
+Miami, and it does not hold. Private/misconfigured "exposed" cameras were
+deliberately not used: those are leaked, not published, and pulling them is a
+privacy intrusion. Only intentionally-public government feeds were queried.
+
+**FL511 (FDOT) camera layer**, ArcGIS FeatureServer, queried for Miami-Dade:
+**383 live cameras** (snapshots at `images-dis.divas.cloud`, refreshed ~every few
+seconds; verified live against today's on-image timestamp).
+
+Cross-referenced against the **125 ParkMobile on-street anchors** on file:
+
+| distance to nearest paid anchor | cameras |
+|---|---|
+| within 150 m | **1** of 383 |
+| that one | US-1 at SW 40th Street -- a 6-lane highway with the Metrorail deck alongside; **no kerbside parking in frame** |
+| next four | US-1 at SW 37th (155 m), I-95 at NW 6th (165 m), US-1 at SW 17th (257 m), Brickell Bridge (315 m) -- all highway/bridge PTZ, and two are 404 offline |
+
+The reason is structural, not incidental: **FDOT watches state highways and major
+signalised intersections for congestion; ParkMobile meters city surface-street
+kerbs.** They are two disjoint road networks (`reports/camera_overlap.png` -- the
+red highway cams and teal parking anchors barely touch). Even the arterial cams
+that sit near a paid corridor are high-mounted and framed on the roadway, not the
+parking lane; the US-1/Port Boulevard view shows moving traffic across an
+intersection with parked cars only as a sliver at the frame edge.
+
+So the public-camera route to the time dimension does not work with the feeds
+that exist. What would work is a camera an enforcement agency already owns and
+could point at the kerb -- MPA pay-station cameras, or a fixed patrol-mounted
+one -- none of which is a public stream. The overstay half still needs a second
+pass; a public fixed vantage is not it.
