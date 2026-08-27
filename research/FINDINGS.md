@@ -11,7 +11,7 @@ you where a zone starts and stops.
 
 | source | result |
 |---|---|
-| **ParkMobile zone search** | **No zone API.** The box sends your text to Google's geocoder. `40703` returned **Costa Rica** (9.98, −84.17). Zone→location is not exposed. |
+| **ParkMobile zone search box** | Not a zone lookup — passes your text to Google's geocoder, so `40703` returns **Costa Rica**. This misled me into concluding there was no zone API. **There is one.** See §6. |
 | ParkMobile page internals | Leaks a Google Maps API key in the query string. Not used — those are someone's paid credentials. |
 | Miami Parking Authority site | Blocks scripted requests (403 / Cloudflare). Facilities map is Mapbox with data embedded, and covers **garages and lots**, not on-street zones. |
 | MPA "Find Parking" | Server-rendered list, geocoded client-side from street addresses. Facilities only. |
@@ -189,3 +189,74 @@ MPA's inventory is what fills it.
   and ParkMobile logos, so the zone numbering is **MPA's**, not ParkMobile's. Any
   vendor-side scraping would have got you a vendor's view of someone else's
   numbering scheme.
+
+
+---
+
+## 6. CORRECTION: the ParkMobile zone API exists
+
+I was wrong in §1. I tested the search box, concluded "no zone API", and stopped.
+The search box is a geocoder; the zone data lives behind the **"enter your zone
+number"** flow at `/zone/start`, and it is reachable unauthenticated.
+
+### The chain
+
+    /api/proxy/parkmobileapi/zones/{signageCode}
+        40703 -> internalZoneCode 97840703       (prefix 978 + signage code)
+
+    /api/locations?internalZoneCode=97840703&supplierId=978040
+        -> { "signageCode":"40703", "type":"OnStreet",
+             "geometry":[ {"latitude":25.771859,"longitude":-80.187708}, ...13 ] }
+
+`type` really does say **OnStreet**, and the coordinates are real.
+
+Two other endpoints exist and are dead ends worth naming so nobody re-checks
+them: `/api/zones/search` and `/api/zones/search/transient` are viewport queries
+that return **only bookable off-street garages and lots**. Every `parkingType`
+value returns the same handful, in downtown Miami and in South Beach alike.
+
+There is no bulk listing — `/api/locations` requires an `internalZoneCode` and
+supplier-only queries 404 — so zones are found by probing signage codes. Density
+is sparse: 4 of 12 resolved around 40703.
+
+### What `geometry` is, and is not
+
+**Anchors, not boundaries.** Points inside a zone, almost certainly pay-station
+or meter positions.
+
+| zone | anchors | extent |
+|---|---|---|
+| 40701 | 7 | 215 × 267 m |
+| 40703 | 13 | 700 × 429 m |
+| 40711 | 35 | 1886 × 679 m |
+
+**So a Miami zone is not a block face.** It is a corridor running along a street
+for a kilometre or more, covering many blocks — visible in `reports/miami_zones.png`
+as long linear runs of anchors. This contradicts the MUTCD default I inferred in
+§2: the regulation may terminate at each cross street, but the *zone number* does
+not change there. Miami numbers far coarser than the signage rule implies.
+
+### Data quality
+
+Zone 40708's only "coordinate" is **(0, 0)** — null island. A consumer trusting
+the field plots Miami parking in the Gulf of Guinea. Filtered in
+`carloc/parkmobile.py` rather than downstream, where it blew out every map extent
+it touched.
+
+### Result
+
+`research/zonemap.py` snaps anchors to the nearest block face within 45 m:
+
+    5 zones, 125 anchors -> 79 block faces highlighted, ~1,294 estimated spaces
+
+That is the deliverable: **the parts of the road where the parking actually is**,
+in lat/lon, cross-referenced from ParkMobile rather than read off signs.
+
+Zone 40713 has 40 anchors but matched only 6 faces — the rest sit outside the OSM
+extract. Widening the bbox fixes it; nothing is wrong with the join.
+
+### This obsoletes two earlier plans
+
+**No records request needed** for zone geometry. **No sign-reading needed** — the
+number comes from the API keyed by location, which is exactly the cross-reference
+that was proposed. Both were answers to a problem that turned out not to exist.
