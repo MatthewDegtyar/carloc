@@ -20,12 +20,22 @@ worth recording so nobody repeats them:
 `internalZoneCode` is the supplier prefix concatenated with the signage code:
 `978` + `40703` = `97840703`, with `supplierId` 978040 for Miami.
 
-**What `geometry` actually is.** A list of points, not a boundary. For zone 40703
-it is 13 points spread over roughly 450 x 700 m, which is far too large to be one
-block face -- these look like pay-station or meter positions inside a zone that
-covers many blocks. So a zone is *not* the block-face unit the MUTCD default
-implies; Miami numbers them much coarser. Treat the points as anchors and the
-zone extent as unknown until the points are matched to block faces.
+**What `geometry` actually is.** A list of points, not a boundary, and *not* pay
+stations either -- that was my first guess and measurement killed it. Against the
+nearest street centreline the 125 anchors sit at a median of **0.69 m**, p75
+1.58 m. They are on the road, not on the kerb: representative points snapped to
+the street segments a zone covers.
+
+That matters for what they can and cannot tell you:
+
+* they DO identify **which street segments** carry a paid zone, reliably
+* they do NOT say which **side** of the street is metered
+* they do NOT locate the **parking lane**, since they sit on the centreline
+
+Zone extents are large -- 13 points over 700 x 429 m for 40703, 35 over
+1886 x 679 m for 40711 -- so a zone is a corridor spanning many blocks, not the
+block-face unit the MUTCD default implies. Miami numbers far coarser than the
+signage rule suggests.
 
 There is no bulk listing: `/api/locations` requires an `internalZoneCode`, and
 supplier-only queries 404. Zones are therefore found by probing signage codes,
