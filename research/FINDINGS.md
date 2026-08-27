@@ -260,3 +260,79 @@ extract. Widening the bbox fixes it; nothing is wrong with the join.
 **No records request needed** for zone geometry. **No sign-reading needed** — the
 number comes from the API keyed by location, which is exactly the cross-reference
 that was proposed. Both were answers to a problem that turned out not to exist.
+
+## 9. The lane band, measured
+
+The parking lane was a guess: 3.3-5.9 m from the street centreline, one travel
+lane out plus a 2.6 m bay, taken from US design defaults. That guess is now a
+measurement.
+
+RF-DETR over 21 tiles of zones 40701 and 40703 returned 349 vehicles. Taking the
+185 that sit 1.5-12 m from a street centreline -- excluding cars in the travel
+lane and cars in off-street lots -- and measuring their perpendicular offset:
+
+| | |
+|---|---|
+| signed offset | **bimodal, peaks at -4.5 and +4.5 m** |
+| right side | n=133, median +4.55 m |
+| left side | n=76, median -4.74 m |
+| lane centre (median abs) | **4.73 m** |
+| implied band, 2.6 m bay | **3.43 - 6.03 m** |
+| assumed band | 3.30 - 5.90 m |
+| **error in the assumption** | **13 cm** |
+
+Cars really do park at 4.7 m from the centreline, on both sides, and the design
+default was right to within a hand's width. Boxes now carry `calibrated=True`.
+
+A percentile fit was tried first and was worse. `calibrate_from_observations()`
+at p75 returns 3.70-6.74 m, centring the band at 5.22 m instead of on the mode at
+4.73 m, because the offset distribution is right-skewed -- its tail runs into
+parking lots. At p85 the outer edge reaches 10.2 m, which is a lot, not a lane.
+**Fit the band to the median plus half a standard bay, not to percentiles of a
+contaminated tail.**
+
+## 10. The bay is the wrong decision boundary
+
+Judging against the 2.6 m bay gave 3 cars inside a paid zone out of 349. The
+geometry was not the problem; the decision rule was.
+
+A verdict of INSIDE requires `margin > sigma`, and margin is measured to the
+nearest edge. Against a 2.6 m box the half-width is 1.30 m, so at sigma = 1.0 m a
+car's centre has to land within **0.30 m** of the lane centreline to be called
+confidently inside. That is a coin flip dressed up as a measurement.
+
+| decision band | width | inside | ambiguous | outside |
+|---|---|---|---|---|
+| bay (stall) 3.43-6.03 m | 2.60 m | 2 | 55 | 292 |
+| kerbside envelope 2.5-7.0 m | 4.50 m | 19 | 37 | 293 |
+| **block face 2.5-8.5 m** | **6.00 m** | **29** | **27** | **293** |
+| wide 2.0-10.0 m | 8.00 m | 40 | 29 | 280 |
+
+The enforcement question is *"is this car in ParkMobile zone 40703"*, not *"is
+this car in stall 7"*. A zone is a block face. Testing against a single bay
+imported a precision the question never asked for, and sigma then ate it.
+
+The block-face band is used for the verdict; the measured bay is kept for
+counting spaces. Result: **29 inside, 27 ambiguous (7.7%), 293 outside.**
+
+## 11. What the imagery shows
+
+`reports/downtown_survey.png`, four block faces on georeferenced Esri tiles:
+
+- **NE 1st Street (40703)** -- the lane box lands on the row of parked cars.
+  20 cars in the lane against 12 estimated spaces, so the space estimate is low,
+  not the box misplaced.
+- **NW 2nd Avenue (40701)** -- the decisive panel. Green dots sit on the column
+  of kerbside cars inside the box; red dots sit on cars in the surface lot a few
+  metres away. **The method separates kerb from lot.** That separation is the
+  whole product.
+- **NW 3rd Street (40701)** -- boxes on visibly empty asphalt, zero cars. A true
+  negative, not a failure.
+
+## 12. Denominators
+
+68% of detections are more than 10 m from any street. Downtown Miami is surface
+lots, garages and rooftop decks, and RF-DETR finds cars in all of them. "349 cars
+detected, 29 in a paid zone" is not an 8% hit rate -- most of those 349 were never
+candidates. The denominator for enforcement is cars on the kerb of a paid block
+face, and against that the method is working.

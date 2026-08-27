@@ -12,6 +12,7 @@ dependencies = ["numpy>=1.26", "pillow>=10.0"]
 detect = [
     "coremltools>=8.0",
     "inference-sdk>=0.9",
+    "rfdetr>=1.9",
 ]
 plot = ["matplotlib>=3.7"]
 

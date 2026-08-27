@@ -1,0 +1,1754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name>ParkMobile parking lanes — Miami</name>
+<Style id="box">
+  <LineStyle><color>ffb0c94e</color><width>2</width></LineStyle>
+  <PolyStyle><color>66b0c94e</color></PolyStyle>
+</Style>
+<Placemark>
+  <name>zone 40701 · Northwest 3rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 3rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 42.7<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1984619,25.7769419,0 -80.1980357,25.7769557,0 -80.1980367,25.7769792,0 -80.1984628,25.7769654,0 -80.1984619,25.7769419,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 3rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 3rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 42.7<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1984596,25.7768822,0 -80.1980334,25.7768960,0 -80.1980325,25.7768725,0 -80.1984586,25.7768587,0 -80.1984596,25.7768822,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 2nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 2nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 41.9<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1978035,25.7775377,0 -80.1977894,25.7771589,0 -80.1977635,25.7771597,0 -80.1977775,25.7775385,0 -80.1978035,25.7775377,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 2nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 2nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 41.9<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1978693,25.7775357,0 -80.1978552,25.7771569,0 -80.1978812,25.7771561,0 -80.1978952,25.7775349,0 -80.1978693,25.7775357,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 2nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 2nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 66.8<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1978520,25.7786782,0 -80.1978296,25.7780744,0 -80.1978037,25.7780752,0 -80.1978261,25.7786790,0 -80.1978520,25.7786782,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 2nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 2nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 66.8<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1979179,25.7786762,0 -80.1978955,25.7780724,0 -80.1979214,25.7780716,0 -80.1979438,25.7786754,0 -80.1979179,25.7786762,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 5th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 5th Street<br/><b>side</b>: left<br/><b>length_m</b>: 34.9<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1965226,25.7789124,0 -80.1961744,25.7789272,0 -80.1961756,25.7789507,0 -80.1965238,25.7789359,0 -80.1965226,25.7789124,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 5th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 5th Street<br/><b>side</b>: right<br/><b>length_m</b>: 34.9<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1965195,25.7788528,0 -80.1961713,25.7788676,0 -80.1961701,25.7788441,0 -80.1965183,25.7788293,0 -80.1965195,25.7788528,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 2nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 2nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 33.9<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1978732,25.7796893,0 -80.1978613,25.7793830,0 -80.1978354,25.7793838,0 -80.1978472,25.7796902,0 -80.1978732,25.7796893,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 2nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 2nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 33.9<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1979390,25.7796872,0 -80.1979271,25.7793809,0 -80.1979531,25.7793800,0 -80.1979649,25.7796864,0 -80.1979390,25.7796872,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 1st Court (left)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 1st Court<br/><b>side</b>: left<br/><b>length_m</b>: 52.4<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1968629,25.7790734,0 -80.1968834,25.7795468,0 -80.1969093,25.7795459,0 -80.1968888,25.7790725,0 -80.1968629,25.7790734,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40701 · Northwest 1st Court (right)</name>
+  <description><![CDATA[<b>zone</b>: 40701<br/><b>street</b>: Northwest 1st Court<br/><b>side</b>: right<br/><b>length_m</b>: 52.4<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1967971,25.7790758,0 -80.1968176,25.7795492,0 -80.1967917,25.7795501,0 -80.1967712,25.7790767,0 -80.1967971,25.7790758,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Southeast 3rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Southeast 3rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 116.7<br/><b>est_spaces</b>: 17<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1887488,25.7718313,0 -80.1875852,25.7718621,0 -80.1875860,25.7718856,0 -80.1887495,25.7718548,0 -80.1887488,25.7718313,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Southeast 3rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Southeast 3rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 116.7<br/><b>est_spaces</b>: 17<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1887469,25.7717716,0 -80.1875833,25.7718024,0 -80.1875826,25.7717789,0 -80.1887461,25.7717481,0 -80.1887469,25.7717716,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Southeast 2nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Southeast 2nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 11.5<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1882736,25.7726034,0 -80.1883882,25.7725993,0 -80.1883872,25.7725758,0 -80.1882726,25.7725799,0 -80.1882736,25.7726034,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Southeast 2nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Southeast 2nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 11.5<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1882761,25.7726631,0 -80.1883907,25.7726590,0 -80.1883917,25.7726825,0 -80.1882771,25.7726866,0 -80.1882761,25.7726631,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Southeast 2nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Southeast 2nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 56.5<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1901984,25.7732869,0 -80.1901655,25.7727769,0 -80.1901396,25.7727783,0 -80.1901725,25.7732883,0 -80.1901984,25.7732869,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Southeast 2nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Southeast 2nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 56.5<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1902641,25.7732834,0 -80.1902312,25.7727734,0 -80.1902571,25.7727720,0 -80.1902900,25.7732820,0 -80.1902641,25.7732834,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northwest Miami Court (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northwest Miami Court<br/><b>side</b>: left<br/><b>length_m</b>: 27.4<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1946546,25.7745797,0 -80.1946505,25.7743317,0 -80.1946246,25.7743320,0 -80.1946286,25.7745800,0 -80.1946546,25.7745797,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northwest Miami Court (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northwest Miami Court<br/><b>side</b>: right<br/><b>length_m</b>: 27.4<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1947204,25.7745788,0 -80.1947163,25.7743308,0 -80.1947423,25.7743305,0 -80.1947463,25.7745785,0 -80.1947204,25.7745788,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 72.9<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1919638,25.7743315,0 -80.1919927,25.7749905,0 -80.1920186,25.7749896,0 -80.1919897,25.7743306,0 -80.1919638,25.7743315,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 72.9<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1918980,25.7743339,0 -80.1919269,25.7749929,0 -80.1919010,25.7749938,0 -80.1918721,25.7743348,0 -80.1918980,25.7743339,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 2nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 2nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 73.1<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1902633,25.7750987,0 -80.1902410,25.7744378,0 -80.1902151,25.7744386,0 -80.1902374,25.7750994,0 -80.1902633,25.7750987,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 2nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 2nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 73.1<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1903291,25.7750969,0 -80.1903068,25.7744360,0 -80.1903327,25.7744353,0 -80.1903550,25.7750961,0 -80.1903291,25.7750969,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 3rd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 3rd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 78.0<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1886249,25.7744354,0 -80.1886622,25.7751400,0 -80.1886881,25.7751389,0 -80.1886508,25.7744343,0 -80.1886249,25.7744354,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 3rd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 3rd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 78.0<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1885592,25.7744383,0 -80.1885965,25.7751429,0 -80.1885706,25.7751440,0 -80.1885333,25.7744394,0 -80.1885592,25.7744383,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northwest 1st Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northwest 1st Street<br/><b>side</b>: left<br/><b>length_m</b>: 5.2<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1945734,25.7750711,0 -80.1946257,25.7750697,0 -80.1946249,25.7750462,0 -80.1945727,25.7750476,0 -80.1945734,25.7750711,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northwest 1st Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northwest 1st Street<br/><b>side</b>: right<br/><b>length_m</b>: 5.2<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1945753,25.7751308,0 -80.1946276,25.7751294,0 -80.1946283,25.7751529,0 -80.1945761,25.7751543,0 -80.1945753,25.7751308,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: left<br/><b>length_m</b>: 98.6<br/><b>est_spaces</b>: 14<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1924678,25.7751221,0 -80.1934509,25.7751030,0 -80.1934503,25.7750795,0 -80.1924672,25.7750986,0 -80.1924678,25.7751221,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: right<br/><b>length_m</b>: 98.6<br/><b>est_spaces</b>: 14<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1924692,25.7751818,0 -80.1934523,25.7751627,0 -80.1934529,25.7751862,0 -80.1924698,25.7752053,0 -80.1924692,25.7751818,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: left<br/><b>length_m</b>: 85.5<br/><b>est_spaces</b>: 12<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1909781,25.7751702,0 -80.1918303,25.7751422,0 -80.1918294,25.7751187,0 -80.1909771,25.7751467,0 -80.1909781,25.7751702,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: right<br/><b>length_m</b>: 85.5<br/><b>est_spaces</b>: 12<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1909805,25.7752298,0 -80.1918327,25.7752018,0 -80.1918337,25.7752253,0 -80.1909814,25.7752533,0 -80.1909805,25.7752298,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: left<br/><b>length_m</b>: 23.9<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1895275,25.7752182,0 -80.1897658,25.7752103,0 -80.1897649,25.7751868,0 -80.1895265,25.7751947,0 -80.1895275,25.7752182,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: right<br/><b>length_m</b>: 23.9<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1895299,25.7752778,0 -80.1897682,25.7752699,0 -80.1897692,25.7752934,0 -80.1895308,25.7753013,0 -80.1895299,25.7752778,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: left<br/><b>length_m</b>: 14.5<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1880156,25.7752682,0 -80.1881597,25.7752634,0 -80.1881588,25.7752399,0 -80.1880146,25.7752447,0 -80.1880156,25.7752682,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 1st Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 1st Street<br/><b>side</b>: right<br/><b>length_m</b>: 14.5<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1880180,25.7753278,0 -80.1881621,25.7753230,0 -80.1881631,25.7753465,0 -80.1880189,25.7753513,0 -80.1880180,25.7753278,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 3rd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 3rd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 74.3<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1886737,25.7753984,0 -80.1886976,25.7760700,0 -80.1887235,25.7760693,0 -80.1886997,25.7753976,0 -80.1886737,25.7753984,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40703 · Northeast 3rd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40703<br/><b>street</b>: Northeast 3rd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 74.3<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.1886079,25.7754003,0 -80.1886318,25.7760719,0 -80.1886058,25.7760727,0 -80.1885820,25.7754010,0 -80.1886079,25.7754003,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 1st Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 1st Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 56.7<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2208391,25.7465013,0 -80.2213663,25.7463168,0 -80.2213570,25.7462948,0 -80.2208297,25.7464794,0 -80.2208391,25.7465013,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 1st Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 1st Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 56.7<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2208628,25.7465570,0 -80.2213900,25.7463725,0 -80.2213994,25.7463944,0 -80.2208721,25.7465790,0 -80.2208628,25.7465570,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 23rd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 23rd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 5.0<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2321583,25.7503027,0 -80.2321573,25.7502573,0 -80.2321313,25.7502577,0 -80.2321324,25.7503032,0 -80.2321583,25.7503027,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 23rd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 23rd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 5.0<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2322241,25.7503014,0 -80.2322231,25.7502560,0 -80.2322490,25.7502555,0 -80.2322501,25.7503010,0 -80.2322241,25.7503014,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 19th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 19th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 8.8<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2260124,25.7505161,0 -80.2260102,25.7504370,0 -80.2259843,25.7504375,0 -80.2259864,25.7505167,0 -80.2260124,25.7505161,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 19th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 19th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 8.8<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2260782,25.7505146,0 -80.2260760,25.7504355,0 -80.2261020,25.7504349,0 -80.2261041,25.7505141,0 -80.2260782,25.7505146,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 148.0<br/><b>est_spaces</b>: 22<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2341107,25.7504447,0 -80.2326355,25.7504950,0 -80.2326365,25.7505185,0 -80.2341117,25.7504682,0 -80.2341107,25.7504447,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 148.0<br/><b>est_spaces</b>: 22<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2341082,25.7503850,0 -80.2326330,25.7504353,0 -80.2326320,25.7504118,0 -80.2341072,25.7503615,0 -80.2341082,25.7503850,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 14th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 14th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 29.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2183599,25.7504487,0 -80.2183494,25.7501836,0 -80.2183235,25.7501844,0 -80.2183340,25.7504495,0 -80.2183599,25.7504487,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 14th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 14th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 29.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2184257,25.7504465,0 -80.2184152,25.7501814,0 -80.2184411,25.7501806,0 -80.2184516,25.7504457,0 -80.2184257,25.7504465,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 95.8<br/><b>est_spaces</b>: 14<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2321093,25.7505128,0 -80.2311544,25.7505442,0 -80.2311554,25.7505677,0 -80.2321103,25.7505363,0 -80.2321093,25.7505128,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 95.8<br/><b>est_spaces</b>: 14<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2321070,25.7504532,0 -80.2311521,25.7504846,0 -80.2311511,25.7504611,0 -80.2321060,25.7504297,0 -80.2321070,25.7504532,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 140.4<br/><b>est_spaces</b>: 20<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2327110,25.7505483,0 -80.2341099,25.7505000,0 -80.2341089,25.7504765,0 -80.2327100,25.7505248,0 -80.2327110,25.7505483,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 140.4<br/><b>est_spaces</b>: 20<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2327135,25.7506079,0 -80.2341124,25.7505596,0 -80.2341134,25.7505831,0 -80.2327145,25.7506314,0 -80.2327135,25.7506079,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 13th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 13th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 17.7<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2162458,25.7503951,0 -80.2162433,25.7505555,0 -80.2162692,25.7505558,0 -80.2162718,25.7503954,0 -80.2162458,25.7503951,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 13th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 13th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 17.7<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2161800,25.7503942,0 -80.2161775,25.7505546,0 -80.2161515,25.7505543,0 -80.2161541,25.7503939,0 -80.2161800,25.7503942,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 22.9<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2290715,25.7506122,0 -80.2288435,25.7506194,0 -80.2288444,25.7506429,0 -80.2290724,25.7506357,0 -80.2290715,25.7506122,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 22.9<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2290692,25.7505526,0 -80.2288412,25.7505598,0 -80.2288403,25.7505363,0 -80.2290683,25.7505291,0 -80.2290692,25.7505526,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 179.3<br/><b>est_spaces</b>: 26<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2303133,25.7506293,0 -80.2321000,25.7505696,0 -80.2320991,25.7505461,0 -80.2303124,25.7506058,0 -80.2303133,25.7506293,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 179.3<br/><b>est_spaces</b>: 26<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2303158,25.7506890,0 -80.2321025,25.7506293,0 -80.2321034,25.7506528,0 -80.2303167,25.7507125,0 -80.2303158,25.7506890,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 47.4<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2270108,25.7506792,0 -80.2265387,25.7506949,0 -80.2265396,25.7507184,0 -80.2270117,25.7507028,0 -80.2270108,25.7506792,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 47.4<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2270083,25.7506196,0 -80.2265362,25.7506353,0 -80.2265353,25.7506117,0 -80.2270074,25.7505961,0 -80.2270083,25.7506196,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 16th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 16th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 6.8<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2199895,25.7506325,0 -80.2199896,25.7506940,0 -80.2200155,25.7506939,0 -80.2200154,25.7506325,0 -80.2199895,25.7506325,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 16th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 16th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 6.8<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2199236,25.7506326,0 -80.2199237,25.7506941,0 -80.2198978,25.7506941,0 -80.2198977,25.7506327,0 -80.2199236,25.7506326,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 116.8<br/><b>est_spaces</b>: 17<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2283140,25.7506941,0 -80.2294778,25.7506582,0 -80.2294769,25.7506347,0 -80.2283132,25.7506706,0 -80.2283140,25.7506941,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 116.8<br/><b>est_spaces</b>: 17<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2283163,25.7507538,0 -80.2294801,25.7507179,0 -80.2294809,25.7507414,0 -80.2283172,25.7507773,0 -80.2283163,25.7507538,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 41.5<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2249727,25.7507481,0 -80.2245591,25.7507624,0 -80.2245601,25.7507859,0 -80.2249737,25.7507716,0 -80.2249727,25.7507481,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 41.5<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2249702,25.7506885,0 -80.2245566,25.7507028,0 -80.2245556,25.7506793,0 -80.2249692,25.7506650,0 -80.2249702,25.7506885,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 24th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 24th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 14.1<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2341618,25.7508362,0 -80.2341572,25.7507089,0 -80.2341313,25.7507097,0 -80.2341359,25.7508369,0 -80.2341618,25.7508362,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 24th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 24th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 14.1<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2342276,25.7508342,0 -80.2342230,25.7507069,0 -80.2342489,25.7507062,0 -80.2342535,25.7508334,0 -80.2342276,25.7508342,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 143.0<br/><b>est_spaces</b>: 21<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2236113,25.7507890,0 -80.2221861,25.7508399,0 -80.2221872,25.7508634,0 -80.2236123,25.7508125,0 -80.2236113,25.7507890,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 143.0<br/><b>est_spaces</b>: 21<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2236087,25.7507294,0 -80.2221835,25.7507803,0 -80.2221825,25.7507568,0 -80.2236076,25.7507059,0 -80.2236087,25.7507294,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 58.8<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2265884,25.7507515,0 -80.2271749,25.7507320,0 -80.2271740,25.7507085,0 -80.2265875,25.7507279,0 -80.2265884,25.7507515,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 58.8<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2265909,25.7508111,0 -80.2271774,25.7507916,0 -80.2271783,25.7508152,0 -80.2265918,25.7508346,0 -80.2265909,25.7508111,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 23rd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 23rd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 5.0<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2321421,25.7508238,0 -80.2321401,25.7507782,0 -80.2321142,25.7507792,0 -80.2321162,25.7508248,0 -80.2321421,25.7508238,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 23rd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 23rd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 5.0<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2322079,25.7508214,0 -80.2322059,25.7507758,0 -80.2322318,25.7507748,0 -80.2322338,25.7508204,0 -80.2322079,25.7508214,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 70.2<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2245356,25.7508150,0 -80.2252350,25.7507920,0 -80.2252340,25.7507685,0 -80.2245346,25.7507915,0 -80.2245356,25.7508150,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 70.2<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2245379,25.7508746,0 -80.2252373,25.7508516,0 -80.2252383,25.7508751,0 -80.2245389,25.7508981,0 -80.2245379,25.7508746,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 86.7<br/><b>est_spaces</b>: 12<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2208886,25.7508732,0 -80.2200243,25.7508951,0 -80.2200250,25.7509186,0 -80.2208893,25.7508967,0 -80.2208886,25.7508732,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 86.7<br/><b>est_spaces</b>: 12<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2208867,25.7508135,0 -80.2200224,25.7508354,0 -80.2200217,25.7508119,0 -80.2208860,25.7507900,0 -80.2208867,25.7508135,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 79.5<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2195462,25.7509080,0 -80.2187538,25.7509295,0 -80.2187546,25.7509530,0 -80.2195470,25.7509315,0 -80.2195462,25.7509080,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 79.5<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2195443,25.7508483,0 -80.2187519,25.7508698,0 -80.2187511,25.7508463,0 -80.2195435,25.7508248,0 -80.2195443,25.7508483,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 58.7<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2223537,25.7508900,0 -80.2229391,25.7508703,0 -80.2229382,25.7508468,0 -80.2223528,25.7508665,0 -80.2223537,25.7508900,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 58.7<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2223562,25.7509497,0 -80.2229416,25.7509300,0 -80.2229425,25.7509535,0 -80.2223571,25.7509732,0 -80.2223562,25.7509497,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 7.0<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2172625,25.7509711,0 -80.2171931,25.7509731,0 -80.2171939,25.7509966,0 -80.2172633,25.7509946,0 -80.2172625,25.7509711,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 7.0<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2172604,25.7509114,0 -80.2171910,25.7509134,0 -80.2171902,25.7508899,0 -80.2172596,25.7508879,0 -80.2172604,25.7509114,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 46.4<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2156350,25.7510174,0 -80.2151725,25.7510320,0 -80.2151734,25.7510555,0 -80.2156359,25.7510409,0 -80.2156350,25.7510174,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 46.4<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2156327,25.7509577,0 -80.2151702,25.7509723,0 -80.2151693,25.7509488,0 -80.2156318,25.7509342,0 -80.2156327,25.7509577,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 79.8<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2187532,25.7509855,0 -80.2195487,25.7509648,0 -80.2195479,25.7509413,0 -80.2187525,25.7509620,0 -80.2187532,25.7509855,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 79.8<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2187551,25.7510452,0 -80.2195506,25.7510245,0 -80.2195513,25.7510480,0 -80.2187559,25.7510687,0 -80.2187551,25.7510452,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 106.6<br/><b>est_spaces</b>: 15<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2172630,25.7510272,0 -80.2183261,25.7509957,0 -80.2183252,25.7509722,0 -80.2172621,25.7510037,0 -80.2172630,25.7510272,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 106.6<br/><b>est_spaces</b>: 15<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2172651,25.7510869,0 -80.2183282,25.7510554,0 -80.2183291,25.7510789,0 -80.2172660,25.7511104,0 -80.2172651,25.7510869,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 22.4<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2151196,25.7510817,0 -80.2153425,25.7510764,0 -80.2153418,25.7510529,0 -80.2151189,25.7510582,0 -80.2151196,25.7510817,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 22.4<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2151213,25.7511414,0 -80.2153442,25.7511361,0 -80.2153449,25.7511596,0 -80.2151220,25.7511649,0 -80.2151213,25.7511414,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 56.2<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2280939,25.7514173,0 -80.2280712,25.7509091,0 -80.2280453,25.7509101,0 -80.2280680,25.7514183,0 -80.2280939,25.7514173,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 56.2<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2281597,25.7514149,0 -80.2281370,25.7509067,0 -80.2281629,25.7509057,0 -80.2281856,25.7514139,0 -80.2281597,25.7514149,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 18th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 18th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 32.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2240135,25.7515513,0 -80.2239989,25.7512595,0 -80.2239730,25.7512606,0 -80.2239876,25.7515523,0 -80.2240135,25.7515513,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 18th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 18th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 32.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2240792,25.7515486,0 -80.2240646,25.7512568,0 -80.2240905,25.7512558,0 -80.2241051,25.7515475,0 -80.2240792,25.7515486,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 14th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 14th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 28.4<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2183873,25.7514549,0 -80.2183770,25.7511977,0 -80.2183510,25.7511985,0 -80.2183613,25.7514557,0 -80.2183873,25.7514549,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 14th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 14th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 28.4<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2184530,25.7514527,0 -80.2184427,25.7511955,0 -80.2184687,25.7511947,0 -80.2184790,25.7514519,0 -80.2184530,25.7514527,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 13th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 13th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 32.5<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2161820,25.7514476,0 -80.2161865,25.7517414,0 -80.2162124,25.7517411,0 -80.2162079,25.7514473,0 -80.2161820,25.7514476,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 13th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 13th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 32.5<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2161161,25.7514485,0 -80.2161206,25.7517423,0 -80.2160947,25.7517426,0 -80.2160902,25.7514488,0 -80.2161161,25.7514485,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 26.9<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2224533,25.7515603,0 -80.2227210,25.7515496,0 -80.2227199,25.7515261,0 -80.2224521,25.7515368,0 -80.2224533,25.7515603,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 26.9<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2224562,25.7516200,0 -80.2227239,25.7516093,0 -80.2227251,25.7516328,0 -80.2224573,25.7516435,0 -80.2224562,25.7516200,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 172.2<br/><b>est_spaces</b>: 25<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2242028,25.7515842,0 -80.2259188,25.7515260,0 -80.2259179,25.7515025,0 -80.2242018,25.7515607,0 -80.2242028,25.7515842,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 172.2<br/><b>est_spaces</b>: 25<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2242053,25.7516439,0 -80.2259213,25.7515857,0 -80.2259223,25.7516092,0 -80.2242062,25.7516674,0 -80.2242053,25.7516439,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 17.3<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2281285,25.7525204,0 -80.2281250,25.7523639,0 -80.2280990,25.7523643,0 -80.2281026,25.7525209,0 -80.2281285,25.7525204,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40711 · Southwest 21st Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40711<br/><b>street</b>: Southwest 21st Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 17.3<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2281943,25.7525191,0 -80.2281908,25.7523626,0 -80.2282167,25.7523621,0 -80.2282203,25.7525187,0 -80.2281943,25.7525191,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 32nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 32nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 5.5<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2462842,25.7477764,0 -80.2462811,25.7477271,0 -80.2462552,25.7477284,0 -80.2462583,25.7477778,0 -80.2462842,25.7477764,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 32nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 32nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 5.5<br/><b>est_spaces</b>: 0<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2463499,25.7477729,0 -80.2463468,25.7477236,0 -80.2463727,25.7477222,0 -80.2463758,25.7477716,0 -80.2463499,25.7477729,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 23rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 213.2<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2471989,25.7481999,0 -80.2493245,25.7481423,0 -80.2493237,25.7481188,0 -80.2471981,25.7481764,0 -80.2471989,25.7481999,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 23rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 213.2<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2472008,25.7482596,0 -80.2493264,25.7482020,0 -80.2493272,25.7482255,0 -80.2472016,25.7482831,0 -80.2472008,25.7482596,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 23rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 276.0<br/><b>est_spaces</b>: 41<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2433785,25.7483075,0 -80.2461303,25.7482307,0 -80.2461295,25.7482072,0 -80.2433778,25.7482840,0 -80.2433785,25.7483075,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 23rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 276.0<br/><b>est_spaces</b>: 41<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2433806,25.7483672,0 -80.2461324,25.7482904,0 -80.2461331,25.7483139,0 -80.2433814,25.7483907,0 -80.2433806,25.7483672,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 103.4<br/><b>est_spaces</b>: 15<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2529147,25.7489809,0 -80.2539457,25.7489522,0 -80.2539449,25.7489287,0 -80.2529140,25.7489574,0 -80.2529147,25.7489809,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 103.4<br/><b>est_spaces</b>: 15<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2529168,25.7490406,0 -80.2539478,25.7490119,0 -80.2539485,25.7490354,0 -80.2529176,25.7490641,0 -80.2529168,25.7490406,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 177.5<br/><b>est_spaces</b>: 26<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2497507,25.7490724,0 -80.2515197,25.7490219,0 -80.2515189,25.7489984,0 -80.2497499,25.7490489,0 -80.2497507,25.7490724,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 177.5<br/><b>est_spaces</b>: 26<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2497528,25.7491321,0 -80.2515218,25.7490816,0 -80.2515226,25.7491051,0 -80.2497536,25.7491556,0 -80.2497528,25.7491321,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 53.3<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2474203,25.7491381,0 -80.2479517,25.7491233,0 -80.2479509,25.7490998,0 -80.2474195,25.7491146,0 -80.2474203,25.7491381,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 53.3<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2474224,25.7491978,0 -80.2479538,25.7491830,0 -80.2479546,25.7492065,0 -80.2474232,25.7492213,0 -80.2474224,25.7491978,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 87.2<br/><b>est_spaces</b>: 13<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2450012,25.7492036,0 -80.2458702,25.7491789,0 -80.2458694,25.7491554,0 -80.2450004,25.7491801,0 -80.2450012,25.7492036,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 87.2<br/><b>est_spaces</b>: 13<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2450033,25.7492633,0 -80.2458723,25.7492386,0 -80.2458731,25.7492621,0 -80.2450041,25.7492868,0 -80.2450033,25.7492633,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 32nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 32nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 33.5<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2463635,25.7498214,0 -80.2463539,25.7495189,0 -80.2463280,25.7495196,0 -80.2463376,25.7498221,0 -80.2463635,25.7498214,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 32nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 32nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 33.5<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2464293,25.7498197,0 -80.2464197,25.7495172,0 -80.2464456,25.7495165,0 -80.2464552,25.7498190,0 -80.2464293,25.7498197,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 31st Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 31st Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 10.1<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2432437,25.7499654,0 -80.2432414,25.7498740,0 -80.2432154,25.7498746,0 -80.2432178,25.7499659,0 -80.2432437,25.7499654,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 31st Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 31st Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 10.1<br/><b>est_spaces</b>: 1<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2433095,25.7499640,0 -80.2433072,25.7498726,0 -80.2433331,25.7498721,0 -80.2433355,25.7499634,0 -80.2433095,25.7499640,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 29th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 29th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 14.5<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2407251,25.7499497,0 -80.2407204,25.7498183,0 -80.2406944,25.7498190,0 -80.2406991,25.7499505,0 -80.2407251,25.7499497,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 29th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 29th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 14.5<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2407908,25.7499478,0 -80.2407861,25.7498164,0 -80.2408121,25.7498156,0 -80.2408168,25.7499471,0 -80.2407908,25.7499478,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 16.0<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2449087,25.7501220,0 -80.2447487,25.7501261,0 -80.2447494,25.7501496,0 -80.2449094,25.7501455,0 -80.2449087,25.7501220,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 16.0<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2449068,25.7500623,0 -80.2447468,25.7500664,0 -80.2447461,25.7500429,0 -80.2449061,25.7500388,0 -80.2449068,25.7500623,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 26.1<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2406914,25.7502411,0 -80.2404313,25.7502484,0 -80.2404321,25.7502719,0 -80.2406922,25.7502646,0 -80.2406914,25.7502411,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 26.1<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2406893,25.7501814,0 -80.2404292,25.7501887,0 -80.2404284,25.7501652,0 -80.2406885,25.7501579,0 -80.2406893,25.7501814,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 91.0<br/><b>est_spaces</b>: 13<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2442703,25.7501981,0 -80.2451771,25.7501749,0 -80.2451764,25.7501514,0 -80.2442696,25.7501746,0 -80.2442703,25.7501981,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 91.0<br/><b>est_spaces</b>: 13<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2442722,25.7502578,0 -80.2451790,25.7502346,0 -80.2451797,25.7502581,0 -80.2442729,25.7502813,0 -80.2442722,25.7502578,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 29.9<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2409839,25.7502925,0 -80.2412818,25.7502834,0 -80.2412810,25.7502599,0 -80.2409831,25.7502690,0 -80.2409839,25.7502925,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 29.9<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2409862,25.7503522,0 -80.2412841,25.7503431,0 -80.2412849,25.7503666,0 -80.2409870,25.7503757,0 -80.2409862,25.7503522,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 55.9<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2376545,25.7503272,0 -80.2370976,25.7503468,0 -80.2370986,25.7503703,0 -80.2376555,25.7503507,0 -80.2376545,25.7503272,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 55.9<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2376520,25.7502675,0 -80.2370951,25.7502871,0 -80.2370941,25.7502636,0 -80.2376510,25.7502440,0 -80.2376520,25.7502675,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 94.4<br/><b>est_spaces</b>: 14<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2357560,25.7503897,0 -80.2348153,25.7504215,0 -80.2348162,25.7504450,0 -80.2357569,25.7504132,0 -80.2357560,25.7503897,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 94.4<br/><b>est_spaces</b>: 14<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2357535,25.7503300,0 -80.2348128,25.7503618,0 -80.2348119,25.7503383,0 -80.2357526,25.7503065,0 -80.2357535,25.7503300,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 20.2<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2372177,25.7503988,0 -80.2374186,25.7503925,0 -80.2374177,25.7503690,0 -80.2372168,25.7503753,0 -80.2372177,25.7503988,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 20.2<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2372200,25.7504585,0 -80.2374209,25.7504522,0 -80.2374218,25.7504757,0 -80.2372209,25.7504820,0 -80.2372200,25.7504585,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: left<br/><b>length_m</b>: 49.2<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2351339,25.7504644,0 -80.2356243,25.7504502,0 -80.2356235,25.7504266,0 -80.2351331,25.7504409,0 -80.2351339,25.7504644,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 22nd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 22nd Street<br/><b>side</b>: right<br/><b>length_m</b>: 49.2<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2351360,25.7505240,0 -80.2356264,25.7505098,0 -80.2356272,25.7505333,0 -80.2351368,25.7505476,0 -80.2351360,25.7505240,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 33rd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 33rd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 28.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2486322,25.7505409,0 -80.2486228,25.7502851,0 -80.2485969,25.7502859,0 -80.2486063,25.7505417,0 -80.2486322,25.7505409,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 33rd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 33rd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 28.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2486980,25.7505389,0 -80.2486886,25.7502831,0 -80.2487145,25.7502823,0 -80.2487239,25.7505381,0 -80.2486980,25.7505389,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 30th Court (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 30th Court<br/><b>side</b>: left<br/><b>length_m</b>: 14.9<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2427207,25.7508206,0 -80.2427134,25.7506863,0 -80.2426875,25.7506875,0 -80.2426948,25.7508217,0 -80.2427207,25.7508206,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 30th Court (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 30th Court<br/><b>side</b>: right<br/><b>length_m</b>: 14.9<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2427865,25.7508177,0 -80.2427792,25.7506834,0 -80.2428051,25.7506823,0 -80.2428124,25.7508165,0 -80.2427865,25.7508177,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 25th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 25th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 14.5<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2362029,25.7507712,0 -80.2361984,25.7506402,0 -80.2361725,25.7506409,0 -80.2361770,25.7507720,0 -80.2362029,25.7507712,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 25th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 25th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 14.5<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2362687,25.7507693,0 -80.2362642,25.7506383,0 -80.2362901,25.7506375,0 -80.2362946,25.7507686,0 -80.2362687,25.7507693,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 21st Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 21st Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 64.1<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2455939,25.7509223,0 -80.2462333,25.7509047,0 -80.2462326,25.7508812,0 -80.2455931,25.7508988,0 -80.2455939,25.7509223,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 21st Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 21st Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 64.1<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2455959,25.7509820,0 -80.2462353,25.7509644,0 -80.2462361,25.7509879,0 -80.2455966,25.7510055,0 -80.2455959,25.7509820,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 32nd Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 32nd Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 29.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2464365,25.7514078,0 -80.2464231,25.7511435,0 -80.2463972,25.7511445,0 -80.2464106,25.7514089,0 -80.2464365,25.7514078,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 32nd Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 32nd Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 29.3<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2465023,25.7514050,0 -80.2464889,25.7511407,0 -80.2465148,25.7511396,0 -80.2465282,25.7514040,0 -80.2465023,25.7514050,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 31st Court (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 31st Court<br/><b>side</b>: left<br/><b>length_m</b>: 34.6<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2454078,25.7514601,0 -80.2453865,25.7511479,0 -80.2453606,25.7511493,0 -80.2453820,25.7514616,0 -80.2454078,25.7514601,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 31st Court (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 31st Court<br/><b>side</b>: right<br/><b>length_m</b>: 34.6<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2454735,25.7514564,0 -80.2454522,25.7511442,0 -80.2454780,25.7511427,0 -80.2454994,25.7514550,0 -80.2454735,25.7514564,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 21st Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 21st Street<br/><b>side</b>: left<br/><b>length_m</b>: 64.9<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2456217,25.7516117,0 -80.2462688,25.7515895,0 -80.2462678,25.7515660,0 -80.2456207,25.7515882,0 -80.2456217,25.7516117,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40712 · Southwest 21st Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40712<br/><b>street</b>: Southwest 21st Street<br/><b>side</b>: right<br/><b>length_m</b>: 64.9<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2456242,25.7516713,0 -80.2462713,25.7516491,0 -80.2462723,25.7516726,0 -80.2456252,25.7516948,0 -80.2456242,25.7516713,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Day Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Day Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 17.3<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2542484,25.7309273,0 -80.2544207,25.7309220,0 -80.2544199,25.7308985,0 -80.2542475,25.7309038,0 -80.2542484,25.7309273,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Day Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Day Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 17.3<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2542507,25.7309870,0 -80.2544230,25.7309817,0 -80.2544239,25.7310052,0 -80.2542515,25.7310105,0 -80.2542507,25.7309870,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Orange Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Orange Street<br/><b>side</b>: left<br/><b>length_m</b>: 51.2<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2563126,25.7321910,0 -80.2568226,25.7321801,0 -80.2568219,25.7321566,0 -80.2563120,25.7321675,0 -80.2563126,25.7321910,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Orange Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Orange Street<br/><b>side</b>: right<br/><b>length_m</b>: 51.2<br/><b>est_spaces</b>: 7<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2563141,25.7322507,0 -80.2568241,25.7322398,0 -80.2568247,25.7322633,0 -80.2563148,25.7322742,0 -80.2563141,25.7322507,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Shipping Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Shipping Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 39.3<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2574196,25.7330889,0 -80.2578114,25.7330770,0 -80.2578105,25.7330535,0 -80.2574188,25.7330654,0 -80.2574196,25.7330889,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Shipping Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Shipping Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 39.3<br/><b>est_spaces</b>: 5<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2574218,25.7331485,0 -80.2578136,25.7331366,0 -80.2578144,25.7331601,0 -80.2574227,25.7331720,0 -80.2574218,25.7331485,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Shipping Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Shipping Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 68.7<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2560785,25.7331295,0 -80.2567631,25.7331044,0 -80.2567621,25.7330808,0 -80.2560774,25.7331060,0 -80.2560785,25.7331295,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Shipping Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Shipping Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 68.7<br/><b>est_spaces</b>: 10<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2560812,25.7331891,0 -80.2567658,25.7331640,0 -80.2567669,25.7331875,0 -80.2560822,25.7332127,0 -80.2560812,25.7331891,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Mundy Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Mundy Street<br/><b>side</b>: left<br/><b>length_m</b>: 29.0<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2526887,25.7334664,0 -80.2526715,25.7332045,0 -80.2526456,25.7332059,0 -80.2526628,25.7334678,0 -80.2526887,25.7334664,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Mundy Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Mundy Street<br/><b>side</b>: right<br/><b>length_m</b>: 29.0<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2527544,25.7334628,0 -80.2527372,25.7332009,0 -80.2527631,25.7331995,0 -80.2527803,25.7334614,0 -80.2527544,25.7334628,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Plaza Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Plaza Street<br/><b>side</b>: left<br/><b>length_m</b>: 33.2<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2518975,25.7339040,0 -80.2518804,25.7336040,0 -80.2518545,25.7336052,0 -80.2518716,25.7339052,0 -80.2518975,25.7339040,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Plaza Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Plaza Street<br/><b>side</b>: right<br/><b>length_m</b>: 33.2<br/><b>est_spaces</b>: 4<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2519632,25.7339009,0 -80.2519461,25.7336009,0 -80.2519720,25.7335997,0 -80.2519891,25.7338997,0 -80.2519632,25.7339009,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 38th Court (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 38th Court<br/><b>side</b>: left<br/><b>length_m</b>: 26.2<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2569613,25.7341437,0 -80.2569470,25.7339070,0 -80.2569211,25.7339083,0 -80.2569354,25.7341450,0 -80.2569613,25.7341437,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 38th Court (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 38th Court<br/><b>side</b>: right<br/><b>length_m</b>: 26.2<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2570270,25.7341404,0 -80.2570127,25.7339037,0 -80.2570386,25.7339024,0 -80.2570529,25.7341391,0 -80.2570270,25.7341404,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 39th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 39th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 127.1<br/><b>est_spaces</b>: 18<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2580151,25.7347826,0 -80.2579547,25.7336340,0 -80.2579288,25.7336351,0 -80.2579892,25.7347838,0 -80.2580151,25.7347826,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 39th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 39th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 127.1<br/><b>est_spaces</b>: 18<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2580809,25.7347798,0 -80.2580205,25.7336312,0 -80.2580464,25.7336300,0 -80.2581068,25.7347787,0 -80.2580809,25.7347798,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Peacock Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Peacock Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 74.8<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2549313,25.7341212,0 -80.2541855,25.7341443,0 -80.2541864,25.7341678,0 -80.2549322,25.7341447,0 -80.2549313,25.7341212,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Peacock Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Peacock Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 74.8<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2549290,25.7340615,0 -80.2541832,25.7340846,0 -80.2541823,25.7340611,0 -80.2549281,25.7340380,0 -80.2549290,25.7340615,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Carter Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Carter Street<br/><b>side</b>: left<br/><b>length_m</b>: 121.1<br/><b>est_spaces</b>: 18<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2510925,25.7345133,0 -80.2510466,25.7334182,0 -80.2510207,25.7334191,0 -80.2510666,25.7345142,0 -80.2510925,25.7345133,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Carter Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Carter Street<br/><b>side</b>: right<br/><b>length_m</b>: 121.1<br/><b>est_spaces</b>: 18<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2511583,25.7345111,0 -80.2511124,25.7334160,0 -80.2511383,25.7334151,0 -80.2511842,25.7345102,0 -80.2511583,25.7345111,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 38th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 38th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 24.7<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2560027,25.7342555,0 -80.2560139,25.7344786,0 -80.2560398,25.7344775,0 -80.2560286,25.7342545,0 -80.2560027,25.7342555,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 38th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 38th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 24.7<br/><b>est_spaces</b>: 3<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2559370,25.7342582,0 -80.2559482,25.7344813,0 -80.2559223,25.7344823,0 -80.2559111,25.7342593,0 -80.2559370,25.7342582,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Hibiscus Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Hibiscus Street<br/><b>side</b>: left<br/><b>length_m</b>: 17.2<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2502958,25.7348627,0 -80.2502867,25.7347069,0 -80.2502608,25.7347082,0 -80.2502699,25.7348639,0 -80.2502958,25.7348627,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Hibiscus Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Hibiscus Street<br/><b>side</b>: right<br/><b>length_m</b>: 17.2<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2503615,25.7348596,0 -80.2503524,25.7347038,0 -80.2503783,25.7347026,0 -80.2503874,25.7348583,0 -80.2503615,25.7348596,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · New York Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: New York Street<br/><b>side</b>: left<br/><b>length_m</b>: 160.3<br/><b>est_spaces</b>: 23<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2494730,25.7350115,0 -80.2494028,25.7335628,0 -80.2493769,25.7335638,0 -80.2494471,25.7350126,0 -80.2494730,25.7350115,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · New York Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: New York Street<br/><b>side</b>: right<br/><b>length_m</b>: 160.3<br/><b>est_spaces</b>: 23<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2495387,25.7350089,0 -80.2494685,25.7335602,0 -80.2494944,25.7335591,0 -80.2495646,25.7350079,0 -80.2495387,25.7350089,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 36th Court (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 36th Court<br/><b>side</b>: left<br/><b>length_m</b>: 15.9<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2530220,25.7354470,0 -80.2530171,25.7353036,0 -80.2529912,25.7353043,0 -80.2529961,25.7354478,0 -80.2530220,25.7354470,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 36th Court (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 36th Court<br/><b>side</b>: right<br/><b>length_m</b>: 15.9<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2530878,25.7354451,0 -80.2530829,25.7353017,0 -80.2531088,25.7353009,0 -80.2531137,25.7354444,0 -80.2530878,25.7354451,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 36th Avenue (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 36th Avenue<br/><b>side</b>: left<br/><b>length_m</b>: 14.1<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520251,25.7354782,0 -80.2520189,25.7353509,0 -80.2519930,25.7353519,0 -80.2519992,25.7354793,0 -80.2520251,25.7354782,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 36th Avenue (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 36th Avenue<br/><b>side</b>: right<br/><b>length_m</b>: 14.1<br/><b>est_spaces</b>: 2<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520909,25.7354756,0 -80.2520847,25.7353483,0 -80.2521106,25.7353472,0 -80.2521168,25.7354746,0 -80.2520909,25.7354756,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 27th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 27th Street<br/><b>side</b>: left<br/><b>length_m</b>: 107.0<br/><b>est_spaces</b>: 15<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2529587,25.7410922,0 -80.2540251,25.7410638,0 -80.2540243,25.7410403,0 -80.2529579,25.7410687,0 -80.2529587,25.7410922,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 27th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 27th Street<br/><b>side</b>: right<br/><b>length_m</b>: 107.0<br/><b>est_spaces</b>: 15<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2529606,25.7411519,0 -80.2540270,25.7411235,0 -80.2540278,25.7411470,0 -80.2529614,25.7411754,0 -80.2529606,25.7411519,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 26th Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 26th Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 190.5<br/><b>est_spaces</b>: 28<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2519413,25.7420521,0 -80.2538399,25.7419958,0 -80.2538390,25.7419723,0 -80.2519404,25.7420286,0 -80.2519413,25.7420521,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 26th Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 26th Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 190.5<br/><b>est_spaces</b>: 28<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2519434,25.7421118,0 -80.2538420,25.7420555,0 -80.2538429,25.7420790,0 -80.2519443,25.7421353,0 -80.2519434,25.7421118,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 26th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 26th Street<br/><b>side</b>: left<br/><b>length_m</b>: 66.8<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2534046,25.7429844,0 -80.2540709,25.7429623,0 -80.2540699,25.7429388,0 -80.2534037,25.7429609,0 -80.2534046,25.7429844,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 26th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 26th Street<br/><b>side</b>: right<br/><b>length_m</b>: 66.8<br/><b>est_spaces</b>: 9<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2534070,25.7430440,0 -80.2540733,25.7430219,0 -80.2540742,25.7430454,0 -80.2534080,25.7430675,0 -80.2534070,25.7430440,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 25th Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 25th Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 206.8<br/><b>est_spaces</b>: 30<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520411,25.7438181,0 -80.2541024,25.7437584,0 -80.2541016,25.7437348,0 -80.2520403,25.7437946,0 -80.2520411,25.7438181,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 25th Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 25th Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 206.8<br/><b>est_spaces</b>: 30<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520432,25.7438777,0 -80.2541045,25.7438180,0 -80.2541053,25.7438415,0 -80.2520440,25.7439013,0 -80.2520432,25.7438777,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 25th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 25th Street<br/><b>side</b>: left<br/><b>length_m</b>: 186.4<br/><b>est_spaces</b>: 27<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520625,25.7446146,0 -80.2539210,25.7445629,0 -80.2539202,25.7445394,0 -80.2520617,25.7445910,0 -80.2520625,25.7446146,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 25th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 25th Street<br/><b>side</b>: right<br/><b>length_m</b>: 186.4<br/><b>est_spaces</b>: 27<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520645,25.7446742,0 -80.2539230,25.7446225,0 -80.2539238,25.7446461,0 -80.2520653,25.7446977,0 -80.2520645,25.7446742,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 208.2<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520898,25.7454145,0 -80.2541648,25.7453540,0 -80.2541640,25.7453305,0 -80.2520890,25.7453909,0 -80.2520898,25.7454145,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 208.2<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2520919,25.7454741,0 -80.2541669,25.7454136,0 -80.2541677,25.7454372,0 -80.2520927,25.7454976,0 -80.2520919,25.7454741,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 25th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 25th Street<br/><b>side</b>: left<br/><b>length_m</b>: 40.8<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2371427,25.7454863,0 -80.2375495,25.7454708,0 -80.2375484,25.7454473,0 -80.2371417,25.7454628,0 -80.2371427,25.7454863,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 25th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 25th Street<br/><b>side</b>: right<br/><b>length_m</b>: 40.8<br/><b>est_spaces</b>: 6<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2371455,25.7455459,0 -80.2375523,25.7455304,0 -80.2375533,25.7455539,0 -80.2371466,25.7455694,0 -80.2371455,25.7455459,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 191.5<br/><b>est_spaces</b>: 28<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2385356,25.7460952,0 -80.2404448,25.7460430,0 -80.2404441,25.7460195,0 -80.2385348,25.7460717,0 -80.2385356,25.7460952,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 191.5<br/><b>est_spaces</b>: 28<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2385376,25.7461549,0 -80.2404468,25.7461027,0 -80.2404476,25.7461262,0 -80.2385383,25.7461784,0 -80.2385376,25.7461549,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Street<br/><b>side</b>: left<br/><b>length_m</b>: 208.8<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2521312,25.7462000,0 -80.2542130,25.7461386,0 -80.2542121,25.7461151,0 -80.2521303,25.7461765,0 -80.2521312,25.7462000,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Street<br/><b>side</b>: right<br/><b>length_m</b>: 208.8<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2521333,25.7462597,0 -80.2542151,25.7461983,0 -80.2542160,25.7462218,0 -80.2521342,25.7462832,0 -80.2521333,25.7462597,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Street<br/><b>side</b>: left<br/><b>length_m</b>: 212.3<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2383588,25.7466064,0 -80.2404755,25.7465467,0 -80.2404747,25.7465232,0 -80.2383580,25.7465829,0 -80.2383588,25.7466064,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 24th Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 24th Street<br/><b>side</b>: right<br/><b>length_m</b>: 212.3<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2383609,25.7466661,0 -80.2404776,25.7466064,0 -80.2404784,25.7466299,0 -80.2383617,25.7466896,0 -80.2383609,25.7466661,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 187.6<br/><b>est_spaces</b>: 28<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2521721,25.7471119,0 -80.2540425,25.7470546,0 -80.2540417,25.7470311,0 -80.2521713,25.7470884,0 -80.2521721,25.7471119,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 187.6<br/><b>est_spaces</b>: 28<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2521744,25.7471716,0 -80.2540448,25.7471143,0 -80.2540456,25.7471378,0 -80.2521752,25.7471951,0 -80.2521744,25.7471716,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 211.2<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2383922,25.7474993,0 -80.2404976,25.7474410,0 -80.2404968,25.7474174,0 -80.2383914,25.7474758,0 -80.2383922,25.7474993,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 211.2<br/><b>est_spaces</b>: 31<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2383942,25.7475589,0 -80.2404996,25.7475006,0 -80.2405004,25.7475241,0 -80.2383950,25.7475825,0 -80.2383942,25.7475589,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 129.3<br/><b>est_spaces</b>: 19<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2527350,25.7480408,0 -80.2540241,25.7480008,0 -80.2540232,25.7479773,0 -80.2527341,25.7480173,0 -80.2527350,25.7480408,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 129.3<br/><b>est_spaces</b>: 19<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2527373,25.7481005,0 -80.2540264,25.7480605,0 -80.2540273,25.7480840,0 -80.2527382,25.7481240,0 -80.2527373,25.7481005,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 59.8<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2387829,25.7484310,0 -80.2393795,25.7484175,0 -80.2393789,25.7483940,0 -80.2387823,25.7484075,0 -80.2387829,25.7484310,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 59.8<br/><b>est_spaces</b>: 8<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2387846,25.7484907,0 -80.2393812,25.7484772,0 -80.2393818,25.7485007,0 -80.2387852,25.7485142,0 -80.2387846,25.7484907,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Street (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: left<br/><b>length_m</b>: 154.5<br/><b>est_spaces</b>: 23<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2363808,25.7487384,0 -80.2379209,25.7486849,0 -80.2379199,25.7486614,0 -80.2363798,25.7487149,0 -80.2363808,25.7487384,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 23rd Street (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 23rd Street<br/><b>side</b>: right<br/><b>length_m</b>: 154.5<br/><b>est_spaces</b>: 23<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2363833,25.7487981,0 -80.2379234,25.7487446,0 -80.2379244,25.7487681,0 -80.2363843,25.7488216,0 -80.2363833,25.7487981,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 22nd Terrace (left)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: left<br/><b>length_m</b>: 76.8<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2363495,25.7495211,0 -80.2371145,25.7494948,0 -80.2371135,25.7494713,0 -80.2363485,25.7494976,0 -80.2363495,25.7495211,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+<Placemark>
+  <name>zone 40713 · Southwest 22nd Terrace (right)</name>
+  <description><![CDATA[<b>zone</b>: 40713<br/><b>street</b>: Southwest 22nd Terrace<br/><b>side</b>: right<br/><b>length_m</b>: 76.8<br/><b>est_spaces</b>: 11<br/><b>ambiguous_band_m</b>: 1.3<br/><b>lane_offset</b>: ASSUMED 3.3-5.9 m from centreline]]></description>
+  <styleUrl>#box</styleUrl>
+  <Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-80.2363520,25.7495807,0 -80.2371170,25.7495544,0 -80.2371180,25.7495779,0 -80.2363530,25.7496042,0 -80.2363520,25.7495807,0</coordinates>
+  </LinearRing></outerBoundaryIs></Polygon>
+</Placemark>
+</Document>
+</kml>
