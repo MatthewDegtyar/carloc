@@ -303,3 +303,83 @@ def to_geojson(boxes: list[ZoneBox]) -> dict:
             },
         } for b in boxes],
     }
+
+
+# --------------------------------------------------------------------------
+# zone character
+# --------------------------------------------------------------------------
+
+STREET_CLASS = {
+    "primary": "arterial", "secondary": "arterial",
+    "tertiary": "collector", "unclassified": "collector",
+    "residential": "residential", "living_street": "residential",
+}
+
+RESIDENTIAL_SUSPECT = 0.55
+"""Residential share above which a zone is probably permit parking, not metered.
+
+Not a rule anyone published -- inferred from the mix, and it matters more than
+anything else in this file, because it decides whether the product can work at
+all in a given zone."""
+
+
+def character(zones, ways: list[dict]) -> dict:
+    """Classify each zone by the kind of street its anchors sit on.
+
+    Why this exists: the API reports every zone as `type: OnStreet` and gives no
+    way to tell a metered commercial block from a residential permit district.
+    The streets do. Measured over five Miami zones:
+
+        40703   69% arterial    downtown, metered
+        40701   29% arterial, 57% collector
+        40711   54% arterial, 46% residential
+        40712   27% arterial, 57% residential
+        40713    0% arterial, 95% RESIDENTIAL
+
+    **This decides whether plateless enforcement is possible.** In a metered zone
+    a car that has not paid is a violation and a camera can see the car. In a
+    residential permit zone the resident parks free and a violator is
+    *visually identical* to them -- the difference is a permit, which is not
+    observable from the street without reading the plate. So a 95%-residential
+    zone is not a harder version of the problem, it is a different problem that
+    this approach cannot solve.
+    """
+
+    import numpy as np
+
+    lat0 = 25.77
+    mx, my = _frame(lat0)
+    starts, ends, classes = [], [], []
+    for way in ways:
+        geometry = way.get("geometry") or []
+        highway = (way.get("tags") or {}).get("highway", "")
+        for a, b in zip(geometry, geometry[1:], strict=False):
+            starts.append([a["lon"] * mx, a["lat"] * my])
+            ends.append([b["lon"] * mx, b["lat"] * my])
+            classes.append(STREET_CLASS.get(highway, "other"))
+    A = np.array(starts)
+    B = np.array(ends)
+    AB = B - A
+    L2 = np.einsum("ij,ij->i", AB, AB)
+    L2[L2 < 1e-9] = 1e-9
+
+    out = {}
+    for zone in zones:
+        counts: dict[str, int] = {}
+        for lon, lat in zone.points:
+            p = np.array([lon * mx, lat * my])
+            t = np.clip(np.einsum("ij,ij->i", p - A, AB) / L2, 0.0, 1.0)
+            d = np.linalg.norm(A + t[:, None] * AB - p, axis=1)
+            kind = classes[int(np.argmin(d))]
+            counts[kind] = counts.get(kind, 0) + 1
+        total = max(sum(counts.values()), 1)
+        residential = counts.get("residential", 0) / total
+        out[zone.signage_code] = {
+            "anchors": total,
+            "arterial": counts.get("arterial", 0) / total,
+            "collector": counts.get("collector", 0) / total,
+            "residential": residential,
+            "likely_permit": residential >= RESIDENTIAL_SUSPECT,
+            "enforceable_plateless": residential < RESIDENTIAL_SUSPECT,
+        }
+    return out
