@@ -695,3 +695,37 @@ lane); the match does not depend on it.
 This closes the loop the whole project set out to close: **which cars are in a
 paid zone, where they are, and -- now, on real timestamps -- which have
 overstayed.**
+
+## 23. The tour has no clean repeat — what that means
+
+The Biscayne overstay ran, but the location is poor: it sits under the Metromover
+deck, whose pillars chop the sightlines, whose shadow corrupts colour, and under
+which the matched vehicles are not convincingly the same. That is the location's
+fault, not the pipeline's, and it cannot be tuned away.
+
+So the drive was scanned again, harder -- threshold lowered to 0.66, 120 further
+candidates ORB-verified. **Zero new repeats.** The full list of what this 83-minute
+tour revisits:
+
+* its own **intro montage** (0:00-0:15 replays later footage -- same frames),
+* the **Biscayne block** under the Metromover (obstructed),
+* the **roundabout** at 7:35/17:53 (a bridge approach, no parked cars).
+
+None is a clean parking street. A sightseeing drive rarely retraces a good
+kerb twice, and this one never does.
+
+**The honest split, then:**
+
+* The **mechanism** -- localise from video alone, count atomically, place with a
+  real error model, match two sighting sets, flag overstays with zero false
+  positives -- is demonstrated cleanly on **SE 6th Street** (20 atomic cars) and a
+  controlled second pass.
+* The **real-data overstay** on Biscayne proves the chain runs end to end on
+  genuine footage with a real 30.5-minute gap, but on a hard location, so those
+  particular flags are weak and should be read as such.
+
+What a strong real-data overstay actually needs is the deployment's own data: a
+patrol vehicle driving one clean block **twice**, minutes to hours apart. That is
+a five-minute capture in the field and is exactly what the system is for -- a
+tourism tour video is simply the wrong source for the time axis. The pipeline is
+ready for that footage the moment it exists.
