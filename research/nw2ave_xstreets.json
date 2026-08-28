@@ -1,0 +1,68 @@
+[
+ {
+  "arc": 254.657678587582,
+  "name": "Northwest 22nd Street",
+  "lat": 25.797729,
+  "lon": -80.1989773
+ },
+ {
+  "arc": 285.5173264992575,
+  "name": "Northwest 22nd Street",
+  "lat": 25.798008,
+  "lon": -80.1989881
+ },
+ {
+  "arc": 410.192374475915,
+  "name": "Northwest 23rd Street",
+  "lat": 25.7991351,
+  "lon": -80.1990308
+ },
+ {
+  "arc": 450.51700012241815,
+  "name": "Northwest 23rd Street",
+  "lat": 25.7994996,
+  "lon": -80.1990463
+ },
+ {
+  "arc": 485.7318018606293,
+  "name": "Northwest 24th Street",
+  "lat": 25.799818,
+  "lon": -80.1990578
+ },
+ {
+  "arc": 519.3307058283868,
+  "name": "Northwest 24th Street",
+  "lat": 25.8001218,
+  "lon": -80.1990684
+ },
+ {
+  "arc": 587.0229177801174,
+  "name": "Northwest 25th Street",
+  "lat": 25.8007338,
+  "lon": -80.1990921
+ },
+ {
+  "arc": 667.1144829795646,
+  "name": "Northwest 26th Street",
+  "lat": 25.8014579,
+  "lon": -80.1991202
+ },
+ {
+  "arc": 744.2429706990059,
+  "name": "Northwest 27th Street",
+  "lat": 25.8021554,
+  "lon": -80.1991405
+ },
+ {
+  "arc": 828.501122483169,
+  "name": "Northwest 28th Street",
+  "lat": 25.8029171,
+  "lon": -80.199171
+ },
+ {
+  "arc": 931.9604765201159,
+  "name": "Northwest 29th Street",
+  "lat": 25.8038529,
+  "lon": -80.199189
+ }
+]

@@ -11,3 +11,11 @@ Screenshot*.png
 research/*.html
 .cache/
 video/
+archive/
+reports/*.jpg
+reports/*.json
+reports/*.npy
+reports/*.pkl
+reports/se6frames/
+reports/*frames/
+reports/*.npz
