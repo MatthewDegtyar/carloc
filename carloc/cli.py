@@ -20,7 +20,7 @@ import sys
 
 
 def _cmd_count(args) -> int:
-    from carloc.pipeline import count_parked
+    from carloc.video import count_parked
 
     def progress(i, n):
         print(f"  detecting… {i}/{n} frames", file=sys.stderr)
@@ -28,7 +28,7 @@ def _cmd_count(args) -> int:
     cars = count_parked(args.video, args.start, args.end, lateral_m=args.lateral,
                         both_sides=not args.one_side, fps=args.fps, on_progress=progress)
     left = sum(1 for c in cars if c.side == "left")
-    rebuilt = sum(1 for c in cars if c.tracklets > 1)
+    rebuilt = sum(1 for c in cars if c.n_tracklets > 1)
     print(f"\n{len(cars)} parked cars  ({left} left kerb, {len(cars)-left} right)  "
           f"· {rebuilt} rebuilt from occlusion-split tracklets")
     from collections import Counter
@@ -37,11 +37,13 @@ def _cmd_count(args) -> int:
     if args.out:
         with open(args.out, "w", newline="") as fh:
             w = csv.writer(fh)
-            w.writerow(["along_m", "sigma_m", "side", "class", "color", "detections", "tracklets"])
+            w.writerow(["along_m", "sigma_along_m", "side", "class", "color",
+                        "abeam_t", "first_t", "last_t", "n_detections", "n_tracklets"])
             for c in cars:
-                w.writerow([c.along_m, c.sigma_m, c.side, c.vehicle_class, c.color,
-                            c.detections, c.tracklets])
+                w.writerow([c.along_m, c.sigma_along_m, c.side, c.vehicle_class, c.color,
+                            c.abeam_t, c.first_t, c.last_t, c.n_detections, c.n_tracklets])
         print(f"wrote {args.out}")
+    return 0
     return 0
 
 

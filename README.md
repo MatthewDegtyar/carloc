@@ -213,44 +213,85 @@ same-direction coverage.
 
 ---
 
+## Install
+
+Requires Python 3.11+ and `ffmpeg` on your PATH. Managed with
+[`uv`](https://docs.astral.sh/uv/):
+
+```bash
+uv sync --extra detect        # detector (RF-DETR, local, no key) + OpenCV + Pillow
+```
+
+The core geometry (`Trajectory`, `geolocate`) installs with no heavy deps; the
+`detect` extra is only needed to process video.
+
+## Use it
+
+The whole package is four names — count cars, say how the camera moved, combine:
+
+```python
+import carloc
+from datetime import datetime
+
+# 1. vision: a video segment -> parked cars, positioned along the street
+cars = carloc.count_parked("drive.mp4", start=420, end=505)
+
+# 2. how the camera moved — you choose. GPS is the easy, exact case:
+trip = carloc.Trajectory.from_gps([
+    (datetime(2025, 6, 2, 9, 7, 0), 25.7684, -80.1922),   # (time, lat, lon)
+    (datetime(2025, 6, 2, 9, 8, 25), 25.7680, -80.1906),
+])
+# …or a couple of map anchors, or Trajectory.straight(...), or your own subclass.
+
+# 3. combine -> absolute, timestamped cars
+for c in carloc.geolocate(cars, trip):
+    print(c.timestamp, c.lat, c.lon, c.side, c.color, c.vehicle_class)
+```
+
+`count_parked` returns [`ParkedCar`](carloc/types.py)s (relative); `geolocate`
+returns `GeolocatedCar`s (absolute + timestamp). See
+[`examples/quickstart.py`](examples/quickstart.py).
+
+**Compose it your way.** Swap the detector with `count_parked(..., detector=my_model)`
+(anything RF-DETR-shaped), or feed your own detections to `carloc.track_parked`.
+Bring any camera-position source by subclassing `Trajectory` and implementing
+`position_at(t) -> (lat, lon, heading)`.
+
+There's also a small CLI:
+
+```bash
+carloc count drive.mp4 --start 420 --end 505 --out cars.csv
+carloc zone 40703                 # fetch a ParkMobile paid zone (live)
+carloc survey drive.mp4           # parking density across a whole video
+```
+
 ## Repository layout
 
 ```
-carloc/                library modules
-  rfdetr_detect.py     RF-DETR vehicle detection, tiled
-  appearance.py        HSV colour classification (the re-id key)
+carloc/                the package
+  video.py             count_parked() — video → parked cars   ← start here
+  trajectory.py        Trajectory — how the camera moved (GPS / anchors / custom)
+  geolocate.py         geolocate() — parked cars + trajectory → lat/lon + time
+  types.py             ParkedCar, GeolocatedCar
+  detect.py            detection primitives (Detection, NMS)
+  rfdetr_detect.py     RF-DETR vehicle detector, tiled
+  appearance.py        HSV colour classification (the plateless re-id key)
   tracking.py          associate → triangulate → slot  (atomic counting)
-  dashcam.py           yaw + scene-motion odometry
-  sightings.py         sightings log, Mahalanobis presence query, overstay
-  parkmobile.py        ParkMobile on-street zone API client
-  zonebox.py           parking-lane polygons + INSIDE/OUTSIDE/AMBIGUOUS verdict
-  basemap.py           georeferenced Esri satellite tiles (Web Mercator)
-  export.py            KML / CSV / WKT export (axis-order-safe)
-  downtown.py          demo scope + judging helpers
+  dashcam.py           yaw + scene-motion odometry (relative trajectory from video)
+  parkmobile.py        ParkMobile on-street zone API client        ┐ optional
+  zonebox.py           parking-lane polygons + in-zone verdict     │ extras
+  sightings.py         sightings log, presence query, overstay     │
+  export.py            KML / CSV export (axis-order-safe)          │
+  basemap.py           georeferenced Esri satellite tiles          ┘
+  cli.py               the `carloc` command
+examples/quickstart.py end-to-end example
 research/              per-experiment scripts (SE 6th, Biscayne, Wynwood, survey…)
   FINDINGS.md          the full decision log — read this for the real story
-reports/               generated maps, overlays, CSV/KML (gitignored PNGs)
+docs/                  the GitHub Pages showcase site
 ```
 
-## Running it
-
-Dependencies are managed with [`uv`](https://docs.astral.sh/uv/). The detector
-needs the `detect` extra (RF-DETR, torch):
-
-```bash
-uv sync --extra detect --extra plot
-```
-
-Credentials (never committed; `.env` is gitignored):
-
-- `ROBOFLOW_API_KEY` — not needed for RF-DETR (runs locally, no key)
-- `MAPILLARY_TOKEN` — only for the (experimental) imagery-matching localisation
-- ParkMobile zone endpoints need no key; requests are rate-limited by default
-
-The `research/*.py` scripts are the entry points — each reconstructs one result
-(e.g. `research/se6_count.py` produces the 20-car SE 6th count,
-`research/parking_survey.py` the whole-video parking timeline). Outputs land in
-`reports/`.
+ParkMobile zone endpoints need no key; requests are rate-limited by default.
+Credentials for the optional experiments live in `.env` (gitignored).
 
 ---
 

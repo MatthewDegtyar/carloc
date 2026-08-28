@@ -1,18 +1,21 @@
 [project]
 name = "carloc"
 version = "0.1.0"
-description = "Every car in a drone scene, once, with a real lat/lon"
+description = "Geolocated parked cars, with timestamps, from dashcam video — plateless"
+readme = "README.md"
 requires-python = ">=3.11,<3.14"
-dependencies = ["numpy>=1.26", "pillow>=10.0"]
+# Core install is light: the geometry (Trajectory, geolocate) and types work with
+# just these. The detector and video decoding are the `detect` extra.
+dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
-# CoreML ships compiled extensions only up to 3.13. The numpy<2 pin that used to
-# sit here belongs to *conversion*, not inference: running an exported .mlpackage
-# is fine under numpy 2 (verified, coremltools 9.0 / numpy 2.5.2).
+# Everything needed to go from a video file to parked cars: the detector
+# (RF-DETR, runs locally, no key), OpenCV for tracking/optical-flow, Pillow.
+# ffmpeg must be on PATH for frame extraction.
 detect = [
-    "coremltools>=8.0",
-    "inference-sdk>=0.9",
     "rfdetr>=1.9",
+    "opencv-python>=4.9",
+    "pillow>=10.0",
 ]
 plot = ["matplotlib>=3.7"]
 

@@ -12,7 +12,6 @@ That is the whole trick, and it costs a linear factor in tiles per frame.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from pathlib import Path
 
 import numpy as np
 
@@ -74,95 +73,3 @@ def _suppress(detections: list[Detection], threshold: float) -> list[Detection]:
                 continue
         kept.append(candidate)
     return kept
-
-
-class CoreMLDetector:
-    """YOLO exported to CoreML, run over overlapping native-resolution tiles."""
-
-    def __init__(self, model_path: str | Path = "models/yolo11n.mlpackage",
-                 tile: int = TILE, overlap: float = OVERLAP,
-                 score_threshold: float = SCORE_THRESHOLD) -> None:
-        self.model_path = Path(model_path)
-        self.tile = tile
-        self.overlap = overlap
-        self.score_threshold = score_threshold
-        self._model = None
-        self._labels: list[str] = []
-        self._input_size = 640
-
-    def load(self) -> None:
-        if self._model is not None:
-            return
-        if not self.model_path.exists():
-            raise FileNotFoundError(
-                f"no model at {self.model_path}. Export one with:\n"
-                "  YOLO('yolo11n.pt').export(format='coreml', nms=True, imgsz=640)"
-            )
-        import coremltools as ct
-
-        self._model = ct.models.MLModel(str(self.model_path))
-        spec = self._model.get_spec()
-        self._input_name = spec.description.input[0].name
-        image_type = spec.description.input[0].type.imageType
-        self._input_size = int(image_type.width)
-        meta = self._model.user_defined_metadata
-        names = meta.get("names") or meta.get("classes") or ""
-        if names.startswith("{"):
-            import ast
-
-            self._labels = [v for _, v in sorted(ast.literal_eval(names).items())]
-        elif names:
-            self._labels = [n.strip() for n in names.split(",")]
-
-    def tiles_for(self, width: int, height: int):
-        size = min(self.tile, width, height)
-        step = max(1, int(size * (1.0 - self.overlap)))
-        xs = list(range(0, max(width - size, 0) + 1, step))
-        ys = list(range(0, max(height - size, 0) + 1, step))
-        if xs[-1] + size < width:
-            xs.append(width - size)
-        if ys[-1] + size < height:
-            ys.append(height - size)
-        return [(x, y, size, size) for y in ys for x in xs]
-
-    def _run(self, crop: np.ndarray, offset_x: int, offset_y: int,
-             scale: float) -> list[Detection]:
-        from PIL import Image
-
-        image = Image.fromarray(crop).resize((self._input_size, self._input_size),
-                                             Image.BILINEAR)
-        out = self._model.predict({self._input_name: image})
-        boxes = np.asarray(out.get("coordinates", np.empty((0, 4))))
-        confidence = np.asarray(out.get("confidence", np.empty((0, 1))))
-        if not len(boxes):
-            return []
-
-        found: list[Detection] = []
-        side = crop.shape[0]
-        for box, scores in zip(boxes, confidence, strict=False):
-            best = int(np.argmax(scores))
-            score = float(scores[best])
-            if score < self.score_threshold:
-                continue
-            label = self._labels[best] if best < len(self._labels) else str(best)
-            if label not in VEHICLES:
-                continue
-            # CoreML YOLO emits normalised centre-width-height.
-            cx, cy, bw, bh = (float(v) for v in box)
-            x1 = (cx - bw / 2) * side + offset_x
-            y1 = (cy - bh / 2) * side + offset_y
-            x2 = (cx + bw / 2) * side + offset_x
-            y2 = (cy + bh / 2) * side + offset_y
-            if x2 - x1 < 2 or y2 - y1 < 2:
-                continue
-            found.append(Detection(np.array([x1, y1, x2, y2]) * scale, label, score))
-        return found
-
-    def detect(self, image: np.ndarray) -> list[Detection]:
-        self.load()
-        height, width = image.shape[:2]
-        found: list[Detection] = []
-        for x, y, tw, th in self.tiles_for(width, height):
-            crop = image[y:y + th, x:x + tw]
-            found.extend(self._run(crop, x, y, scale=1.0))
-        return _suppress(found, NMS_IOU)
