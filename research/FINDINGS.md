@@ -729,3 +729,23 @@ patrol vehicle driving one clean block **twice**, minutes to hours apart. That i
 a five-minute capture in the field and is exactly what the system is for -- a
 tourism tour video is simply the wrong source for the time axis. The pipeline is
 ready for that footage the moment it exists.
+
+## 24. Where this works: the block matters more than the algorithm
+
+Biscayne showed the method's accuracy is set by the parking geometry, not the
+code. **Pure side-of-street (parallel) parking is the case it is built for**, and
+a wide arterial is close to the worst case. The difference, stage by stage:
+
+| | good block (e.g. SE 6th St) | bad block (e.g. Biscayne under the Metromover) |
+|---|---|---|
+| camera-to-parking | adjacent lane — short range, steep bearing, low sigma | lanes away across traffic — long range, shallow bearing, high sigma |
+| lateral offset | fixed & known (measured 4.73 m held) | ambiguous (service lane, multiple lanes) |
+| sightlines | open sky/buildings | transit deck chops tracklets, shadow wrecks colour |
+| turnover | discrete spaces, atomic count | loading zones, constant churn |
+| result | 20 clean atomic cars | sparse, mismatched, false overstays |
+
+**Deployment checklist for a block worth analysing:** a narrow one- or two-lane
+street; parallel parking on at least one side; open overhead (no elevated rail,
+no dense canopy); even light; and, for the enforcement angle, a paid/ParkMobile
+kerb. Point the system at those and it is accurate; point it at a boulevard under
+a transit line and it is not. Choosing the block is part of the method.
