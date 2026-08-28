@@ -19,3 +19,4 @@ reports/*.pkl
 reports/se6frames/
 reports/*frames/
 reports/*.npz
+.DS_Store
