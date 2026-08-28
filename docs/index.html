@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>carloc — plateless parking enforcement from dashcam video</title>
+<meta name="description" content="Find parked cars from a moving camera, map them in real lat/lon, check them against ParkMobile paid zones, and catch overstays — without reading a licence plate or using GPS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#0a0e14; --panel:#111722; --line:#222c3a; --ink:#dbe4ef;
+    --muted:#8b98ab; --faint:#5c6a7c; --amber:#ffd166; --teal:#63e6c4; --blue:#58a6ff;
+    --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:64px 0 40px;border-bottom:1px solid var(--line);
+    background:radial-gradient(1200px 400px at 50% -10%, #14203050, transparent)}
+  h1{font-size:clamp(30px,5vw,46px);font-weight:600;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+  .lede{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:70ch;margin:0}
+  .plate{color:var(--amber);font-weight:500}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .btn{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;
+    font-weight:500;font-size:15px;border:1px solid var(--line)}
+  .btn.primary{background:var(--teal);color:#08120e;border-color:var(--teal)}
+  .btn.ghost{color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--teal)}
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);
+    font-weight:600;margin:0 0 18px}
+  h3{font-size:22px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+  figure{margin:0 0 10px}
+  img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line)}
+  figcaption{color:var(--muted);font-size:14px;margin-top:10px}
+  .stack figure{margin-bottom:34px}
+  .stat-row{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 30px}
+  .stat{flex:1 1 150px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .stat b{display:block;font-family:var(--mono);font-size:26px;font-weight:500;color:var(--ink)}
+  .stat span{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint)}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .step .n{font-family:var(--mono);color:var(--teal);font-size:13px}
+  .step h4{margin:6px 0 6px;font-size:16px}
+  .step p{margin:0;color:var(--muted);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--faint);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  td.good{color:var(--teal)} td.warn{color:var(--amber)}
+  .note{color:var(--muted);font-size:14.5px;max-width:72ch}
+  footer{padding:40px 0 70px;color:var(--faint);font-size:13.5px}
+  code{font-family:var(--mono);font-size:.92em;background:#0d1420;border:1px solid var(--line);
+    padding:1px 6px;border-radius:5px;color:var(--ink)}
+  @media (prefers-reduced-motion:no-preference){.btn{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Who's parked here — and who's overstaying?</h1>
+    <p class="lede">A car with a camera drives a street. Software finds every parked
+      car, drops each one on a map in real coordinates, checks it against
+      ParkMobile's paid-zone database, and — across two passes — flags the
+      overstayers. <span class="plate">All without reading a licence plate, and
+      without GPS.</span></p>
+    <div class="cta">
+      <a class="btn primary" href="interactive-map.html">Open the interactive map →</a>
+      <a class="btn ghost" href="https://github.com/MatthewDegtyar/carloc">Source &amp; README</a>
+    </div>
+  </div>
+</header>
+
+<section><div class="wrap">
+  <h2>What it produces</h2>
+  <div class="stat-row">
+    <div class="stat"><b>20</b><span>cars, one block, counted exactly</span></div>
+    <div class="stat"><b>0</b><span>licence plates read</span></div>
+    <div class="stat"><b>30.5 min</b><span>real overstay caught</span></div>
+    <div class="stat"><b>35</b><span>parking blocks found in one drive</span></div>
+  </div>
+  <figure>
+    <img src="img/se6_reference.jpg" alt="20 parked cars detected on SE 6th Street, each boxed at its clearest frame">
+    <figcaption>Every parked car on a Brickell block, detected from the moving
+      camera and counted once — not once per frame. Green boxes were rebuilt from
+      pieces an obstruction split.</figcaption>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h4>Detect</h4><p>RF-DETR finds kerb-side
+      vehicles the frame at a time — the geometry a plate-reader can't use.</p></div>
+    <div class="step"><div class="n">02</div><h4>Track</h4><p>Link a car across
+      frames as the camera passes, so it's one car, not many detections.</p></div>
+    <div class="step"><div class="n">03</div><h4>Triangulate</h4><p>Fix each car's
+      spot from all its viewing angles at once; reject anything moving with traffic.</p></div>
+    <div class="step"><div class="n">04</div><h4>Count &amp; map</h4><p>Collapse to
+      physical cars, place in lat/lon, colour and type tagged for re-identification.</p></div>
+    <div class="step"><div class="n">05</div><h4>Zone verdict</h4><p>Cross-reference
+      the position against ParkMobile's own paid-zone geometry.</p></div>
+    <div class="step"><div class="n">06</div><h4>Overstay</h4><p>Match the same car
+      across two passes, hours apart — the loiterers fall out.</p></div>
+  </div>
+  <figure style="margin-top:30px">
+    <img src="img/count_compare.jpg" alt="Before and after atomic counting: 40 becomes 20">
+    <figcaption>Counting done right: naive placement double-counts one car as it
+      passes (left, 40); tracking collapses it to the true 20 (right).</figcaption>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Results, on real footage</h2>
+  <div class="stack">
+    <figure>
+      <img src="img/se6_map.jpg" alt="The 20 cars mapped in lat/lon along the kerb">
+      <figcaption>The count, mapped — each car in real coordinates along the kerb.
+        <a href="interactive-map.html">Explore it interactively.</a></figcaption>
+    </figure>
+    <figure>
+      <img src="img/biscayne_overstay.jpg" alt="Overstay across two Biscayne passes 30 minutes apart">
+      <figcaption>The first <em>real</em> overstay: the same Biscayne block driven
+        twice, 30.5 minutes apart, cars present in both passes flagged.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/parking_timeline.jpg" alt="Parking density across the whole 83-minute drive">
+      <figcaption>The whole-video survey — 35 pure side-street parking segments
+        located across all 83 minutes of the drive.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Where it's accurate — honestly</h2>
+  <p class="note">The vision (detect, count, colour, both kerbs) is solid
+    everywhere. Absolute position depends on what the street offers to anchor to:</p>
+  <table>
+    <tr><th>Street type</th><th>Along-street error</th></tr>
+    <tr><td>Has readable street-name signs (arterials)</td><td class="good">~metres — lands on individual spots</td></tr>
+    <tr><td>Bare grid, no signs (side streets)</td><td class="warn">scale correct, ±1 block absolute</td></tr>
+  </table>
+  <p class="note" style="margin-top:16px">The one thing that collapses this to
+    metre-accuracy <em>everywhere</em> is a GPS feed on the vehicle — which every
+    enforcement vehicle already has. Everything here is what the pixels alone give
+    you. Tried and ruled out, so the limits are known not guessed: drone imagery,
+    public traffic cameras (1 of 383 near a paid kerb, and it's a highway), and
+    matching video to public street-imagery.</p>
+</div></section>
+
+<footer><div class="wrap">
+  Research demo, built against one 83-minute Miami driving tour.
+  Code, full README, and the complete engineering decision log at
+  <a href="https://github.com/MatthewDegtyar/carloc">github.com/MatthewDegtyar/carloc</a>.
+  Imagery: Esri, Maxar, Earthstar Geographics. Maps data © OpenStreetMap contributors.
+</div></footer>
+</body>
+</html>

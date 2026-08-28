@@ -12,6 +12,11 @@ comes from the video itself plus public map data.
 > [Accuracy: where this works](#accuracy-where-this-works). The full running
 > notebook of decisions and dead ends is in [`research/FINDINGS.md`](research/FINDINGS.md).
 
+![Parked cars detected on SE 6th Street, Brickell — 20 counted atomically, each boxed at its clearest frame](docs/img/se6_reference.jpg)
+
+*20 parked cars on one Brickell block, each detected from the moving camera and
+counted exactly once. [More below.](#results)*
+
 ---
 
 ## Why plateless
@@ -113,6 +118,8 @@ point**:
 
 On a clean block this took a naive count of 40 down to an **atomic 20**.
 
+![Before/after: naive place-then-merge counts 40 (one car split into several jammed pins); track-triangulate-slot counts 20, evenly spaced](docs/img/count_compare.jpg)
+
 ### 4. Localisation — the hard part, no GPS
 
 The camera's own trajectory is reconstructed from the video (`carloc/dashcam.py`):
@@ -166,6 +173,15 @@ matters, since you never want to flag a paying parker.
 | Whole-video parking survey | all 83 min | **35 pure side-street parking segments** found (Wynwood, Little Havana, Brickell) |
 | Dense neighbourhood map | NW 2nd Ave, Wynwood | **45 cars, both kerbs**, grid-locked to NW 22nd–29th St |
 | Public-camera overlap | Miami-Dade | **1 of 383** FDOT cameras within 150 m of a paid kerb — and it's a highway |
+
+![The 20 SE 6th cars placed in lat/lon on satellite, in a row along the north kerb](docs/img/se6_map.jpg)
+*The count, mapped: each car in real lat/lon along the kerb, coloured by detected colour.*
+
+![First real overstay: two genuine passes of Biscayne Blvd 30.5 minutes apart, cars present in both matched](docs/img/biscayne_overstay.jpg)
+*Overstay on real data: the same block driven twice, 30 minutes apart, cars in both passes flagged.*
+
+![Parking density across the whole 83-minute drive, 35 pure side-street segments found](docs/img/parking_timeline.jpg)
+*The whole-video survey: where the drive passes parkable kerb, across all 83 minutes.*
 
 Every map exports to **KML** (`carloc/export.py`) for Google My Maps / Earth, with
 named `latitude`/`longitude` columns to defeat the GeoJSON axis-order trap that
