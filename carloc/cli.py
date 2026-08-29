@@ -116,6 +116,31 @@ def _cmd_survey(args) -> int:
     return 0
 
 
+def _cmd_confidence(args) -> int:
+    from carloc.confidence import sweep
+    from carloc.video import detect_segment
+
+    print("  detecting once…", file=sys.stderr)
+    left, right = detect_segment(args.video, args.start, args.end,
+                                 both_sides=not args.one_side, fps=args.fps,
+                                 speed_mps=args.speed)
+    thresholds = tuple(range(args.min, args.max + 1))
+    rows = sweep(left, right, thresholds=thresholds, lateral_m=args.lateral,
+                 n_boot=args.boot)
+    print(f"\nparked-car count vs frame-confidence  ({args.boot} bootstraps, 90% CI)")
+    print(f"{'min_frames':>10}  {'count':>6}  {'90% CI':>12}")
+    for r in rows:
+        print(f"{r.min_frames:>10}  {r.count:>6}  {f'[{r.ci_lo}, {r.ci_hi}]':>12}")
+    if args.out:
+        with open(args.out, "w", newline="") as fh:
+            w = csv.writer(fh)
+            w.writerow(["min_frames", "count", "ci_lo", "ci_hi", "boot_median"])
+            for r in rows:
+                w.writerow([r.min_frames, r.count, r.ci_lo, r.ci_hi, r.boot_median])
+        print(f"wrote {args.out}")
+    return 0
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="carloc", description=__doc__.split("\n")[0])
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -141,6 +166,21 @@ def main(argv=None) -> int:
     s.add_argument("--step", type=int, default=6, help="sample every N seconds")
     s.add_argument("--out", help="write the timeline CSV to this path")
     s.set_defaults(func=_cmd_survey)
+
+    cf = sub.add_parser("confidence",
+                        help="count vs frame-confidence threshold, with bootstrap CIs")
+    cf.add_argument("video")
+    cf.add_argument("--start", type=float, required=True)
+    cf.add_argument("--end", type=float, required=True)
+    cf.add_argument("--min", type=int, default=2, help="lowest min_frames threshold")
+    cf.add_argument("--max", type=int, default=6, help="highest min_frames threshold")
+    cf.add_argument("--boot", type=int, default=60, help="bootstrap resamples")
+    cf.add_argument("--lateral", type=float, default=7.0)
+    cf.add_argument("--speed", type=float, default=7.0, help="avg speed m/s (metric scale)")
+    cf.add_argument("--one-side", action="store_true")
+    cf.add_argument("--fps", type=float, default=4.0)
+    cf.add_argument("--out", help="write the CI table CSV to this path")
+    cf.set_defaults(func=_cmd_confidence)
 
     args = p.parse_args(argv)
     return args.func(args)

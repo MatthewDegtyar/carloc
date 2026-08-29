@@ -127,9 +127,15 @@ def _detect(files, model, t0, fps, both_sides, speed_mps=7.0, trajectory=None):
     return left, right
 
 
-def track_parked(detections: list[dict], side: str, lateral_m: float = 7.0
-                 ) -> list[ParkedCar]:
+def track_parked(detections: list[dict], side: str, lateral_m: float = 7.0,
+                 min_frames: int = 2) -> list[ParkedCar]:
     """Associate → triangulate → slot a list of detection dicts into parked cars.
+
+    ``min_frames`` is the frame-confidence threshold: a car is only counted if it
+    was seen (detected and tracked) in at least this many frames across the whole
+    pass. Raising it trades recall for precision — 2 keeps every triangulable car,
+    higher values drop the brief, one-glimpse detections most likely to be spurious
+    or moving. (Two detections are always needed to triangulate, so 2 is the floor.)
 
     ``detections`` need the keys produced internally (frame, t, s_cam, bearing,
     cx, cy, bh, bw, color, cls). Most users call :func:`count_parked` instead;
@@ -149,6 +155,8 @@ def track_parked(detections: list[dict], side: str, lateral_m: float = 7.0
                      "abeam_t": abeam["t"], "first_t": t.dets[0]["t"], "last_t": t.dets[-1]["t"]})
     cars = []
     for c in slot(recs, min_sep_m=4.5):
+        if c["ndet"] < min_frames:               # frame-confidence threshold
+            continue
         near = min((r for r in recs if r["color"] == c["color"]),
                    key=lambda r: abs(r["S"] - c["S"]), default=None)
         cars.append(ParkedCar(
@@ -161,27 +169,45 @@ def track_parked(detections: list[dict], side: str, lateral_m: float = 7.0
     return cars
 
 
-def count_parked(video: str, start: float, end: float, lateral_m: float = 7.0,
-                 both_sides: bool = True, fps: float = 4.0, detector=None,
-                 speed_mps: float = 7.0, trajectory=None) -> list[ParkedCar]:
-    """Count the parked cars in ``[start, end)`` seconds of ``video``.
+def detect_segment(video: str, start: float, end: float, both_sides: bool = True,
+                   fps: float = 4.0, detector=None, speed_mps: float = 7.0,
+                   trajectory=None) -> tuple[list[dict], list[dict]]:
+    """Detect kerb-side vehicles across a segment, returning raw (left, right) dicts.
 
-    Returns one :class:`ParkedCar` per physical car, positioned along the street.
-    Pass ``detector`` (anything with ``predict(rgb) -> {class_id, xyxy}``) to swap
-    the model; by default RF-DETR is used.
-
-    The along-street positions are metric only up to a scale: pass ``trajectory``
-    (a GPS track is ideal) and it is used to scale the camera's motion exactly, or
-    give ``speed_mps`` as the segment's rough average speed. Without either, the
-    count uses a default urban speed and should be treated as approximate.
+    The detection half of :func:`count_parked`, exposed so it can be run once and
+    then tracked at several ``min_frames`` thresholds (see
+    :mod:`carloc.confidence`) without re-running the model.
     """
     if detector is None:
         from rfdetr import RFDETRBase
         detector = RFDETRBase()
     with tempfile.TemporaryDirectory() as tmp:
         files = extract_frames(video, start, end, tmp, fps=fps)
-        left, right = _detect(files, detector, start, fps, both_sides,
-                              speed_mps=speed_mps, trajectory=trajectory)
-    cars = track_parked(left, "left", lateral_m) + track_parked(right, "right", lateral_m)
+        return _detect(files, detector, start, fps, both_sides,
+                       speed_mps=speed_mps, trajectory=trajectory)
+
+
+def count_parked(video: str, start: float, end: float, lateral_m: float = 7.0,
+                 both_sides: bool = True, fps: float = 4.0, detector=None,
+                 speed_mps: float = 7.0, trajectory=None,
+                 min_frames: int = 2) -> list[ParkedCar]:
+    """Count the parked cars in ``[start, end)`` seconds of ``video``.
+
+    Returns one :class:`ParkedCar` per physical car, positioned along the street.
+    Pass ``detector`` (anything with ``predict(rgb) -> {class_id, xyxy}``) to swap
+    the model; by default RF-DETR is used.
+
+    ``min_frames`` is the frame-confidence threshold — the fewest frames a car must
+    be tracked across to be counted (see :func:`track_parked`). Higher = stricter.
+
+    The along-street positions are metric only up to a scale: pass ``trajectory``
+    (a GPS track is ideal) and it is used to scale the camera's motion exactly, or
+    give ``speed_mps`` as the segment's rough average speed. Without either, the
+    count uses a default urban speed and should be treated as approximate.
+    """
+    left, right = detect_segment(video, start, end, both_sides=both_sides, fps=fps,
+                                 detector=detector, speed_mps=speed_mps, trajectory=trajectory)
+    cars = (track_parked(left, "left", lateral_m, min_frames)
+            + track_parked(right, "right", lateral_m, min_frames))
     cars.sort(key=lambda c: c.along_m)
     return cars

@@ -263,7 +263,13 @@ There's also a small CLI:
 carloc count drive.mp4 --start 420 --end 505 --out cars.csv
 carloc zone 40703                 # fetch a ParkMobile paid zone (live)
 carloc survey drive.mp4           # parking density across a whole video
+carloc confidence drive.mp4 --start 420 --end 505   # count vs frame-confidence, with CIs
 ```
+
+`count_parked(..., min_frames=N)` sets the **frame-confidence** threshold — the
+fewest frames a car must be tracked across to be counted (higher = stricter,
+fewer false/brief detections). `carloc.confidence.sweep` runs a whole battery:
+the count at each threshold with a bootstrap 90% CI.
 
 ## Repository layout
 
