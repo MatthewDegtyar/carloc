@@ -47,4 +47,5 @@ class GeolocatedCar:
     color: str
     sigma_along_m: float
     sigma_cross_m: float
+    confidence: float        # 0..1, carried from the ParkedCar
     source_t: float          # video time it was placed from

@@ -42,5 +42,5 @@ def geolocate(cars: list[ParkedCar], trajectory, lateral_m: float = 7.0,
             timestamp=trajectory.timestamp_at(c.abeam_t),
             side=c.side, vehicle_class=c.vehicle_class, color=c.color,
             sigma_along_m=c.sigma_along_m, sigma_cross_m=sigma_cross_m,
-            source_t=c.abeam_t))
+            confidence=c.confidence, source_t=c.abeam_t))
     return out
