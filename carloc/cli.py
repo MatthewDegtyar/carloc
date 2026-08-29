@@ -24,7 +24,8 @@ def _cmd_count(args) -> int:
 
     print("  detecting… (this runs the model over the segment)", file=sys.stderr)
     cars = count_parked(args.video, args.start, args.end, lateral_m=args.lateral,
-                        both_sides=not args.one_side, fps=args.fps)
+                        both_sides=not args.one_side, fps=args.fps,
+                        speed_mps=args.speed, min_frames=args.min_frames)
     left = sum(1 for c in cars if c.side == "left")
     rebuilt = sum(1 for c in cars if c.n_tracklets > 1)
     print(f"\n{len(cars)} parked cars  ({left} left kerb, {len(cars)-left} right)  "
@@ -35,11 +36,12 @@ def _cmd_count(args) -> int:
     if args.out:
         with open(args.out, "w", newline="") as fh:
             w = csv.writer(fh)
-            w.writerow(["along_m", "sigma_along_m", "side", "class", "color",
+            w.writerow(["along_m", "sigma_along_m", "side", "class", "color", "confidence",
                         "abeam_t", "first_t", "last_t", "n_detections", "n_tracklets"])
             for c in cars:
                 w.writerow([c.along_m, c.sigma_along_m, c.side, c.vehicle_class, c.color,
-                            c.abeam_t, c.first_t, c.last_t, c.n_detections, c.n_tracklets])
+                            c.confidence, c.abeam_t, c.first_t, c.last_t,
+                            c.n_detections, c.n_tracklets])
         print(f"wrote {args.out}")
     return 0
     return 0
@@ -152,6 +154,10 @@ def main(argv=None) -> int:
     c.add_argument("--lateral", type=float, default=7.0, help="metres from camera lane to kerb")
     c.add_argument("--one-side", action="store_true", help="left kerb only (default: both)")
     c.add_argument("--fps", type=float, default=4.0)
+    c.add_argument("--min-frames", type=int, default=2, dest="min_frames",
+                   help="frame-confidence: fewest frames a car must be tracked across")
+    c.add_argument("--speed", type=float, default=7.0, dest="speed",
+                   help="avg speed m/s for metric scale (or use a GPS trajectory in code)")
     c.add_argument("--out", help="write per-car CSV to this path")
     c.set_defaults(func=_cmd_count)
 

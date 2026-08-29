@@ -159,13 +159,14 @@ def track_parked(detections: list[dict], side: str, lateral_m: float = 7.0,
             continue
         near = min((r for r in recs if r["color"] == c["color"]),
                    key=lambda r: abs(r["S"] - c["S"]), default=None)
+        conf = round(1.0 - 0.6 ** (c["ndet"] - 1), 2)   # 2 frames->0.4, 5->0.87, 8->0.98
         cars.append(ParkedCar(
             along_m=round(c["S"], 1), side=side, sigma_along_m=round(c["sigma_S"], 1),
             abeam_t=round(near["abeam_t"], 2) if near else 0.0,
             first_t=round(near["first_t"], 2) if near else 0.0,
             last_t=round(near["last_t"], 2) if near else 0.0,
             vehicle_class=c["cls"], color=c["color"],
-            n_detections=c["ndet"], n_tracklets=c["n_tracklets"]))
+            n_detections=c["ndet"], n_tracklets=c["n_tracklets"], confidence=conf))
     return cars
 
 

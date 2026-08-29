@@ -32,6 +32,7 @@ class ParkedCar:
     color: str
     n_detections: int
     n_tracklets: int         # >1 means rebuilt from occlusion-split pieces
+    confidence: float        # 0..1, how sure this is a real parked car
 
 
 @dataclass

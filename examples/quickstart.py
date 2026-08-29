@@ -38,7 +38,8 @@ def main(video, start, end):
     for c in placed:
         stamp = c.timestamp.strftime("%H:%M:%S") if c.timestamp else "  --  "
         print(f"{stamp}  {c.lat:.6f}, {c.lon:.6f}  {c.side:>5} kerb  "
-              f"{c.color} {c.vehicle_class}  (±{c.sigma_along_m:.0f} m along)")
+              f"{c.color} {c.vehicle_class}  conf={c.confidence:.2f}  "
+              f"(±{c.sigma_along_m:.0f} m along)")
 
 
 if __name__ == "__main__":
