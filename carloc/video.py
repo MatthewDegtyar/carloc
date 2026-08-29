@@ -69,7 +69,32 @@ def _scene_motion(files):
     return np.concatenate([[0.0], np.cumsum(smoothed)])
 
 
-def _detect(files, model, t0, fps, both_sides):
+def _camera_along(files, t0, fps, speed_mps, trajectory):
+    """Metric camera along-track distance per frame.
+
+    With a trajectory (e.g. GPS), integrate its real positions — exact. Without
+    one, scale the *shape* of the scene-motion profile (which captures stops and
+    speed-ups) to a total of ``speed_mps * duration`` — approximate, but metric,
+    which is what the triangulation and the atomic-merge need. Counting without a
+    scale over-counts; this is the minimum to make it correct.
+    """
+    import numpy as np
+
+    if trajectory is not None:
+        import math
+        pts = [trajectory.position_at(t0 + i / fps) for i in range(len(files))]
+        s = [0.0]
+        for (la0, lo0, _), (la1, lo1, _) in zip(pts, pts[1:], strict=False):
+            my = 111_320.0
+            mx = my * math.cos(math.radians(la0))
+            s.append(s[-1] + math.hypot((la1 - la0) * my, (lo1 - lo0) * mx))
+        return np.array(s)
+    cum = _scene_motion(files)
+    total = speed_mps * (len(files) / fps)
+    return cum / (cum[-1] or 1.0) * total
+
+
+def _detect(files, model, t0, fps, both_sides, speed_mps=7.0, trajectory=None):
     """RF-DETR over frames -> kerb-side detection dicts, tagged with camera s_cam."""
     import cv2
     import numpy as np
@@ -77,7 +102,7 @@ def _detect(files, model, t0, fps, both_sides):
     from carloc.appearance import classify_colour, dominant_rgb
     from carloc.rfdetr_detect import COCO_VEHICLES
 
-    cum = _scene_motion(files)
+    cum = _camera_along(files, t0, fps, speed_mps, trajectory)
     left, right = [], []
     for i, path in enumerate(files):
         s_cam = float(cum[min(i, len(cum) - 1)])
@@ -137,20 +162,26 @@ def track_parked(detections: list[dict], side: str, lateral_m: float = 7.0
 
 
 def count_parked(video: str, start: float, end: float, lateral_m: float = 7.0,
-                 both_sides: bool = True, fps: float = 4.0, detector=None
-                 ) -> list[ParkedCar]:
+                 both_sides: bool = True, fps: float = 4.0, detector=None,
+                 speed_mps: float = 7.0, trajectory=None) -> list[ParkedCar]:
     """Count the parked cars in ``[start, end)`` seconds of ``video``.
 
     Returns one :class:`ParkedCar` per physical car, positioned along the street.
     Pass ``detector`` (anything with ``predict(rgb) -> {class_id, xyxy}``) to swap
     the model; by default RF-DETR is used.
+
+    The along-street positions are metric only up to a scale: pass ``trajectory``
+    (a GPS track is ideal) and it is used to scale the camera's motion exactly, or
+    give ``speed_mps`` as the segment's rough average speed. Without either, the
+    count uses a default urban speed and should be treated as approximate.
     """
     if detector is None:
         from rfdetr import RFDETRBase
         detector = RFDETRBase()
     with tempfile.TemporaryDirectory() as tmp:
         files = extract_frames(video, start, end, tmp, fps=fps)
-        left, right = _detect(files, detector, start, fps, both_sides)
+        left, right = _detect(files, detector, start, fps, both_sides,
+                              speed_mps=speed_mps, trajectory=trajectory)
     cars = track_parked(left, "left", lateral_m) + track_parked(right, "right", lateral_m)
     cars.sort(key=lambda c: c.along_m)
     return cars

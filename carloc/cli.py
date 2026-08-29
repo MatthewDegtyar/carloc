@@ -22,11 +22,9 @@ import sys
 def _cmd_count(args) -> int:
     from carloc.video import count_parked
 
-    def progress(i, n):
-        print(f"  detecting… {i}/{n} frames", file=sys.stderr)
-
+    print("  detecting… (this runs the model over the segment)", file=sys.stderr)
     cars = count_parked(args.video, args.start, args.end, lateral_m=args.lateral,
-                        both_sides=not args.one_side, fps=args.fps, on_progress=progress)
+                        both_sides=not args.one_side, fps=args.fps)
     left = sum(1 for c in cars if c.side == "left")
     rebuilt = sum(1 for c in cars if c.n_tracklets > 1)
     print(f"\n{len(cars)} parked cars  ({left} left kerb, {len(cars)-left} right)  "
