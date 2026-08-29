@@ -280,8 +280,8 @@ carloc/                the package
   trajectory.py        Trajectory — how the camera moved (GPS / anchors / custom)
   geolocate.py         geolocate() — parked cars + trajectory → lat/lon + time
   types.py             ParkedCar, GeolocatedCar
-  detect.py            detection primitives (Detection, NMS)
-  rfdetr_detect.py     RF-DETR vehicle detector, tiled
+  detect.py            RF-DETR vehicle detector (tiled) + primitives, COCO_VEHICLES
+  rfdetr_detect.py     back-compat shim re-exporting from detect.py
   appearance.py        HSV colour classification (the plateless re-id key)
   tracking.py          associate → triangulate → slot  (atomic counting)
   dashcam.py           yaw + scene-motion odometry (relative trajectory from video)

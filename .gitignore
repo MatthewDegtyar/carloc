@@ -20,3 +20,5 @@ reports/se6frames/
 reports/*frames/
 reports/*.npz
 .DS_Store
+reports/*.log
+reports/dc_*.csv

@@ -80,7 +80,7 @@ def _cmd_survey(args) -> int:
     from PIL import Image
     from rfdetr import RFDETRBase
 
-    from carloc.rfdetr_detect import COCO_VEHICLES
+    from carloc.detect import COCO_VEHICLES
 
     Wp, Hp, F = 1280, 720, 458.0
     model = RFDETRBase()

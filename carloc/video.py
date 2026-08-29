@@ -100,7 +100,7 @@ def _detect(files, model, t0, fps, both_sides, speed_mps=7.0, trajectory=None):
     import numpy as np
 
     from carloc.appearance import classify_colour, dominant_rgb
-    from carloc.rfdetr_detect import COCO_VEHICLES
+    from carloc.detect import COCO_VEHICLES
 
     cum = _camera_along(files, t0, fps, speed_mps, trajectory)
     left, right = [], []
