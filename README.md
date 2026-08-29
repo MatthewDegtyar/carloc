@@ -279,6 +279,7 @@ carloc/                the package
   video.py             count_parked() — video → parked cars   ← start here
   trajectory.py        Trajectory — how the camera moved (GPS / anchors / custom)
   geolocate.py         geolocate() — parked cars + trajectory → lat/lon + time
+  confidence.py        count vs frame-confidence threshold, with bootstrap CIs
   types.py             ParkedCar, GeolocatedCar
   detect.py            RF-DETR vehicle detector (tiled) + primitives, COCO_VEHICLES
   rfdetr_detect.py     back-compat shim re-exporting from detect.py
